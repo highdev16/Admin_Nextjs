@@ -75,18 +75,8 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
                   responsive
                   className="menu-sidebar"
                 >
-                  <header style={{ background: '#0000 !important', height: '120px', paddingBottom: 0 }}>
-                    <div
-                      style={{
-                        backgroundImage: 'url(/images/name_background.png) !important',
-                        width: '100%',
-                        height: '100%',
-                        backgroundSize: 'auto !important',
-                        backgroundPosition: 'center !important',
-                        backgroundRepeat: 'no-repeat !important',
-                        borderRadius: '5px',
-                      }}
-                    >
+                  <header id="userLogoHead">
+                    <div id="userLogoSidebar">
                       <table style={{ height: '100%' }}>
                         <tbody>
                           <tr>

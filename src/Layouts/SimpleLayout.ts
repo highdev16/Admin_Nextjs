@@ -5,18 +5,34 @@ import { breakpointDown } from '@paljs/ui/breakpoints';
 const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
+  .contentHeaderImage {
+    margin-bottom: 2rem;
+  }
+  .centerAll {
+    text-align: center;
+    justify-content: center;
+  }
   table .WhiteLabel div {
     color: white !important;
   }
   aside header * {
     background: #0000 !important;
   }
-  header,
+  aside.expanded #userLogoHead {
+    transition: 0.2s linear all;
+  }
+  aside.compacted #userLogoHead {
+    opacity: 0;
+    transition: 0.2s linear all;
+  }
+  aside.menu-sidebar {
+    top: 3rem;
+  }
   header * {
     background: white !important;
     color: black !important;
   }
-  header ~ div {
+  div.layout > header ~ div {
     padding-top: 3rem !important;
   }
   aside header ~ div {
@@ -82,7 +98,20 @@ ${({ theme }) => css`
       }
     }
   }
-
+  #userLogoHead {
+    background: #0000 !important;
+    height: 120px;
+    padding-bottom: 0;
+  }
+  aside header div#userLogoSidebar {
+    width: 100%;
+    height: 100%;
+    background-image: url(/images/name_background.png) !important;
+    background-size: auto !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    border-radius: 5px;
+  }
   ${breakpointDown('xs')`
   .main-content-fullscreen {
     padding: 0 !important;

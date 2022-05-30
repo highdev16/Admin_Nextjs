@@ -9,49 +9,23 @@ const CustomCSS = createGlobalStyle`
 ${() => css`
   .auth-layout .main-content {
     background-color: #e7e8ee;
-    padding-top: 1rem;
   }
-  .contentHeaderImage {
-    margin-bottom: 0rem;
-  }
-  div.header-blue {
-    height: 100px;
-    background: url(/images/totalbet/member_total/header.png);
+  div.header-white {
+    height: 50px;
+    background: url(/images/white_table_head.png);
     background-size: cover;
     display: flex;
   }
-  div.white-title {
+  div.blue-title {
     margin: auto;
-    margin-left: 3rem;
-    margin-right: 0rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    width: 334px;
     height: 33px;
     margin-top: 0px;
-    background: white;
+    background: url(/images/black_title_bkg.png);
     background-size: 334px 33px;
-    color: black;
     line-height: 33px;
     font-weight: bold;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
   }
-  div.cash-option,
-  div.credit-option {
-    color: gray;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border: 2px solid gray;
-    border-top: 0px solid gray;
-    background: #0000;
-  }
-  div.selected {
-    background: url(/images/totalbet/member_total/credit.png);
-    background-size: 100% 100%;
-    color: white;
-    border: 0px solid gray;
-  }
-
   #contentTable tr {
     height: 35px;
     line-height: 35px;
@@ -84,27 +58,19 @@ ${() => css`
     box-shadow: 0px 0px 9px #000000;
     z-index: 100;
   }
-  #contentTable tr:nth-child(2n + 1) {
+  #contentTable tr:nth-child(2n) {
     background-color: #d7f5eb;
     width: 50%;
     color: #051139;
   }
-  #contentTable tr:nth-child(2n) {
+  #contentTable tr:nth-child(2n + 1) {
     background-color: #dceffd;
     width: 50%;
     color: #051139;
   }
-  #contentTableObj,
-  #Main-contentTableObj {
+  #contentTableObj {
     width: 100%;
     border-spacing: 0px 5px;
-  }
-  #Main-contentTableObj {
-    height: calc(100vh - 300px);
-    background: white;
-  }
-  #Main-contentTableObj * {
-    color: black;
   }
 `}`;
 
@@ -113,24 +79,45 @@ const Accordions = () => {
     <Layout title="Accordions">
       <CustomCSS />
       <Row>
-        <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
+        <Col breakPoint={{ xs: 0, md: 2 }} />
+        <Col className="centerAll" breakPoint={{ xs: 12, md: 8 }}>
           <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
-          <div className="header-blue">
-            <div className="white-title">Member Account</div>
-            <div className="white-title credit-option selected">Credit</div>
-            <div className="white-title cash-option">Cash</div>
+          <div className="header-white">
+            <div className="blue-title">Total Bet (Risk Management)</div>
           </div>
           <table id="contentTableObj">
             <tbody id="contentTable">
               <tr>
-                <td>Username</td>
+                <td>Username:</td>
+                <td>Wewin247pro</td>
               </tr>
-            </tbody>
-          </table>
-          <table id="Main-contentTableObj">
-            <tbody id="Main-contentTable">
               <tr>
-                <td>Content</td>
+                <td>Login Name:</td>
+                <td>Wewin247pro</td>
+              </tr>
+              <tr>
+                <td>Total SH count:</td>
+                <td>Wewin247pro</td>
+              </tr>
+              <tr>
+                <td>Total Direct SSMA Count:</td>
+                <td>Wewin247pro</td>
+              </tr>
+              <tr>
+                <td>Total SSMA Count:</td>
+                <td>Wewin247pro</td>
+              </tr>
+              <tr>
+                <td>Total MA Count:</td>
+                <td>Wewin247pro</td>
+              </tr>
+              <tr>
+                <td>Total Associate Count:</td>
+                <td>Wewin247pro</td>
+              </tr>
+              <tr>
+                <td>Total Credit Member Count:</td>
+                <td>Wewin247pro</td>
               </tr>
             </tbody>
           </table>

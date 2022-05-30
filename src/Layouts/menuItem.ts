@@ -166,6 +166,10 @@ const items: MenuItemType[] = [
     icon: { name: 'lock-outline' },
     children: [
       {
+        title: 'Dashboard',
+        link: { href: '/totalbet/dashboard' },
+      },
+      {
         title: 'Member Total',
         link: { href: '/totalbet/membertotal' },
       },
