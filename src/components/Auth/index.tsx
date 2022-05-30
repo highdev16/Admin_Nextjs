@@ -7,7 +7,7 @@ const AuthStyle = styled.div<{ subTitle?: string }>`
   margin: auto;
   display: block;
   width: 100%;
-  max-width: 35rem;
+  max-width: 25rem;
   a {
     font-weight: 600;
   }
@@ -35,8 +35,8 @@ export const Group = styled.div`
 `;
 
 const CardAuth = styled(Card)`
-  margin-bottom: 0;
-  height: calc(100vh - 5rem);
+  margin-bottom: 0 !important;
+  height: calc(100vh - 0rem);
   ${breakpointDown('sm')`
     height: 100vh;
   `}

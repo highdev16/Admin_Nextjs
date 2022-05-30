@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, Fragment } from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import themes from './themes';
-import { Layout, LayoutContent, LayoutFooter, LayoutContainer, LayoutColumns, LayoutColumn } from '@paljs/ui/Layout';
+import { Layout, LayoutContent, LayoutContainer, LayoutColumns, LayoutColumn } from '@paljs/ui/Layout';
 import icons from '@paljs/icons';
 import { SidebarBody, SidebarRefObject, Sidebar } from '@paljs/ui/Sidebar';
 import Header from './Header';
@@ -15,16 +15,11 @@ import menuItems from './menuItem';
 import SEO, { SEOProps } from 'components/SEO';
 
 const getDefaultTheme = (): DefaultTheme['name'] => {
-  if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-    return localStorage.getItem('theme') as DefaultTheme['name'];
-  } else {
-    const hours = new Date().getHours();
-    return hours > 6 && hours < 19 ? 'default' : 'dark';
-  }
+  return 'dark';
 };
 
 const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
-  const [theme, setTheme] = useState<DefaultTheme['name']>('default');
+  const [theme, setTheme] = useState<DefaultTheme['name']>('dark');
   const [dir, setDir] = useState<'ltr' | 'rtl'>('ltr');
   const sidebarRef = useRef<SidebarRefObject>(null);
   const router = useRouter();
@@ -61,7 +56,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
       <ThemeProvider theme={themes(theme, dir)}>
         <Fragment>
           <SimpleLayout />
-          <Layout evaIcons={icons} dir={dir} className={!authLayout ? 'auth-layout' : ''}>
+          <Layout evaIcons={icons} dir={dir} className={!authLayout ? 'auth-layout' : 'auth-layout'}>
             {!authLayout && (
               <Header
                 dir={dir}
@@ -80,7 +75,34 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
                   responsive
                   className="menu-sidebar"
                 >
-                  {seeHeader && (
+                  <header style={{ background: '#0000 !important', height: '120px', paddingBottom: 0 }}>
+                    <div
+                      style={{
+                        backgroundImage: 'url(/images/name_background.png) !important',
+                        width: '100%',
+                        height: '100%',
+                        backgroundSize: 'auto !important',
+                        backgroundPosition: 'center !important',
+                        backgroundRepeat: 'no-repeat !important',
+                        borderRadius: '5px',
+                      }}
+                    >
+                      <table style={{ height: '100%' }}>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <img src="/images/useravatar.png" style={{ height: 70, marginLeft: '20px' }} />
+                            </td>
+                            <td className="WhiteLabel">
+                              <div style={{ color: 'white !important' }}>Welcome!</div>
+                              <div style={{ color: 'white !important' }}>User</div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </header>
+                  {false && seeHeader && (
                     <header>
                       <Button
                         size="Tiny"
@@ -110,9 +132,11 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
               )}
               <LayoutContent>
                 <LayoutColumns>
-                  <LayoutColumn className="main-content">{children}</LayoutColumn>
+                  <LayoutColumn className={authLayout ? 'main-content-fullscreen' : 'main-content'}>
+                    {children}
+                  </LayoutColumn>
                 </LayoutColumns>
-                {!authLayout && <LayoutFooter>Footer</LayoutFooter>}
+                {/* {!authLayout && <LayoutFooter>Footer</LayoutFooter>} */}
               </LayoutContent>
             </LayoutContainer>
           </Layout>

@@ -5,6 +5,33 @@ import { breakpointDown } from '@paljs/ui/breakpoints';
 const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
+  table .WhiteLabel div {
+    color: white !important;
+  }
+  aside header * {
+    background: #0000 !important;
+  }
+  header,
+  header * {
+    background: white !important;
+    color: black !important;
+  }
+  header ~ div {
+    padding-top: 3rem !important;
+  }
+  aside header ~ div {
+    padding-top: 0px !important;
+  }
+  header nav {
+    box-shadow: 0 0.5rem 0.5rem 0 #0033ff21 !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 3rem !important;
+  }
+  aside {
+    border: 0px solid black !important;
+    background: url(/images/sidebar_bkg.png) !important;
+  }
   html {
     font-size: 16px;
   }
@@ -13,7 +40,12 @@ ${({ theme }) => css`
   }
 
   .auth-layout {
+    .main-content-fullscreen {
+      padding: 0 !important;
+      overflow: hidden;
+    }
     .main-content {
+      background: white;
       padding: 2.5rem;
       ${breakpointDown('sm')`
         padding: 0;
@@ -52,7 +84,11 @@ ${({ theme }) => css`
   }
 
   ${breakpointDown('xs')`
+  .main-content-fullscreen {
+    padding: 0 !important;
+  }
     .main-content {
+      background: white;
         padding: 0.75rem !important;
       }
   `}

@@ -1,16 +1,12 @@
 import { Button } from '@paljs/ui/Button';
 import { InputGroup } from '@paljs/ui/Input';
-import { Checkbox } from '@paljs/ui/Checkbox';
 import React from 'react';
 import Link from 'next/link';
 import Row from '@paljs/ui/Row';
 import Col from '@paljs/ui/Col';
-import Select from '@paljs/ui/Select';
 
-import Auth, { Group } from 'components/Auth';
+import Auth from 'components/Auth';
 import Layout from 'Layouts';
-
-const options = [{ value: 'English', label: 'English' }];
 
 const roundedBorders = {
   border: 'double 1px transparent',
@@ -27,10 +23,7 @@ const roundedBordersTextField = {
   backgroundClip: 'content-box, border-box',
 };
 
-export default function Login() {
-  const onCheckbox = () => {
-    // v will be true or false
-  };
+export default function ConfirmLogin() {
   return (
     <Layout title="Login">
       <Row>
@@ -74,39 +67,27 @@ export default function Login() {
             </div>
             <form className="" style={{ ...roundedBorders }}>
               <div style={{ padding: '2rem 2rem' }}>
-                <div>Language</div>
-                <InputGroup fullWidth>
-                  <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
-                    <Select options={options} placeholder="English" />
-                    {/* <input type="text" placeholder="" style={{ border: 0, background: 'transparent' }} /> */}
-                  </div>
-                </InputGroup>
-                <div style={{ marginTop: '1rem' }}>Username</div>
-                <InputGroup fullWidth>
-                  <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
-                    <input type="text" placeholder="" style={{ border: 0, background: 'transparent' }} />
-                  </div>
-                </InputGroup>
-                <div style={{ marginTop: '1rem' }}>Password</div>
-                <InputGroup fullWidth>
-                  <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
-                    <input type="password" placeholder="" style={{ border: 0, background: 'transparent' }} />
-                  </div>
-                </InputGroup>
-                <div style={{ marginTop: '1rem' }}>Validation Code</div>
-                <InputGroup fullWidth>
-                  <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
-                    <input type="text" placeholder="" style={{ border: 0, background: 'transparent' }} />
-                  </div>
-                </InputGroup>
-                <Group>
-                  <Checkbox checked onChange={onCheckbox}>
-                    Remember me
-                  </Checkbox>
-                  <Link href="/auth/request-password">
-                    <a>Forgot Password?</a>
-                  </Link>
-                </Group>
+                <div style={{ textAlign: 'center' }}>
+                  <h2>SECURITY CODE</h2>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div>Please enter your 6-digit security code</div>
+                </div>
+                <div style={{ height: '2rem' }}></div>
+                <Row>
+                  {[1, 2, 3, 4, 5, 6].map((_) => {
+                    return (
+                      <Col breakPoint={{ xs: 2 }}>
+                        <InputGroup fullWidth>
+                          <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
+                            <input type="text" placeholder="" style={{ border: 0, background: 'transparent' }} />
+                          </div>
+                        </InputGroup>
+                      </Col>
+                    );
+                  })}
+                </Row>
+                <div style={{ height: '2rem' }}></div>
                 <Button
                   status="Success"
                   type="button"
@@ -114,14 +95,13 @@ export default function Login() {
                   fullWidth
                   style={{ background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)' }}
                 >
-                  Login
+                  Confirm
                 </Button>
               </div>
             </form>
             <p>
-              Don&apos;t have account?{' '}
-              <Link href="/auth/register">
-                <a>Register</a>
+              <Link href="/auth/login">
+                <a>Back</a>
               </Link>
             </p>
           </Auth>
