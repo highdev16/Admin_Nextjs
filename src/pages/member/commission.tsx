@@ -2,11 +2,9 @@ import Row from '@paljs/ui/Row';
 import Col from '@paljs/ui/Col';
 import React from 'react';
 import Layout from 'Layouts';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { createGlobalStyle, css } from 'styled-components';
-import { Button } from '@paljs/ui/Button';
+
 const AgentReport = () => {
   const CustomCSS = createGlobalStyle`
 ${() => css`
