@@ -156,9 +156,7 @@ ${() => css`
     width: 30%;
   }
 `}`;
-  const [selectedTab, setSelectedTab] = React.useState(0);
-  const [date1, setDate1] = React.useState(new Date());
-  const [date2, setDate2] = React.useState(new Date());
+
   return (
     <Layout title="Accordions">
       <CustomCSS />
