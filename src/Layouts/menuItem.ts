@@ -278,6 +278,10 @@ const items: MenuItemType[] = [
     icon: { name: 'lock-outline' },
     children: [
       {
+        title: 'Create Agent',
+        link: { href: '/sales/agent_create' },
+      },
+      {
         title: 'Agent Group',
         link: { href: '/sales/agent_group' },
       },

@@ -5,6 +5,7 @@ import Layout from 'Layouts';
 
 import { createGlobalStyle, css } from 'styled-components';
 import { breakpointDown } from '@paljs/ui/breakpoints';
+import Select from '@paljs/ui/Select';
 
 const CustomCSS = createGlobalStyle`
 ${() => css`
@@ -22,6 +23,7 @@ ${() => css`
     display: flex;
   }
   div.white-title {
+    position: absolute;
     margin: auto;
     margin-left: 3rem;
     margin-right: 0rem;
@@ -52,7 +54,10 @@ ${() => css`
     color: white;
     border: 0px solid gray;
   }
-
+  #contentTableObj {
+    border: 0px solid black;
+    border-collapse: collapse;
+  }
   #contentTable tr {
     height: 35px;
     line-height: 35px;
@@ -60,45 +65,14 @@ ${() => css`
     border: 0px solid white;
     position: relative;
   }
-  #contentTable tr td:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    text-align: left;
-    padding-left: 70px;
-    width: 60%;
-  }
-  #contentTable tr td:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    width: 40%;
-  }
-  #contentTable tr::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0px;
-    left: 5px;
-    width: calc(100% - 10px);
-    height: 1px;
-    -webkit-box-shadow: 0px 0px 9px #000000;
-    -moz-box-shadow: 0px 0px 9px #000000;
-    box-shadow: 0px 0px 9px #000000;
-    z-index: 100;
-  }
-  #contentTable tr:nth-child(2n + 1) {
+  #contentTable tr {
     background-color: #d7f5eb;
-    width: 50%;
-    color: #051139;
-  }
-  #contentTable tr:nth-child(2n) {
-    background-color: #dceffd;
     width: 50%;
     color: #051139;
   }
   #contentTableObj,
   #Main-contentTableObj {
     width: 100%;
-    border-spacing: 0px 5px;
   }
   #Main-contentTableObj {
     height: calc(100vh - 300px);
@@ -165,15 +139,16 @@ ${() => css`
     text-align: left;
     font-weight: bold;
   }
-  div.ticket.first-child {
-    margin-right: 1rem !important;
+  div.select {
+    height: 36px;
   }
-  div.ticket ~ div.ticket {
-    margin-left: 0;
+  div.ticket.select {
+    display: block;
+    margin-bottom: 1rem;
   }
 `}`;
 
-const Accordions = () => {
+const FgLg = () => {
   return (
     <Layout title="Accordions">
       <CustomCSS />
@@ -181,10 +156,17 @@ const Accordions = () => {
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
           <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
           <div className="header-blue">
-            <div className="white-title">Member Account</div>
-            <div className="white-title credit-option selected">Credit</div>
-            <div className="white-title cash-option">Cash</div>
-            <div className="ticket first-child">
+            <div className="white-title">FG/LG</div>
+            <div className="ticket select">
+              <Select style={{ width: '100%' }} options={[{ value: 'Simple Mode', label: 'Simple Mode' }]} />
+            </div>
+            <div className="ticket select">
+              <Select style={{ width: '100%' }} options={[{ value: 'Select Language', label: 'Simple Mode' }]} />
+            </div>
+            <div className="ticket select">
+              <Select style={{ width: '100%' }} options={[{ value: 'Monitor', label: 'Simple Mode' }]} />
+            </div>
+            <div className="ticket">
               <div className="small-title">Currency</div>
               <div className="big-title">SGD</div>
               <div className="right-icon">
@@ -202,7 +184,30 @@ const Accordions = () => {
           <table id="contentTableObj">
             <tbody id="contentTable">
               <tr>
-                <td>Username</td>
+                <td rowSpan={2} style={{ width: '15%' }}>
+                  Username
+                </td>
+                <td rowSpan={2} style={{ width: '35%', borderLeft: '1px solid black', borderRight: '1px solid black' }}>
+                  Teams
+                </td>
+                <td
+                  colSpan={2}
+                  style={{ width: '20%', borderBottom: '1px solid black', borderRight: '1px solid black' }}
+                >
+                  First Goal
+                </td>
+                <td colSpan={2} style={{ width: '20%', borderBottom: '1px solid black' }}>
+                  First Half
+                </td>
+                <td rowSpan={2} style={{ width: '20%', borderLeft: '1px solid black' }}>
+                  No Goal
+                </td>
+              </tr>
+              <tr>
+                <td>Home</td>
+                <td style={{ borderLeft: '1px solid black', borderRight: '1px solid black' }}>Away</td>
+                <td>Home</td>
+                <td style={{ borderLeft: '1px solid black' }}>Away</td>
               </tr>
             </tbody>
           </table>
@@ -221,4 +226,4 @@ const Accordions = () => {
   );
 };
 
-export default Accordions;
+export default FgLg;

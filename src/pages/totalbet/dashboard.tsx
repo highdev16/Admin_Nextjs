@@ -70,6 +70,7 @@ ${() => css`
   }
   #contentTableObj {
     width: 100%;
+    border-collapse: collapse;
     border-spacing: 0px 5px;
   }
 `}`;

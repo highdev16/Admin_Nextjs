@@ -112,7 +112,7 @@ const Header: React.FC<HeaderProps> = (props) => {
               ),
             },
             {
-              content: <div>{getTimeString(timeAndDate)}</div>,
+              content: <div style={{ width: '160px' }}>{getTimeString(timeAndDate)}</div>,
             },
             // {
             //   content: (

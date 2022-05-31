@@ -147,6 +147,43 @@ ${({ theme }) => css`
   .ck-content {
     min-height: 20rem;
   }
+  div.form-item {
+    background: #dceffd;
+    display: flex;
+    height: 40px;
+    width: 100%;
+    border-radius: 10px;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  div.form-item div.form-label {
+    min-width: 40%;
+    line-height: 40px;
+    text-align: left;
+  }
+  div.form-item div.form-value {
+    flex-grow: 1;
+    display: flex;
+    padding-left: 1rem;
+    flex-direction: column;
+    justify-content: center;
+  }
+  div.form-item div.form-value select,
+  div.form-item div.form-value input {
+    height: 30px;
+  }
+  div.empty-form-item * {
+    height: 33px;
+  }
+  div.empty-form-item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `}
 `;
 export default SimpleLayout;
