@@ -5,6 +5,7 @@ import Layout from 'Layouts';
 
 import { createGlobalStyle, css } from 'styled-components';
 import { breakpointDown } from '@paljs/ui/breakpoints';
+import { Button } from '@paljs/ui/Button';
 
 const SimpleHTOE = () => {
   const CustomCSS = createGlobalStyle`
@@ -184,6 +185,12 @@ ${() => css`
   div.grayRow table {
     width: 100%;
   }
+  div.form-item {
+    background: #0000;
+  }
+  div.form-label {
+    min-width: 30% !important;
+  }
 `}`;
   return (
     <Layout title="Accordions">
@@ -191,52 +198,86 @@ ${() => css`
       <Row>
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
           <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
-          <div className="header-blue" style={{ position: 'relative' }}>
-            <div className="white-title">Credit & Balance</div>
-            <table style={{ width: '100% ', position: 'absolute', bottom: '1rem' }}>
-              <tbody>
-                <tr>
-                  <td style={{ width: '5%' }}>#</td>
-                  <td style={{ width: '10%' }}>Username</td>
-                  <td style={{ width: '10%' }}>Credit</td>
-                  <td style={{ width: '10%' }}>SMA Credit</td>
-                  <td style={{ width: '10%' }}>MA Credit</td>
-                  <td style={{ width: '10%' }}>Agent Credit</td>
-                  <td style={{ width: '10%' }}>Member Credit</td>
-                  <td style={{ width: '10%' }}>Cash Balance</td>
-                  <td style={{ width: '10%' }}>Total Balance</td>
-                  <td style={{ width: '15%' }}>Last Login Time</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="header-white" style={{ marginTop: '1rem' }}>
+            <div className="blue-title">Update League Bet Setting</div>
           </div>
           <div className="content-area">
-            <table style={{ width: '100%', border: '1px solid white', borderCollapse: 'collapse' }}>
-              <tbody>
-                <tr>
-                  <td colSpan={12}>
-                    <div className="grayRow">
-                      <table style={{ borderCollapse: 'collapse' }}>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '5%', height: '44px' }}>1</td>
-                            <td style={{ width: '10%' }}>SAC</td>
-                            <td style={{ width: '10%' }}>1000</td>
-                            <td style={{ width: '10%' }}>2000</td>
-                            <td style={{ width: '10%' }}>150000000</td>
-                            <td style={{ width: '10%' }}>3,643,212.99</td>
-                            <td style={{ width: '10%' }}>211,222,111</td>
-                            <td style={{ width: '10%' }}>1239.12</td>
-                            <td style={{ width: '10%' }}>10,000.00</td>
-                            <td style={{ width: '15%' }}>2022-03-31 01:11:12</td>
-                          </tr>
-                        </tbody>
-                      </table>
+            <div className="grayRow">
+              <Col breakPoint={{ sm: 12, md: 8 }} style={{ margin: 'auto' }}>
+                <div className="form-item">
+                  <div className="form-label">Sport Type:</div>
+                  <div className="form-value">
+                    <select>
+                      <option>Football</option>
+                    </select>
+                  </div>
+                </div>
+              </Col>
+            </div>
+            <div className="grayRow">
+              <Col breakPoint={{ sm: 12, md: 8 }} style={{ margin: 'auto' }}>
+                <div className="form-item" style={{ height: '60px' }}>
+                  <div className="form-label">League Name Keyword:</div>
+                  <div className="form-value">
+                    <textarea style={{ height: '50px' }} />
+                  </div>
+                </div>
+              </Col>
+            </div>
+            <div className="grayRow">
+              <Col breakPoint={{ sm: 12, md: 8 }} style={{ margin: 'auto' }}>
+                <div className="form-item">
+                  <div className="form-label">From Date:</div>
+                  <div className="form-value">
+                    <input type="date" />
+                  </div>
+                </div>
+              </Col>
+            </div>
+            <div className="grayRow">
+              <Col breakPoint={{ sm: 12, md: 8 }} style={{ margin: 'auto' }}>
+                <div className="form-item">
+                  <div className="form-label">To Date:</div>
+                  <div className="form-value">
+                    <input type="date" />
+                  </div>
+                </div>
+              </Col>
+            </div>
+            <Button
+              style={{
+                border: '0px',
+                background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
+                color: 'white',
+                width: '150px',
+                marginTop: '1rem',
+                backgroundSize: 'cover',
+                borderRadius: 10,
+              }}
+            >
+              Update
+            </Button>
+            <div className="grayRow">
+              <Col breakPoint={{ sm: 12, md: 8 }} style={{ margin: 'auto' }}>
+                <div className="form-item">
+                  <div className="form-label">League:</div>
+                  <div className="form-value">
+                    <div style={{ display: 'flex' }}>
+                      <Col breakPoint={{ sm: 12, md: 8 }}>
+                        <select style={{ width: '100% ' }}>
+                          <option>--Select League--</option>
+                        </select>
+                      </Col>
+                      <Col breakPoint={{ sm: 12, md: 2 }}>
+                        <select style={{ width: '100% ' }}>
+                          <option>INR</option>
+                        </select>
+                      </Col>
                     </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </div>
+              </Col>
+            </div>
           </div>
         </Col>
       </Row>
