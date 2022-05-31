@@ -6,7 +6,6 @@ import Layout from 'Layouts';
 import { createGlobalStyle, css } from 'styled-components';
 
 import { Button } from '@paljs/ui';
-import Switch from 'components/Switch';
 
 const AgentGroup = () => {
   const CustomCSS = createGlobalStyle`
