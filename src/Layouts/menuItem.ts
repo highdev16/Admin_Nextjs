@@ -305,6 +305,10 @@ const items: MenuItemType[] = [
         title: 'Betting History',
         link: { href: '/sales/betting_history' },
       },
+      {
+        title: 'All Transaction Logs',
+        link: { href: '/sales/all_transaction_log' },
+      },
     ],
   },
   {

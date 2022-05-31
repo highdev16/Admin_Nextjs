@@ -131,6 +131,30 @@ ${() => css`
         display: none;
     }
   `}
+
+  div.middle-title-area {
+    background: url(/images/sales/agent_group_header_bkg.png);
+    background-size: cover;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    color: white;
+  }
+  div.middle-title-area div.button:hover {
+    background: #fff3;
+  }
+  div.middle-title-area div {
+    padding: 0.5rem 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    color: white;
+  }
+  div.middle-title-area div.button {
+    background: #0000;
+    border: 1px solid #fff9;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 `}`;
 
   return (
@@ -140,45 +164,28 @@ ${() => css`
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
           <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
           <div className="header-white">
-            <div className="blue-title">Player Report</div>
+            <div className="blue-title">Betting History</div>
           </div>
           <div className="content-area">
             <Row>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              <Col breakPoint={{ xs: 12, md: 4 }}>
                 <div className="form-item">
-                  <div className="form-label">Member Account</div>
+                  <div className="form-label">Bet Time</div>
                   <div className="form-value">
-                    <select>
-                      <option value="SMA">Exact search</option>
-                    </select>
+                    <table style={{ width: '100%' }}>
+                      <tr>
+                        <td>
+                          <input type="text" />
+                        </td>
+                        <td>
+                          <input type="text" />
+                        </td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 2 }}>
-                <div className="form-item">
-                  <div className="form-label"></div>
-                  <div className="form-value"></div>
-                </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Real Name</div>
-                  <div className="form-value">
-                    <input type="text" />
-                  </div>
-                </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Agent Group</div>
-                  <div className="form-value">
-                    <select>
-                      <option>11111</option>
-                    </select>
-                  </div>
-                </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              <Col breakPoint={{ xs: 12, md: 4 }}>
                 <div className="form-item">
                   <div className="form-label">Time zone</div>
                   <div className="form-value">
@@ -188,109 +195,257 @@ ${() => css`
                   </div>
                 </div>
               </Col>
+              <Col breakPoint={{ xs: 12, md: 4 }}>
+                <div className="form-item">
+                  <div className="form-label">Member Account</div>
+                  <div className="form-value">
+                    <input type="text" />
+                  </div>
+                </div>
+              </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Name Labe</div>
+                  <div className="form-label">Game Provider</div>
                   <div className="form-value">
                     <select>
-                      <option>Select</option>
+                      <option>GMT+8</option>
                     </select>
                   </div>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
-                <div className="empty-form-item">
-                  <input type="text" style={{ width: '100%', margin: 'auto' }} />
-                </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
-                <div className="empty-form-item">
-                  <input type="text" style={{ width: '100%' }} />
-                </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Lowest deposit</div>
+                  <div className="form-label">Product Type</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <select>
+                      <option>All</option>
+                    </select>
                   </div>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Top deposit</div>
+                  <div className="form-label">Game Group</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <select>
+                      <option>All</option>
+                    </select>
                   </div>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Lowest withdrawal</div>
+                  <div className="form-label">Game</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <select>
+                      <option>All</option>
+                    </select>
+                  </div>
+                </div>
+              </Col>
+
+              <Col breakPoint={{ xs: 12, md: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Transaction ID</div>
+                  <div className="form-value">
+                    <select>
+                      <option>All</option>
+                    </select>
+                  </div>
+                </div>
+              </Col>
+
+              <Col breakPoint={{ xs: 12, md: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Match ID</div>
+                  <div className="form-value">
+                    <select></select>
+                  </div>
+                </div>
+              </Col>
+
+              <Col breakPoint={{ xs: 12, md: 6 }}>
+                <div className="form-item">
+                  <div className="form-label">Total Bet Amount</div>
+                  <div className="form-value">
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr>
+                          <td style={{ width: '24%' }}>
+                            <select style={{ width: '100%' }}>
+                              <option>&gt;=</option>
+                            </select>
+                          </td>
+                          <td style={{ width: '24%' }}>
+                            <input style={{ width: '100%' }} type="text" />
+                          </td>
+                          <td style={{ width: '24%' }}>
+                            <select style={{ width: '100%' }}>
+                              <option>&lt;=</option>
+                            </select>
+                          </td>
+                          <td style={{ width: '24%' }}>
+                            <input style={{ width: '100%' }} type="text" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </Col>
+
+              <Col breakPoint={{ xs: 12, md: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Win/lose</div>
+                  <div className="form-value">
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr>
+                          <td style={{ width: '48%' }}>
+                            <select style={{ width: '100%' }}>
+                              <option>&gt;=</option>
+                            </select>
+                          </td>
+                          <td style={{ width: '48%' }}>
+                            <input style={{ width: '100%' }} type="text" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Top withdrawal</div>
+                  <div className="form-label">Bonus</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr>
+                          <td style={{ width: '48%' }}>
+                            <select style={{ width: '100%' }}>
+                              <option>&gt;=</option>
+                            </select>
+                          </td>
+                          <td style={{ width: '48%' }}>
+                            <input style={{ width: '100%' }} type="text" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">More valid bets</div>
+                  <div className="form-label">Jackpot betting</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr>
+                          <td style={{ width: '48%' }}>
+                            <select style={{ width: '100%' }}>
+                              <option>&gt;=</option>
+                            </select>
+                          </td>
+                          <td style={{ width: '48%' }}>
+                            <input style={{ width: '100%' }} type="text" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Smallest valid bets</div>
+                  <div className="form-label">Jackpot prize</div>
                   <div className="form-value">
-                    <input type="text" />
-                  </div>
-                </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Lowest total win/loss</div>
-                  <div className="form-value">
-                    <input type="text" />
-                  </div>
-                </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Highest total win/loss</div>
-                  <div className="form-value">
-                    <input type="text" />
+                    <table style={{ width: '100%' }}>
+                      <tbody>
+                        <tr>
+                          <td style={{ width: '48%' }}>
+                            <select style={{ width: '100%' }}>
+                              <option>&gt;=</option>
+                            </select>
+                          </td>
+                          <td style={{ width: '48%' }}>
+                            <input style={{ width: '100%' }} type="text" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </Col>
             </Row>
             <Row>
-              <Col breakPoint={{ xs: 6 }}>
-                <div style={{ textAlign: 'right' }}>
-                  <Button style={{ border: '0px', background: 'gray', color: 'white', width: '100px' }}>Reset</Button>
+              <Col breakPoint={{ xs: 12 }}>
+                <div className="middle-title-area">
+                  <div>Status</div>
+                  <div className="button">All</div>
+                  <div className="button">Solved</div>
+                  <div className="button">Refuse</div>
+                  <div className="button">Cancel</div>
+                  <div className="button">Order cancellation system</div>
+                  <div className="button">Active</div>
+                  <div className="button">The player cancels</div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 6 }}>
-                <div style={{ textAlign: 'left' }}>
-                  <Button
-                    style={{
-                      border: '0px',
-                      background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
-                      color: 'white',
-                      width: '170px',
-                    }}
-                  >
-                    Search
-                  </Button>
+            </Row>
+            <Row>
+              <Col breakPoint={{ xs: 12 }}>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <Button style={{ border: '0px', background: 'gray', color: 'white', width: '100px' }}>
+                            Reset
+                          </Button>
+                        </td>
+                        <td>
+                          <Button
+                            style={{
+                              border: '0px',
+                              background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
+                              color: 'white',
+                              paddingLeft: '1rem',
+                              paddingRight: '1rem',
+                            }}
+                          >
+                            Yesterday
+                          </Button>
+                        </td>
+                        <td>
+                          <Button
+                            style={{
+                              border: '0px',
+                              background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
+                              color: 'white',
+                              paddingLeft: '1rem',
+                              paddingRight: '1rem',
+                            }}
+                          >
+                            Today
+                          </Button>
+                        </td>
+                        <td>
+                          <Button
+                            style={{
+                              border: '0px',
+                              background: 'orange',
+                              color: 'white',
+                              paddingLeft: '1rem',
+                              paddingRight: '1rem',
+                            }}
+                          >
+                            Search
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </Col>
             </Row>

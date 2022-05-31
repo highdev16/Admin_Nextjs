@@ -5,6 +5,13 @@ import { breakpointDown } from '@paljs/ui/breakpoints';
 const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
+  @font-face {
+    font-family: 'Lato';
+    src: url('/fonts/Lato/Lato-Regular.ttf') format('truetype');
+  }
+  * {
+    font-family: Lato;
+  }
   .contentHeaderImage {
     margin-bottom: 2rem;
   }
