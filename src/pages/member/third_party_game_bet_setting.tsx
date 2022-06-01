@@ -203,16 +203,16 @@ ${() => css`
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
           <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
           <div className="header-white" style={{ marginTop: '1rem' }}>
-            <div className="blue-title">League Group Bet Setting</div>
+            <div className="blue-title">Third party game betting settings</div>
           </div>
           <div className="content-area">
             <div className="grayRow">
               <Col breakPoint={{ sm: 12, md: 8 }} style={{ margin: 'auto' }}>
                 <div className="form-item">
-                  <div className="form-label">Group Type:</div>
+                  <div className="form-label">Group Provider:</div>
                   <div className="form-value">
                     <select>
-                      <option>Medium</option>
+                      <option>WM</option>
                     </select>
                   </div>
                 </div>
@@ -221,10 +221,10 @@ ${() => css`
             <div className="grayRow">
               <Col breakPoint={{ sm: 12, md: 8 }} style={{ margin: 'auto' }}>
                 <div className="form-item" style={{ height: '60px' }}>
-                  <div className="form-label">Currency:</div>
+                  <div className="form-label">Game Type:</div>
                   <div className="form-value">
                     <select>
-                      <option>USD</option>
+                      <option>AndarBahar</option>
                     </select>
                   </div>
                 </div>
@@ -232,30 +232,17 @@ ${() => css`
             </div>
             <div className="grayRow">
               <Col breakPoint={{ sm: 12, md: 8 }} style={{ margin: 'auto' }}>
-                <div className="form-item">
-                  <div className="form-label">Is Live:</div>
+                <div className="form-item" style={{ height: '60px' }}>
+                  <div className="form-label">Game Currency:</div>
                   <div className="form-value">
-                    <div style={{ display: 'flex' }}>
-                      <Radio
-                        name="radio"
-                        onChange={() => {}}
-                        options={[
-                          {
-                            value: 'Yes',
-                            label: 'Yes',
-                            checked: true,
-                          },
-                          {
-                            value: 'No',
-                            label: 'No',
-                          },
-                        ]}
-                      />
-                    </div>
+                    <select>
+                      <option>SGD</option>
+                    </select>
                   </div>
                 </div>
               </Col>
             </div>
+
             <Button
               style={{
                 border: '0px',
