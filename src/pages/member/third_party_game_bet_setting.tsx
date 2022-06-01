@@ -6,7 +6,6 @@ import Layout from 'Layouts';
 import { createGlobalStyle, css } from 'styled-components';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { Button } from '@paljs/ui/Button';
-import { Radio } from '@paljs/ui';
 
 const SimpleHTOE = () => {
   const CustomCSS = createGlobalStyle`
