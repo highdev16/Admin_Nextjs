@@ -13,7 +13,7 @@ ${() => css`
     padding-top: 1rem;
   }
   .contentHeaderImage {
-    margin-bottom: 0rem;
+    border-width: 0rem;
   }
   div.header-blue {
     height: 100px;
@@ -179,7 +179,7 @@ const Accordions = () => {
       <CustomCSS />
       <Row>
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
-          <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
+          <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-blue">
             <div className="white-title">Member Account</div>
             <div className="white-title credit-option selected">Credit</div>

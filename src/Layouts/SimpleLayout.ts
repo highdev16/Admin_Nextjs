@@ -10,7 +10,8 @@ ${({ theme }) => css`
     font-family: Lato;
   }
   .contentHeaderImage {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    height: 50px;
   }
   .centerAll {
     text-align: center;

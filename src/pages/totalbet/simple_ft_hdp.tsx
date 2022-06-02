@@ -14,7 +14,7 @@ ${() => css`
     padding-top: 1rem;
   }
   .contentHeaderImage {
-    margin-bottom: 0rem;
+    border-width: 0rem;
   }
   div.header-blue {
     height: 100px;
@@ -154,7 +154,7 @@ const SimpleFTHDP = () => {
       <CustomCSS />
       <Row>
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
-          <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
+          <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-blue">
             <div className="white-title">Simple FT HDP & OU</div>
             <div className="ticket select">

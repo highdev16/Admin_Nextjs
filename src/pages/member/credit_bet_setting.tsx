@@ -13,7 +13,7 @@ ${() => css`
     padding-top: 1rem;
   }
   .contentHeaderImage {
-    margin-bottom: 0rem;
+    border-width: 0rem;
   }
   div.header-white {
     height: 50px;
@@ -161,7 +161,7 @@ ${() => css`
       <CustomCSS />
       <Row>
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
-          <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
+          <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-white">
             <div className="blue-title">Credit Bet Setting</div>
           </div>

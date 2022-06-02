@@ -67,10 +67,7 @@ export default function Login() {
           ></div>
           <Auth title="" subTitle="">
             <div style={{ textAlign: 'center' }}>
-              <img
-                src="/images/wewinlogo.png"
-                style={{ width: '60%', textAlign: 'center', marginBottom: '2rem' }}
-              ></img>
+              <img src="/images/logo.png" style={{ width: '60%', textAlign: 'center', marginBottom: '2rem' }}></img>
             </div>
             <form className="" style={{ ...roundedBorders }}>
               <div style={{ padding: '2rem 2rem' }}>

@@ -82,7 +82,7 @@ const Accordions = () => {
       <Row>
         <Col breakPoint={{ xs: 0, md: 2 }} />
         <Col className="centerAll" breakPoint={{ xs: 12, md: 8 }}>
-          <img src="/images/wewinlogo_black.png" className="contentHeaderImage" />
+          <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-white">
             <div className="blue-title">Total Bet (Risk Management)</div>
           </div>
