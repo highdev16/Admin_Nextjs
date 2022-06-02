@@ -18,9 +18,10 @@ const getDefaultTheme = (): DefaultTheme['name'] => {
   return 'dark';
 };
 
-const isLogin = () => {
-  return false;
-};
+// const isLogin = () => {
+//   return false;
+// };
+
 const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
   const [theme, setTheme] = useState<DefaultTheme['name']>('dark');
   const [dir, setDir] = useState<'ltr' | 'rtl'>('ltr');
@@ -44,7 +45,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
     if (localTheme !== theme && theme === 'default') {
       setTheme(localTheme);
     }
-    var authLayout = router.pathname.startsWith('/auth/login');
+    // var authLayout = router.pathname.startsWith('/auth/login');
     // if (!isLogin() && !authLayout) {
     //   router.push('/auth/login');
     // }
