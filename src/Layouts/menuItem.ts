@@ -220,6 +220,44 @@ const items: MenuItemType[] = [
     ],
   },
   {
+    title: 'Sales team management',
+    icon: { name: 'lock-outline' },
+    children: [
+      {
+        title: 'Create Agent',
+        link: { href: '/sales/agent_create' },
+      },
+      {
+        title: 'Agent Group',
+        link: { href: '/sales/agent_group' },
+      },
+      {
+        title: 'Agent Report',
+        link: { href: '/sales/agent_report' },
+      },
+      {
+        title: 'Sales team commission report',
+        link: { href: '/sales/commission_report' },
+      },
+      {
+        title: 'Player List',
+        link: { href: '/sales/player_list' },
+      },
+      {
+        title: 'Player Report',
+        link: { href: '/sales/player_report' },
+      },
+      {
+        title: 'Betting History',
+        link: { href: '/sales/betting_history' },
+      },
+      {
+        title: 'All Transaction Logs',
+        link: { href: '/sales/all_transaction_log' },
+      },
+    ],
+  },
+  {
     title: 'Member Management',
     icon: { name: 'lock-outline' },
     children: [
@@ -273,48 +311,32 @@ const items: MenuItemType[] = [
       },
     ],
   },
-  {
-    title: 'Sales team management',
-    icon: { name: 'lock-outline' },
-    children: [
-      {
-        title: 'Create Agent',
-        link: { href: '/sales/agent_create' },
-      },
-      {
-        title: 'Agent Group',
-        link: { href: '/sales/agent_group' },
-      },
-      {
-        title: 'Agent Report',
-        link: { href: '/sales/agent_report' },
-      },
-      {
-        title: 'Sales team commission report',
-        link: { href: '/sales/commission_report' },
-      },
-      {
-        title: 'Player List',
-        link: { href: '/sales/player_list' },
-      },
-      {
-        title: 'Player Report',
-        link: { href: '/sales/player_report' },
-      },
-      {
-        title: 'Betting History',
-        link: { href: '/sales/betting_history' },
-      },
-      {
-        title: 'All Transaction Logs',
-        link: { href: '/sales/all_transaction_log' },
-      },
-    ],
-  },
+
   {
     title: 'Report',
     icon: { name: 'lock-outline' },
-    children: [],
+    children: [
+      {
+        title: 'Win Lose by Player',
+        link: { href: '/report/winlose_by_player' },
+      },
+      {
+        title: 'Win Lose Simple',
+        link: { href: '/report/winlose_simple' },
+      },
+      {
+        title: 'Win Lose Chart Report',
+        link: { href: '/report/winlose_chart_report' },
+      },
+      {
+        title: 'Cancelled Bet List',
+        link: { href: '/report/cancelled_bet_list' },
+      },
+      {
+        title: 'Match Result',
+        link: { href: '/report/match_result' },
+      },
+    ],
   },
   {
     title: 'Account',

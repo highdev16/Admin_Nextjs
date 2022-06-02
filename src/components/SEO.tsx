@@ -11,6 +11,7 @@ const SEO: React.FC<SEOProps> = () => (
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/png" href="/icons/icon-72x72.png" />
     <link rel="apple-touch-icon" type="image/png" href="/icons/icon-72x72.png" />
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css" />
   </Head>
 );
 

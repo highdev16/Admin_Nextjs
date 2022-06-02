@@ -5,10 +5,7 @@ import { breakpointDown } from '@paljs/ui/breakpoints';
 const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
-  @font-face {
-    font-family: 'Lato';
-    src: url('/fonts/Lato/Lato-Regular.ttf') format('truetype');
-  }
+
   * {
     font-family: Lato;
   }
@@ -167,8 +164,11 @@ ${({ theme }) => css`
   }
   div.form-item div.form-label {
     min-width: 40%;
-    line-height: 40px;
+    height: 40px;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   div.form-item div.form-value {
     flex-grow: 1;
