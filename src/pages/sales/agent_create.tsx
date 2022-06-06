@@ -151,7 +151,7 @@ ${() => css`
         .filter((s) => s);
       firstname = firstname || '';
       lastname = lastname || '';
-      // var id_agent = document.getElementById('id_agent').value;
+      var id_agent = document.getElementById('id_agent').value;
       var member_level = document.getElementById('member_level').value;
       var password = document.getElementById('password').value;
       var confirm = document.getElementById('confirm_password').value;
@@ -166,7 +166,7 @@ ${() => css`
       APICall(
         '/api/signup',
         {
-          username,
+          username: id_agent,
           password,
           firstname,
           lastname,
@@ -279,7 +279,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Agent ID</div>
                     <div className="form-value">
-                      <input type="text" id="id_agent" readonly disabled></input>
+                      <input type="text" id="id_agent"></input>
                     </div>
                   </div>
                 </Col>
