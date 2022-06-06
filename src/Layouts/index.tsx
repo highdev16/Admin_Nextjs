@@ -13,14 +13,11 @@ import { Menu, MenuRefObject } from '@paljs/ui/Menu';
 import Link from 'next/link';
 import menuItems from './menuItem';
 import SEO, { SEOProps } from 'components/SEO';
+import isLogin from 'src/utils/localstorage';
 
 const getDefaultTheme = (): DefaultTheme['name'] => {
   return 'dark';
 };
-
-// const isLogin = () => {
-//   return false;
-// };
 
 const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
   const [theme, setTheme] = useState<DefaultTheme['name']>('dark');
@@ -49,6 +46,8 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
     // if (!isLogin() && !authLayout) {
     //   router.push('/auth/login');
     // }
+    // isLogin();
+    isLogin() ? true : router.push('/auth/login');
   }, []);
 
   const changeDir = () => {
@@ -58,9 +57,9 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
 
   var authLayout = router.pathname.startsWith('/auth');
 
-  // if (!isLogin() && !authLayout) {
-  //   return <div />;
-  // }
+  if (typeof window !== 'undefined' && !isLogin() && !authLayout) {
+    return <div />;
+  }
 
   return (
     <Fragment>

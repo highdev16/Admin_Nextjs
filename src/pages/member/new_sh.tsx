@@ -6,6 +6,8 @@ import 'react-calendar/dist/Calendar.css';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { createGlobalStyle, css } from 'styled-components';
 import { Button } from '@paljs/ui/Button';
+import APICall from 'src/utils/server_config';
+import { useRouter } from 'next/router';
 
 const SportsTab = () => {
   return (
@@ -987,6 +989,49 @@ const ThirdPartyService = () => {
 };
 
 const AgentReport = () => {
+  const router = useRouter();
+  const createAccount = () => {
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    var firstname = document.getElementById('firstname').value;
+    var lastname = document.getElementById('lastname').value;
+    var phone = document.getElementById('phone').value;
+    var currency = document.getElementById('currency').value;
+    var agent_level = document.getElementById('agent_level').value;
+    var email = document.getElementById('email').value;
+    APICall(
+      '/api/signup',
+      {
+        username,
+        password,
+        firstname,
+        lastname,
+        phone,
+        currency,
+        agent_level,
+        email,
+      },
+      (e) => {
+        alert('Successfully Created');
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+        document.getElementById('firstname').value = '';
+        document.getElementById('lastname').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('currency').value = 'USD';
+        document.getElementById('agent_level').value = 'SH';
+        document.getElementById('email').value = '';
+      },
+      (e) => {
+        if (e == 'login_issue') {
+          router.push('/auth/login');
+        } else if (e == -10) {
+          alert('Already existing username or email');
+        } else alert('Failed to create the new SH');
+      },
+    );
+  };
+
   const CustomCSS = createGlobalStyle`
 ${() => css`
   .auth-layout .main-content {
@@ -1166,8 +1211,8 @@ ${() => css`
                           <tr>
                             <td style={{ width: '16%', height: '40px' }}>Account Type</td>
                             <td style={{ width: '16%', height: '40px' }}>
-                              <select style={{ width: '100%' }}>
-                                <option>Share Holder</option>
+                              <select style={{ width: '100%' }} id="agent_level">
+                                <option value="SH">Share Holder</option>
                               </select>
                             </td>
                             <td style={{ width: '16%' }} />
@@ -1184,12 +1229,12 @@ ${() => css`
                           <tr>
                             <td style={{ width: '16%', height: '40px' }}>UserName</td>
                             <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} />
+                              <input type="text" style={{ width: '100%' }} id="username" />
                             </td>
                             <td style={{ width: '16%', color: 'gray' }}>*Required</td>
                             <td style={{ width: '16%', height: '40px' }}>Email</td>
                             <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} />
+                              <input type="text" style={{ width: '100%' }} id="email" />
                             </td>
                             <td style={{ width: '16%' }}></td>
                           </tr>
@@ -1202,13 +1247,14 @@ ${() => css`
                           <tr>
                             <td style={{ width: '16%', height: '40px' }}>Password</td>
                             <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} />
+                              <input type="password" style={{ width: '100%' }} id="password" />
                             </td>
                             <td style={{ width: '16%', color: 'gray' }}>*Required</td>
                             <td style={{ width: '16%', height: '40px' }}>Currency</td>
                             <td style={{ width: '16%', height: '40px' }}>
-                              <select style={{ width: '100%' }}>
-                                <option>SGD</option>
+                              <select style={{ width: '100%' }} id="currency">
+                                <option value="USD">USD</option>
+                                <option value="SGD">SGD</option>
                               </select>
                             </td>
                             <td style={{ width: '16%' }}></td>
@@ -1222,12 +1268,12 @@ ${() => css`
                           <tr>
                             <td style={{ width: '16%', height: '40px' }}>First Name</td>
                             <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} />
+                              <input type="text" style={{ width: '100%' }} id="firstname" />
                             </td>
                             <td style={{ width: '16%' }}></td>
                             <td style={{ width: '16%', height: '40px' }}>Phone</td>
                             <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} />
+                              <input type="text" style={{ width: '100%' }} id="phone" />
                             </td>
                             <td style={{ width: '16%' }}></td>
                           </tr>
@@ -1240,7 +1286,7 @@ ${() => css`
                           <tr>
                             <td style={{ width: '16%', height: '40px' }}>Last Name</td>
                             <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} />
+                              <input type="text" style={{ width: '100%' }} id="lastname" />
                             </td>
                             <td style={{ width: '16%' }}></td>
                             <td style={{ width: '16%' }} />
@@ -1288,6 +1334,7 @@ ${() => css`
                   paddingLeft: '1rem',
                   paddingRight: '1rem',
                 }}
+                onClick={createAccount}
               >
                 Create Account
               </Button>

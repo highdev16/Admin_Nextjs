@@ -1,4 +1,5 @@
 import { Button } from '@paljs/ui/Button';
+import { useRouter } from 'next/router';
 import { InputGroup } from '@paljs/ui/Input';
 import { Checkbox } from '@paljs/ui/Checkbox';
 import React from 'react';
@@ -9,6 +10,8 @@ import Select from '@paljs/ui/Select';
 
 import Auth, { Group } from 'components/Auth';
 import Layout from 'Layouts';
+import Encryption from '../../utils/encryption';
+import APICall from '../../utils/server_config';
 
 const options = [{ value: 'English', label: 'English' }];
 
@@ -28,8 +31,39 @@ const roundedBordersTextField = {
 };
 
 export default function Login() {
-  const onCheckbox = () => {
-    // v will be true or false
+  const [checked, setChecked] = React.useState(true);
+  const [calling, setCalling] = React.useState(false);
+  const router = useRouter();
+  React.useEffect(() => {
+    document.cookie = '';
+    localStorage.removeItem('user_info');
+  }, []);
+  const onCheckbox = (v) => {
+    setChecked(v);
+  };
+  const onLogin = () => {
+    if (calling) return;
+    console.log('calling');
+    setCalling(true);
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    APICall(
+      '/api/login',
+      {
+        username,
+        password,
+      },
+      (data) => {
+        localStorage.setItem('user_info', data[1]);
+        router.push('/sales/agent_create');
+      },
+      (e) => {
+        console.log(e);
+        setCalling(false);
+        if (e === -2) window.alert('No account existed');
+        else window.alert('Failed to login');
+      },
+    );
   };
   return (
     <Layout title="Login">
@@ -81,19 +115,29 @@ export default function Login() {
                 <div style={{ marginTop: '1rem' }}>Username</div>
                 <InputGroup fullWidth>
                   <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
-                    <input type="text" placeholder="" style={{ border: 0, background: 'transparent' }} />
+                    <input type="text" id="username" placeholder="" style={{ border: 0, background: 'transparent' }} />
                   </div>
                 </InputGroup>
                 <div style={{ marginTop: '1rem' }}>Password</div>
                 <InputGroup fullWidth>
                   <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
-                    <input type="password" placeholder="" style={{ border: 0, background: 'transparent' }} />
+                    <input
+                      type="password"
+                      id="password"
+                      placeholder=""
+                      style={{ border: 0, background: 'transparent' }}
+                    />
                   </div>
                 </InputGroup>
                 <div style={{ marginTop: '1rem' }}>Validation Code</div>
                 <InputGroup fullWidth>
                   <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
-                    <input type="text" placeholder="" style={{ border: 0, background: 'transparent' }} />
+                    <input
+                      type="text"
+                      placeholder=""
+                      id="validationCode"
+                      style={{ border: 0, background: 'transparent' }}
+                    />
                   </div>
                 </InputGroup>
                 <Group>
@@ -110,6 +154,7 @@ export default function Login() {
                   shape="SemiRound"
                   fullWidth
                   style={{ background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)' }}
+                  onClick={onLogin}
                 >
                   Login
                 </Button>

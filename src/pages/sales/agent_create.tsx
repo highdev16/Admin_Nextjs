@@ -7,6 +7,8 @@ import { createGlobalStyle, css } from 'styled-components';
 
 import { Button } from '@paljs/ui';
 import Switch from 'components/Switch';
+import getUserInfo from 'src/utils/localstorage';
+import { useRouter } from 'next/router';
 
 const AgentCreate = () => {
   const CustomCSS = createGlobalStyle`
@@ -95,9 +97,48 @@ ${() => css`
     width: 100%;
   }
 `}`;
+  const router = useRouter();
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [selectedOption, setSelectedOption] = React.useState(0);
   const [selectedPaymentOption, setPaymentSelectedOption] = React.useState(0);
+  const getAvailableRoles = () => {
+    const userInfo = getUserInfo();
+    if (!userInfo) {
+      return null;
+    }
+    const agentsLevels = {
+      admin: ['SH', 'SSMA'],
+      SH: ['SSMA'],
+      SSMA: ['MA'],
+      MA: ['Agent'],
+    };
+    return (
+      <select>
+        {(agentsLevels[userInfo.aLevel] || []).map((s) => {
+          return (
+            <option key={'agent_' + s} value={s}>
+              {s}
+            </option>
+          );
+        })}
+      </select>
+    );
+  };
+
+  React.useEffect(() => {
+    const userInfo = getUserInfo();
+    if (!userInfo) {
+      return null;
+    }
+    if (userInfo.aLevel == 'admin') {
+      router.push('/member/new_sh');
+      return;
+    }
+    if (userInfo.aLevel == 'SH') {
+      router.push('/member/new_ssma');
+      return;
+    }
+  }, []);
   return (
     <Layout title="Accordions">
       <CustomCSS />
@@ -163,11 +204,7 @@ ${() => css`
                 <Col breakPoint={{ xs: 3 }}>
                   <div className="form-item">
                     <div className="form-label">Agent Level</div>
-                    <div className="form-value">
-                      <select>
-                        <option value="SMA">SMA</option>
-                      </select>
-                    </div>
+                    <div className="form-value">{getAvailableRoles()}</div>
                   </div>
                 </Col>
                 <Col breakPoint={{ xs: 3 }}>
