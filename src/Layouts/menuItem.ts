@@ -1,4 +1,5 @@
 import { MenuItemType } from '@paljs/ui/types';
+import dynamic from 'next/dynamic';
 import getUserInfo from 'src/utils/localstorage';
 const user = getUserInfo();
 const items: MenuItemType[] = [
