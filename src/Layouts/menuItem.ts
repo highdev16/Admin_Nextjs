@@ -78,12 +78,10 @@ const items: MenuItemType[] = [
     title: 'Sales team management',
     icon: { name: 'lock-outline' },
     children: [
-      user.aLevel != 'admin' && user.aLevel != 'SH'
-        ? {
-            title: 'Create Agent',
-            link: { href: '/sales/agent_create' },
-          }
-        : {},
+      {
+        title: user['aLevel'] != 'admin' && user['aLevel'] != 'SH' ? 'Create Agent' : '',
+        link: { href: '/sales/agent_create' },
+      },
       {
         title: 'Agent Group',
         link: { href: '/sales/agent_group' },
@@ -112,24 +110,20 @@ const items: MenuItemType[] = [
         title: 'All Transaction Logs',
         link: { href: '/sales/all_transaction_log' },
       },
-    ],
+    ].filter((s) => s.title),
   },
   {
     title: 'Member Management',
     icon: { name: 'lock-outline' },
     children: [
-      user.aLevel == 'admin'
-        ? {
-            title: 'New SH',
-            link: { href: '/member/new_sh' },
-          }
-        : {},
-      user.aLevel == 'admin' || user.aLevel == 'SH'
-        ? {
-            title: 'New SSMA',
-            link: { href: '/member/new_ssma' },
-          }
-        : {},
+      {
+        title: user['aLevel'] == 'admin' ? 'New SH' : '',
+        link: { href: '/member/new_sh' },
+      },
+      {
+        title: user['aLevel'] == 'admin' || user['aLevel'] == 'SH' ? 'New SSMA' : '',
+        link: { href: '/member/new_ssma' },
+      },
       {
         title: 'Account List',
         link: { href: '/member/account_list' },
@@ -170,7 +164,7 @@ const items: MenuItemType[] = [
         title: 'Third Party Game Bet Setting',
         link: { href: '/member/third_party_game_bet_setting' },
       },
-    ],
+    ].filter((s) => s !== null),
   },
 
   {
