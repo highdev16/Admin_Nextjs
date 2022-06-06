@@ -77,10 +77,10 @@ const items = (user) => [
     title: 'Sales team management',
     icon: { name: 'lock-outline' },
     children: [
-      {
-        title: user['aLevel'] != 'admin' && user['aLevel'] != 'SH' ? 'Create Agent' : '',
-        link: { href: '/sales/agent_create' },
-      },
+      // {
+      //   title: user['aLevel'] != 'admin' && user['aLevel'] != 'SH' ? 'Create Agent' : '',
+      //   link: { href: '/sales/agent_create' },
+      // },
       {
         title: 'Agent Group',
         link: { href: '/sales/agent_group' },
