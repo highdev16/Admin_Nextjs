@@ -183,12 +183,11 @@ ${() => css`
           document.getElementById('id_agent').value = '';
           document.getElementById('password').value = '';
           document.getElementById('confirm_password').value = '';
-          document.getElementById('firstname').value = '';
-          document.getElementById('lastname').value = '';
+          document.getElementById('real_name').value = '';
           document.getElementById('phone').value = '';
           document.getElementById('currency').value = 'USD';
           document.getElementById('agent_level').value = 'MA';
-          document.getElementById('email').value = '';
+          document.getElementById('note').value = '';
         },
         (e) => {
           if (e == 'login_issue') {
