@@ -33,7 +33,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "dev": "next",
+    "dev": "next  --port ${PORT-30710}",
     "build": "next build",
     "start": "next start --port ${PORT-30710}",
     "export": "yarn build && next export -o _static",
