@@ -180,8 +180,9 @@ ${() => css`
         },
         (e) => {
           alert('Successfully Created');
-          document.getElementById('username').value = '';
+          document.getElementById('id_agent').value = '';
           document.getElementById('password').value = '';
+          document.getElementById('confirm_password').value = '';
           document.getElementById('firstname').value = '';
           document.getElementById('lastname').value = '';
           document.getElementById('phone').value = '';
