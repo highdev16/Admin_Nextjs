@@ -1,6 +1,7 @@
 import { MenuItemType } from '@paljs/ui/types';
 import getUserInfo from '../utils/localstorage';
 const user = getUserInfo();
+console.log(user);
 const items: MenuItemType[] = [
   {
     title: 'Auth',
@@ -110,7 +111,7 @@ const items: MenuItemType[] = [
         title: 'All Transaction Logs',
         link: { href: '/sales/all_transaction_log' },
       },
-    ].filter((s) => s.title),
+    ].filter((s) => s.title.length > 0),
   },
   {
     title: 'Member Management',
@@ -164,7 +165,7 @@ const items: MenuItemType[] = [
         title: 'Third Party Game Bet Setting',
         link: { href: '/member/third_party_game_bet_setting' },
       },
-    ].filter((s) => s !== null),
+    ].filter((s) => s.title.length),
   },
 
   {
