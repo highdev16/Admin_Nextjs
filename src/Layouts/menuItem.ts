@@ -123,14 +123,18 @@ const items = (user) => [
         title: user['aLevel'] == 'admin' || user['aLevel'] == 'SH' ? 'New SSMA' : '',
         link: { href: '/member/new_ssma' },
       },
-      // {
-      //   title: user['aLevel'] == 'SSMA' ? 'New SMA' : '',
-      //   link: { href: '/member/new_sma' },
-      // },
-      // {
-      //   title: user['aLevel'] == 'SMA' ? 'New MA' : '',
-      //   link: { href: '/member/new_ma' },
-      // },
+      {
+        title: user['aLevel'] == 'SSMA' ? 'New SMA' : '',
+        link: { href: '/member/new_sma' },
+      },
+      {
+        title: user['aLevel'] == 'SMA' ? 'New MA' : '',
+        link: { href: '/member/new_ma' },
+      },
+      {
+        title: user['aLevel'] == 'MA' ? 'New Agent' : '',
+        link: { href: '/member/new_a' },
+      },
       {
         title: 'Account List',
         link: { href: '/member/account_list' },
