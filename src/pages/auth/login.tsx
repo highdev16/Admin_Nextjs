@@ -55,7 +55,26 @@ export default function Login() {
       },
       (data) => {
         localStorage.setItem('user_info', data[1]);
-        setTimeout(() => (window.location.href = '/sales/agent_create'), 500);
+        var user = data[0];
+        var agent_level = '';
+        switch (user.agent_level) {
+          case 'admin':
+            agent_level = 'new_sh';
+            break;
+          case 'SH':
+            agent_level = 'new_ssma';
+            break;
+          case 'SSMA':
+            agent_level = 'new_sma';
+            break;
+          case 'SMA':
+            agent_level = 'new_ma';
+            break;
+          case 'MA':
+            agent_level = 'new_a';
+            break;
+        }
+        setTimeout(() => (window.location.href = '/member/' + agent_level), 500);
       },
       (e) => {
         console.log(e);
