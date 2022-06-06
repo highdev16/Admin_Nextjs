@@ -101,8 +101,8 @@ ${() => css`
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [selectedOption, setSelectedOption] = React.useState(0);
   const [selectedPaymentOption, setPaymentSelectedOption] = React.useState(0);
+  const userInfo = getUserInfo();
   const getAvailableRoles = () => {
-    const userInfo = getUserInfo();
     if (!userInfo) {
       return null;
     }
@@ -126,19 +126,19 @@ ${() => css`
   };
 
   React.useEffect(() => {
-    const userInfo = getUserInfo();
     if (!userInfo) {
       return null;
     }
     if (userInfo.aLevel == 'admin') {
-      router.push('/member/new_sh');
+      window.location.href = '/member/new_sh';
       return;
     }
     if (userInfo.aLevel == 'SH') {
-      router.push('/member/new_ssma');
+      window.location.href = '/member/new_ssma';
       return;
     }
   }, []);
+  if (!userInfo || userInfo.aLevel == 'admin' || userInfo.aLevel == 'SH') return <div />;
   return (
     <Layout title="Accordions">
       <CustomCSS />

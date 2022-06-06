@@ -55,7 +55,7 @@ export default function Login() {
       },
       (data) => {
         localStorage.setItem('user_info', data[1]);
-        setTimeout(() => router.push('/sales/agent_create'), 500);
+        setTimeout(() => (window.location.href = '/sales/agent_create'), 500);
       },
       (e) => {
         console.log(e);
