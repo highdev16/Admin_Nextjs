@@ -13,7 +13,7 @@ import { Menu, MenuRefObject } from '@paljs/ui/Menu';
 import Link from 'next/link';
 import menuItems from './menuItem';
 import SEO, { SEOProps } from 'components/SEO';
-import isLogin from 'src/utils/localstorage';
+import isLogin from '../utils/localstorage';
 
 const getDefaultTheme = (): DefaultTheme['name'] => {
   return 'dark';

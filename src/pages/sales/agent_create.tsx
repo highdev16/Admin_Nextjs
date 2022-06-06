@@ -7,7 +7,7 @@ import { createGlobalStyle, css } from 'styled-components';
 
 import { Button } from '@paljs/ui';
 import Switch from 'components/Switch';
-import getUserInfo from 'src/utils/localstorage';
+import getUserInfo from '../utils/localstorage';
 import { useRouter } from 'next/router';
 
 const AgentCreate = () => {

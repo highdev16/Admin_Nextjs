@@ -6,7 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { createGlobalStyle, css } from 'styled-components';
 import { Button } from '@paljs/ui/Button';
-import APICall from 'src/utils/server_config';
+import APICall from '../utils/server_config';
 import { useRouter } from 'next/router';
 
 const SportsTab = () => {

@@ -1,4 +1,4 @@
-import Encryption from 'src/utils/encryption';
+import Encryption from './encryption';
 const isLogin = () => {
   if (typeof localStorage === 'undefined') return {};
   var loginCookie = localStorage.getItem('user_info') || '';
