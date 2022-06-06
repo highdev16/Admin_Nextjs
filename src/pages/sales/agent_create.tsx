@@ -9,6 +9,7 @@ import { Button } from '@paljs/ui';
 import Switch from 'components/Switch';
 import getUserInfo from '../../utils/localstorage';
 import { useRouter } from 'next/router';
+import APICall from '../../utils/server_config';
 
 const AgentCreate = () => {
   const CustomCSS = createGlobalStyle`
@@ -109,7 +110,8 @@ ${() => css`
     const agentsLevels = {
       admin: ['SH', 'SSMA'],
       SH: ['SSMA'],
-      SSMA: ['MA'],
+      SSMA: ['SMA'],
+      SMA: ['MA'],
       MA: ['Agent'],
     };
     return (
@@ -149,7 +151,7 @@ ${() => css`
         .filter((s) => s);
       firstname = firstname || '';
       lastname = lastname || '';
-      var id_agent = document.getElementById('id_agent').value;
+      // var id_agent = document.getElementById('id_agent').value;
       var member_level = document.getElementById('member_level').value;
       var password = document.getElementById('password').value;
       var confirm = document.getElementById('confirm').value;
@@ -158,6 +160,43 @@ ${() => css`
       var upstream_agent_code = document.getElementById('upstream_agent_code').value;
       var payment_cycle = document.getElementById('payment_cycle').value;
       var currency = document.getElementById('currency').value;
+      if (password !== confirm) {
+        return alert("Passwords don't match");
+      }
+      APICall(
+        '/api/signup',
+        {
+          username,
+          password,
+          firstname,
+          lastname,
+          phone,
+          currency,
+          agent_level,
+          email: '',
+          note,
+          upstream_agent_code,
+          payment_cycle,
+        },
+        (e) => {
+          alert('Successfully Created');
+          document.getElementById('username').value = '';
+          document.getElementById('password').value = '';
+          document.getElementById('firstname').value = '';
+          document.getElementById('lastname').value = '';
+          document.getElementById('phone').value = '';
+          document.getElementById('currency').value = 'USD';
+          document.getElementById('agent_level').value = 'MA';
+          document.getElementById('email').value = '';
+        },
+        (e) => {
+          if (e == 'login_issue') {
+            router.push('/auth/login');
+          } else if (e == -10) {
+            alert('Already existing username or email');
+          } else alert('Failed to create the new MA');
+        },
+      );
     }
   };
   return (
@@ -291,7 +330,7 @@ ${() => css`
                     <div className="form-label">Upstream Agent Code</div>
                     <div className="form-value">
                       <select id="upstream_agent_code">
-                        <option value="SMA">safas9</option>
+                        <option value="">-</option>
                       </select>
                     </div>
                   </div>
@@ -301,7 +340,9 @@ ${() => css`
                     <div className="form-label">Payment Cycle</div>
                     <div className="form-value">
                       <select id="payment_cycle">
-                        <option value="SMA">Daily</option>
+                        <option value="Daily">Daily</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Monthly">Monthly</option>
                       </select>
                     </div>
                   </div>
