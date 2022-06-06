@@ -1,8 +1,6 @@
 import { MenuItemType } from '@paljs/ui/types';
-import getUserInfo from '../utils/localstorage';
-const user = getUserInfo();
-console.log(user);
-const items: MenuItemType[] = [
+
+const items = (user) => [
   {
     title: 'Auth',
     icon: { name: 'lock-outline' },

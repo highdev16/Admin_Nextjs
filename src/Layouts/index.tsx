@@ -57,7 +57,8 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
 
   var authLayout = router.pathname.startsWith('/auth');
 
-  if (typeof window !== 'undefined' && !isLogin() && !authLayout) {
+  var user = isLogin();
+  if (typeof window !== 'undefined' && !user && !authLayout) {
     return <div />;
   }
 
@@ -124,7 +125,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
                       className="sidebar-menu"
                       Link={Link}
                       ref={menuRef}
-                      items={menuItems}
+                      items={menuItems(user)}
                       currentPath={router.pathname}
                       toggleSidebar={() => sidebarRef.current?.hide()}
                     />
