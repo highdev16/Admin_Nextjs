@@ -279,7 +279,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Agent ID</div>
                     <div className="form-value">
-                      <input type="text" id="id_agent" readonly></input>
+                      <input type="text" id="id_agent" readonly disabled></input>
                     </div>
                   </div>
                 </Col>
