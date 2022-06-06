@@ -55,8 +55,7 @@ export default function Login() {
       },
       (data) => {
         localStorage.setItem('user_info', data[1]);
-        alert(data[1]);
-        // router.push('/sales/agent_create');
+        setTimeout(() => router.push('/sales/agent_create'), 500);
       },
       (e) => {
         console.log(e);
