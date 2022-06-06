@@ -113,7 +113,7 @@ ${() => css`
       MA: ['Agent'],
     };
     return (
-      <select>
+      <select id="agent_level">
         {(agentsLevels[userInfo.aLevel] || []).map((s) => {
           return (
             <option key={'agent_' + s} value={s}>
@@ -139,6 +139,27 @@ ${() => css`
     }
   }, []);
   if (!userInfo || userInfo.aLevel == 'admin' || userInfo.aLevel == 'SH') return <div />;
+
+  const onCreate = () => {
+    if (selectedOption == 0) {
+      var agent_level = document.getElementById('agent_level').value;
+      var [firstname, lastname] = document
+        .getElementById('real_name')
+        .value.split(' ')
+        .filter((s) => s);
+      firstname = firstname || '';
+      lastname = lastname || '';
+      var id_agent = document.getElementById('id_agent').value;
+      var member_level = document.getElementById('member_level').value;
+      var password = document.getElementById('password').value;
+      var confirm = document.getElementById('confirm').value;
+      var phone = document.getElementById('phone').value;
+      var note = document.getElementById('note').value;
+      var upstream_agent_code = document.getElementById('upstream_agent_code').value;
+      var payment_cycle = document.getElementById('payment_cycle').value;
+      var currency = document.getElementById('currency').value;
+    }
+  };
   return (
     <Layout title="Accordions">
       <CustomCSS />
@@ -211,15 +232,15 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Real Name</div>
                     <div className="form-value">
-                      <input type="text"></input>
+                      <input type="text" id="real_name"></input>
                     </div>
                   </div>
                 </Col>
                 <Col breakPoint={{ xs: 3 }}>
                   <div className="form-item">
-                    <div className="form-label">ID Agent</div>
+                    <div className="form-label">Agent ID</div>
                     <div className="form-value">
-                      <input type="text"></input>
+                      <input type="text" id="id_agent" readonly></input>
                     </div>
                   </div>
                 </Col>
@@ -227,8 +248,8 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Member Level</div>
                     <div className="form-value">
-                      <select>
-                        <option value="SMA">Default</option>
+                      <select id="member_level">
+                        <option value="Default">Default</option>
                       </select>
                     </div>
                   </div>
@@ -237,7 +258,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Password</div>
                     <div className="form-value">
-                      <input type="password"></input>
+                      <input type="password" id="password"></input>
                     </div>
                   </div>
                 </Col>
@@ -245,7 +266,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Confirm Password</div>
                     <div className="form-value">
-                      <input type="password"></input>
+                      <input type="password" id="confirm_password"></input>
                     </div>
                   </div>
                 </Col>
@@ -253,7 +274,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Phone number</div>
                     <div className="form-value">
-                      <input type="text"></input>
+                      <input type="text" id="phone"></input>
                     </div>
                   </div>
                 </Col>
@@ -261,7 +282,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Note</div>
                     <div className="form-value">
-                      <input type="text"></input>
+                      <input type="text" id="note"></input>
                     </div>
                   </div>
                 </Col>
@@ -269,7 +290,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Upstream Agent Code</div>
                     <div className="form-value">
-                      <select>
+                      <select id="upstream_agent_code">
                         <option value="SMA">safas9</option>
                       </select>
                     </div>
@@ -279,7 +300,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Payment Cycle</div>
                     <div className="form-value">
-                      <select>
+                      <select id="payment_cycle">
                         <option value="SMA">Daily</option>
                       </select>
                     </div>
@@ -289,8 +310,10 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Currency</div>
                     <div className="form-value">
-                      <select>
-                        <option value="SMA">VND</option>
+                      <select id="currency">
+                        <option value="USD">USD</option>
+                        <option value="VND">VND</option>
+                        <option value="SGD">SGD</option>
                       </select>
                     </div>
                   </div>
@@ -313,6 +336,7 @@ ${() => css`
                         color: 'white',
                         width: '170px',
                       }}
+                      onClick={onCreate}
                     >
                       Next
                     </Button>
