@@ -1013,6 +1013,7 @@ const AgentReport = () => {
       },
       (e) => {
         alert('Successfully Created');
+
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
         document.getElementById('firstname').value = '';
