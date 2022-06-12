@@ -194,7 +194,9 @@ ${() => css`
             router.push('/auth/login');
           } else if (e == -10) {
             alert('Already existing username or email');
-          } else alert('Failed to create the new MA');
+          } else if (e === -203) alert('Invalid email/username/password format.');
+          else if (e === -205) alert('Password is weak or contains the first and/or last name.');
+          else alert('Failed to create the new MA');
         },
       );
     }

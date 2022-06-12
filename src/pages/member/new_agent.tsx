@@ -1028,7 +1028,9 @@ const AgentReport = () => {
           router.push('/auth/login');
         } else if (e == -10) {
           alert('Already existing username or email');
-        } else alert('Failed to create the new Agent');
+        } else if (e === -203) alert('Invalid email/username/password format.');
+        else if (e === -205) alert('Password is weak or contains the first and/or last name.');
+        else alert('Failed to create the new Agent');
       },
     );
   };
@@ -1301,31 +1303,9 @@ ${() => css`
                 </tr>
               </tbody>
             </table>
-            <div style={{ position: 'relative', marginTop: '2rem', display: 'flex' }}>
-              <div style={{ lineHeight: '40px', marginLeft: '1rem' }}>Product: </div>
-              <div className="tabs">
-                <div className={'tab ' + (selectedTab === 0 && 'selected')} onClick={() => setSelectedTab(0)}>
-                  Sports
-                </div>
-                <div className={'tab ' + (selectedTab === 1 && 'selected')} onClick={() => setSelectedTab(1)}>
-                  Game
-                </div>
-                <div className={'tab ' + (selectedTab === 2 && 'selected')} onClick={() => setSelectedTab(2)}>
-                  Live Casino
-                </div>
-                <div className={'tab ' + (selectedTab === 3 && 'selected')} onClick={() => setSelectedTab(3)}>
-                  Game Provider
-                </div>
-                <div className={'tab ' + (selectedTab === 4 && 'selected')} onClick={() => setSelectedTab(4)}>
-                  Third Party Sports
-                </div>
-              </div>
+            <div style={{ color: 'red', padding: '1rem' }}>
+              * Default Security Code is <b style={{ color: 'red' }}>000000</b>
             </div>
-            {selectedTab == 0 ? <SportsTab /> : null}
-            {selectedTab == 1 ? <GameTab /> : null}
-            {selectedTab == 2 ? <LiveCasino /> : null}
-            {selectedTab == 3 ? <GameProvider /> : null}
-            {selectedTab == 4 ? <ThirdPartyService /> : null}
             <Col breakPoint={{ xs: 12 }}>
               <Button
                 style={{

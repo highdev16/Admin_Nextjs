@@ -11,7 +11,7 @@ import ContextMenu from '@paljs/ui/ContextMenu';
 import User from '@paljs/ui/User';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 // import moment from 'moment';
-
+import getUserInfo from '../utils/localstorage';
 const HeaderStyle = styled.div`
   display: flex;
   width: 100%;
@@ -85,7 +85,8 @@ const showGoodmorning = () => {
 const Header: React.FC<HeaderProps> = (props) => {
   const router = useRouter();
   const [timeAndDate, setTimeAndDate] = React.useState(Date.now());
-
+  const userInfo = getUserInfo();
+  console.log(userInfo);
   useEffect(() => {
     var timer = setInterval(() => {
       setTimeAndDate(Date.now());
@@ -160,7 +161,12 @@ const Header: React.FC<HeaderProps> = (props) => {
                   ]}
                   Link={Link}
                 >
-                  <User image="url('/icons/icon-72x72.png')" name="Administrator" title="Manger" size="Medium" />
+                  <User
+                    image="url('/icons/icon-72x72.png')"
+                    name={userInfo.fullname || userInfo.firstname + ' ' + userInfo.lastname}
+                    title={userInfo.aLevel}
+                    size="Medium"
+                  />
                 </ContextMenu>
               ),
             },

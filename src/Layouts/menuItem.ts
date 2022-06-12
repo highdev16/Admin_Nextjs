@@ -133,7 +133,7 @@ const items = (user) => [
       },
       {
         title: user['aLevel'] == 'MA' ? 'New Agent' : '',
-        link: { href: '/member/new_a' },
+        link: { href: '/member/new_agent' },
       },
       {
         title: 'Account List',

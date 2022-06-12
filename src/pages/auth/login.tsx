@@ -71,10 +71,10 @@ export default function Login() {
             agent_level = 'new_ma';
             break;
           case 'MA':
-            agent_level = 'new_a';
+            agent_level = 'new_agent';
             break;
         }
-        setTimeout(() => (window.location.href = '/member/' + agent_level), 500);
+        setTimeout(() => (window.location.href = '/sales/agent_group'), 500);
       },
       (e) => {
         console.log(e);
