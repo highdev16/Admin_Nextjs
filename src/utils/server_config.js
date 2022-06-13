@@ -12,10 +12,10 @@ function APICall(url, data, successCallback, failureCallback) {
     .then(response => {
         if (response.code === 0) {
             successCallback(response.data);
-        } else throw response.code;
+        } else throw [response.code, response.data];
     }).catch(e => {
-        console.log(e);
-        if (e === -167800) failureCallback('login_issue');
+        if (!Array.isArray(e)) e = [-190, 'Unexpected error from server.'];
+        if (e[0] === -167800) failureCallback(['login_issue']);
         else failureCallback(e);
     })
 }

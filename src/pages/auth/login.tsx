@@ -79,7 +79,7 @@ export default function Login() {
       (e) => {
         console.log(e);
         setCalling(false);
-        if (e === -2) window.alert('No account existed');
+        if (e[0] === -2) window.alert('No account existed');
         else window.alert('Failed to login');
       },
     );

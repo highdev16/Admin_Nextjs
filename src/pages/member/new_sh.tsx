@@ -1023,13 +1023,13 @@ const AgentReport = () => {
         document.getElementById('email').value = '';
       },
       (e) => {
-        if (e == 'login_issue') {
+        if (e[0] == 'login_issue') {
           router.push('/auth/login');
-        } else if (e == -10) {
+        } else if (e[0] == -10) {
           alert('Already existing username or email');
-        } else if (e === -203) alert('Invalid email/username/password format.');
-        else if (e === -205) alert('Password is weak or contains the first and/or last name.');
-        else alert('Failed to create the new SH');
+        } else if (e[0] === -203) alert('Invalid email/username/password format.');
+        else if (e[0] === -205) alert('Password is weak or contains the first and/or last name.');
+        else alert(e[1] || 'Failed to create the new SH');
       },
     );
   };
