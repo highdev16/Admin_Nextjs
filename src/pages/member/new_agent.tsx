@@ -1020,7 +1020,7 @@ const AgentReport = () => {
         document.getElementById('lastname').value = '';
         document.getElementById('phone').value = '';
         document.getElementById('currency').value = 'USD';
-        document.getElementById('agent_level').value = 'MA';
+        document.getElementById('agent_level').value = 'Agent';
         document.getElementById('email').value = '';
       },
       (e) => {
