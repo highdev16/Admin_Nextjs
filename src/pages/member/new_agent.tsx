@@ -1215,7 +1215,7 @@ ${() => css`
                             <td style={{ width: '16%', height: '40px' }}>Account Type</td>
                             <td style={{ width: '16%', height: '40px' }}>
                               <select style={{ width: '100%' }} id="agent_level">
-                                <option value="A">Agent</option>
+                                <option value="Agent">Agent</option>
                               </select>
                             </td>
                             <td style={{ width: '16%' }} />
