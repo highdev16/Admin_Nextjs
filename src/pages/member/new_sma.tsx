@@ -999,6 +999,10 @@ const AgentReport = () => {
     var currency = document.getElementById('currency').value;
     var agent_level = document.getElementById('agent_level').value;
     var email = document.getElementById('email').value;
+
+    if (username.length < 2) return alert('Username too short');
+    if (password.length < 6) return alert('Password too short');
+    if (email.trim().length < 1) return alert('Enter the valid e-mail address');
     APICall(
       '/api/signup',
       {
