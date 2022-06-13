@@ -86,7 +86,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const router = useRouter();
   const [timeAndDate, setTimeAndDate] = React.useState(Date.now());
   const userInfo = getUserInfo();
-  console.log(userInfo);
+
   useEffect(() => {
     var timer = setInterval(() => {
       setTimeAndDate(Date.now());
