@@ -6,6 +6,24 @@ const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
 
+  #rfs-btn {
+    border: 1px solid;
+    border-color: rgba(107, 114, 128, 1);
+    color: rgba(209, 213, 219, 1);
+  }
+
+  #goog-gt-tt {
+    display: none !important;
+  }
+
+  .goog-tooltip {
+    display: none !important;
+  }
+
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+  }
+
   * {
     font-family: Lato;
   }

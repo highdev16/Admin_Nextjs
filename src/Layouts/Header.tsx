@@ -82,10 +82,28 @@ const showGoodmorning = () => {
   if (time.getHours() < 19) return 'Good afternoon';
   return 'Good evening';
 };
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    {
+      // pageLanguage: 'en',
+      includedLanguages: 'en,vi,zh-CN,hi,ja,ko',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: true,
+    },
+    'google_translate_element',
+  );
+}
+
 const Header: React.FC<HeaderProps> = (props) => {
   const router = useRouter();
   const [timeAndDate, setTimeAndDate] = React.useState(Date.now());
   const userInfo = getUserInfo();
+  useEffect(() => {
+    var addScript = document.createElement('script');
+    addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
+    document.body.appendChild(addScript);
+    window.googleTranslateElementInit = googleTranslateElementInit;
+  }, []);
 
   useEffect(() => {
     var timer = setInterval(() => {
@@ -142,11 +160,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           className="right"
           actions={[
             {
-              content: (
-                <div style={{ width: 100 }}>
-                  <Select options={[{ value: 'English', label: 'EN' }]} placeholder="EN" style={{ width: 100 }} />
-                </div>
-              ),
+              content: <div style={{ width: 100 }} id="google_translate_element"></div>,
             },
             {
               content: (
