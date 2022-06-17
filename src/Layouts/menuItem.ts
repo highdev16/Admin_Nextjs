@@ -1,20 +1,20 @@
 import { MenuItemType } from '@paljs/ui/types';
 
 const items = (user) => [
-  {
-    title: 'Auth',
-    icon: { name: 'lock-outline' },
-    children: [
-      {
-        title: 'Login',
-        link: { href: '/auth/login' },
-      },
-      {
-        title: 'Confirm Login',
-        link: { href: '/auth/confirm-login' },
-      },
-    ],
-  },
+  // {
+  //   title: 'Auth',
+  //   icon: { name: 'lock-outline' },
+  //   children: [
+  //     {
+  //       title: 'Login',
+  //       link: { href: '/auth/login' },
+  //     },
+  //     {
+  //       title: 'Confirm Login',
+  //       link: { href: '/auth/confirm-login' },
+  //     },
+  //   ],
+  // },
   {
     title: 'Total Bet',
     icon: { name: 'lock-outline' },
@@ -149,7 +149,7 @@ const items = (user) => [
       },
       {
         title: 'Credit',
-        link: { href: '/member/credit' },
+        link: { href: '/member/credit1' },
       },
       {
         title: 'Preset PT',
@@ -282,7 +282,7 @@ const items = (user) => [
     children: [
       {
         title: 'Manage',
-        link: { href: '/resource/manage' },
+        link: { href: '/resource/manage_n' },
       },
       {
         title: 'Manage Simple',

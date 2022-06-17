@@ -61,7 +61,6 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
   if (typeof window !== 'undefined' && !user && !authLayout) {
     return <div />;
   }
-
   return (
     <Fragment>
       <SEO {...rest} />
@@ -104,28 +103,13 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
                       </table>
                     </div>
                   </header>
-                  {false && seeHeader && (
-                    <header>
-                      <Button
-                        size="Tiny"
-                        status="Primary"
-                        onClick={() => {
-                          setMenuState(!menuState);
-                          menuRef.current?.toggle();
-                        }}
-                        fullWidth
-                      >
-                        {menuState ? <EvaIcon name="arrow-circle-up" /> : <EvaIcon name="arrow-circle-down" />}
-                      </Button>
-                    </header>
-                  )}
                   <SidebarBody>
                     <Menu
                       nextJs
                       className="sidebar-menu"
                       Link={Link}
                       ref={menuRef}
-                      items={menuItems(user)}
+                      items={getSelectedMenu(menuItems(user), router.pathname)}
                       currentPath={router.pathname}
                       toggleSidebar={() => sidebarRef.current?.hide()}
                     />
@@ -149,3 +133,17 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
 };
 
 export default LayoutPage;
+
+function getSelectedMenu(menuItems, pathname) {
+  return menuItems.map((menuItem) => {
+    if (!menuItem.children) return menuItem;
+    menuItem.children.map((childItem, index) => {
+      if (pathname.startsWith(childItem.link.href)) {
+        childItem.selected = true;
+        menuItem.selected = menuItem.expanded = true;
+      }
+      return childItem;
+    });
+    return menuItem;
+  });
+}
