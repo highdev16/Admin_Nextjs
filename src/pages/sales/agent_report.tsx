@@ -6,8 +6,10 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { createGlobalStyle, css } from 'styled-components';
-
+import getUserInfo from '../../utils/localstorage';
 import { Button } from '@paljs/ui';
+import APICall from 'utils/server_config';
+import getNextLevel from 'utils/level';
 
 const AgentReport = () => {
   const CustomCSS = createGlobalStyle`
@@ -136,6 +138,10 @@ ${() => css`
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [date1, setDate1] = React.useState(new Date());
   const [date2, setDate2] = React.useState(new Date());
+
+  const [dataset, setDataSet] = React.useState([]);
+  const userInfo = getUserInfo();
+
   return (
     <Layout title="Accordions">
       <CustomCSS />
@@ -218,10 +224,14 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Agent Level</div>
                   <div className="form-value">
-                    <select>
-                      <option value="SSMA">SSMA</option>
-                      <option value="SMA">SMA</option>
-                      <option value="MA">MA</option>
+                    <select id="agent_level">
+                      {['admin'].indexOf(userInfo.aLevel) > -1 && <option value="SH">SH</option>}
+                      {['admin', 'SH'].indexOf(userInfo.aLevel) > -1 && <option value="SSMA">SSMA</option>}
+                      {['admin', 'SH', 'SSMA'].indexOf(userInfo.aLevel) > -1 && <option value="SMA">SMA</option>}
+                      {['admin', 'SH', 'SSMA', 'SMA'].indexOf(userInfo.aLevel) > -1 && <option value="MA">MA</option>}
+                      {['admin', 'SH', 'SSMA', 'SMA', 'MA'].indexOf(userInfo.aLevel) > -1 && (
+                        <option value="Agent">Agent</option>
+                      )}
                     </select>
                   </div>
                 </div>
@@ -268,6 +278,23 @@ ${() => css`
                       color: 'white',
                       width: '170px',
                     }}
+                    onClick={() => {
+                      APICall(
+                        '/api/sales/agent_report',
+                        {
+                          mode: 'Agent Level',
+                          agent_level: document.getElementById('agent_level').value,
+                        },
+                        (data) => {
+                          setDatasets(data);
+                        },
+                        (e) => {
+                          if (e[0] == 'login_issue') {
+                            router.push('/auth/login');
+                          } else alert(e[1] || 'Failed to load data.');
+                        },
+                      );
+                    }}
                   >
                     Search
                   </Button>
@@ -293,38 +320,42 @@ ${() => css`
                   </td>
                 </tr>
                 <tr>
-                  <td style={{ width: '7%', height: '40px' }}>ID Agent</td>
+                  <td style={{ width: '10%', height: '40px' }}>Agent ID</td>
                   <td style={{ width: '7%' }}>Agent Level</td>
-                  <td style={{ width: '7%' }}>Real name</td>
-                  <td style={{ width: '7%' }}>Payment cycle</td>
-                  <td style={{ width: '13%' }}>Low number of agent</td>
-                  <td style={{ width: '13%' }}>Total number of players</td>
-                  <td style={{ width: '7%' }}>Status</td>
-                  <td style={{ width: '13%' }}>Last updated</td>
-                  <td style={{ width: '7%' }}>Note </td>
-                  <td style={{ width: '7%' }}>Operation</td>
+                  <td style={{ width: '12%' }}>Number of downstream agents</td>
+                  <td style={{ width: '10%' }}>Total number of subscribers</td>
+                  <td style={{ width: '7%' }}>Total number of players</td>
+                  <td style={{ width: '7%' }}>No duplicate bettors</td>
+                  <td style={{ width: '10%' }}>Deposit order</td>
+                  <td style={{ width: '10%' }}>Deposit amount/First deposit</td>
+                  <td style={{ width: '10%' }}>Deposit amount</td>
+                  <td style={{ width: '10%' }}>Withdrawal amount</td>
+                  <td style={{ width: '7%' }}>Manual adjustment</td>
                   <td style={{ width: '3%' }}>
                     <img src="/images/sales/eye.png" />
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan={11}>
-                    {[1, 2, 3, 4, 5, 67, 1].map((_) => (
+                  <td colSpan={12}>
+                    {dataset.map((_) => (
                       <div className="grayRow">
                         <table style={{ width: '100%' }}>
                           <tbody>
                             <tr>
-                              <td style={{ width: '7%', height: '40px' }}>sjkfjkls</td>
-                              <td style={{ width: '7%' }}>SSMA</td>
-                              <td style={{ width: '7%' }}>MICHAEL</td>
-                              <td style={{ width: '7%' }}>Daily</td>
-                              <td style={{ width: '13%' }}>10</td>
-                              <td style={{ width: '13%' }}>10192</td>
-                              <td style={{ width: '7%' }}>Activated</td>
-                              <td style={{ width: '13%' }}>2022-11-19 01:30:11</td>
-                              <td style={{ width: '7%' }}></td>
-                              <td style={{ width: '7%' }}></td>
-                              <td style={{ width: '3%' }}>+</td>
+                              <td style={{ width: '10%', height: '40px' }}>Agent ID</td>
+                              <td style={{ width: '7%' }}>Agent Level</td>
+                              <td style={{ width: '12%' }}>Number of downstream agents</td>
+                              <td style={{ width: '10%' }}>Total number of subscribers</td>
+                              <td style={{ width: '7%' }}>Total number of players</td>
+                              <td style={{ width: '7%' }}>No duplicate bettors</td>
+                              <td style={{ width: '10%' }}>Deposit order</td>
+                              <td style={{ width: '10%' }}>Deposit amount/First deposit</td>
+                              <td style={{ width: '10%' }}>Deposit amount</td>
+                              <td style={{ width: '10%' }}>Withdrawal amount</td>
+                              <td style={{ width: '7%' }}>Manual adjustment</td>
+                              <td style={{ width: '3%' }}>
+                                <img src="/images/sales/eye.png" />
+                              </td>
                             </tr>
                           </tbody>
                         </table>

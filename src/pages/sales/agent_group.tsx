@@ -106,7 +106,7 @@ ${() => css`
           APICall(
             '/api/sales/get_agents',
             {
-              mode: 'agent level',
+              mode: 'Agent Level',
               user: agent.username,
               value: getNextLevel(agent.agent_level),
             },
@@ -165,7 +165,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Agent Level</div>
                     <div className="form-value">
-                      <select id="agent_level">
+                      <select id="agent_level" class="notranslate">
                         {['admin'].indexOf(userInfo.aLevel) > -1 && <option value="SH">SH</option>}
                         {['admin', 'SH'].indexOf(userInfo.aLevel) > -1 && <option value="SSMA">SSMA</option>}
                         {['admin', 'SH', 'SSMA'].indexOf(userInfo.aLevel) > -1 && <option value="SMA">SMA</option>}
@@ -304,27 +304,61 @@ ${() => css`
                 </tr>
                 <tr>
                   <td colSpan={11}>
-                    {dataset.map((agent, i) => (
-                      <div className="grayRow" key={'row_' + i}>
-                        <table style={{ width: '100%' }} className="notranslate">
-                          <tbody>
-                            <tr>
-                              <td style={{ width: '7%', height: '40px' }}>{getHyperLink(agent)}</td>
-                              <td style={{ width: '7%' }}>{agent.agent_level}</td>
-                              <td style={{ width: '7%' }}>{agent.first_name + ' ' + agent.last_name}</td>
-                              <td style={{ width: '7%' }}>{agent.payment_cycle}</td>
-                              <td style={{ width: '13%' }}>{agent.total_agent}</td>
-                              <td style={{ width: '13%' }}>{agent.total_players}</td>
-                              <td style={{ width: '7%' }}>{agent.status}</td>
-                              <td style={{ width: '13%' }}>{agent.lastUpdated}</td>
-                              <td style={{ width: '7%' }}>{agent.note}</td>
-                              <td style={{ width: '7%' }}>{agent.operation}</td>
-                              <td style={{ width: '3%' }}>+</td>
-                            </tr>
-                          </tbody>
-                        </table>
+                    {dataset.length ? (
+                      dataset.map((agent, i) => (
+                        <div className="grayRow" key={'row_' + i}>
+                          <table style={{ width: '100%' }} className="notranslate">
+                            <tbody>
+                              <tr>
+                                <td style={{ width: '7%', height: '40px' }}>{getHyperLink(agent)}</td>
+                                <td style={{ width: '7%' }}>{agent.agent_level}</td>
+                                <td style={{ width: '7%' }}>{agent.first_name + ' ' + agent.last_name}</td>
+                                <td style={{ width: '7%' }}>{agent.payment_cycle}</td>
+                                <td style={{ width: '13%' }}>
+                                  {agent.total_agent ? (
+                                    <a
+                                      href="javascript:void(0)"
+                                      style={{ color: 'blue' }}
+                                      onClick={() => {
+                                        APICall(
+                                          '/api/sales/get_agents',
+                                          {
+                                            mode: 'child',
+                                            value: agent.username,
+                                          },
+                                          (data) => {
+                                            setDatasets(data);
+                                          },
+                                          (e) => {
+                                            if (e[0] == 'login_issue') {
+                                              router.push('/auth/login');
+                                            } else alert(e[1] || 'Failed to load data.');
+                                          },
+                                        );
+                                      }}
+                                    >
+                                      {agent.total_agent}
+                                    </a>
+                                  ) : (
+                                    0
+                                  )}
+                                </td>
+                                <td style={{ width: '13%' }}>{agent.total_players}</td>
+                                <td style={{ width: '7%' }}>{agent.status}</td>
+                                <td style={{ width: '13%' }}>{agent.lastUpdated}</td>
+                                <td style={{ width: '7%' }}>{agent.note}</td>
+                                <td style={{ width: '7%' }}>{agent.operation}</td>
+                                <td style={{ width: '3%' }}>+</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="grayRow" style={{ height: '3rem', color: 'blue', lineHeight: '3rem' }}>
+                        No data
                       </div>
-                    ))}
+                    )}
                   </td>
                 </tr>
               </tbody>
