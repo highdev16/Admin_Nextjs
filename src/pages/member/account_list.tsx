@@ -7,6 +7,10 @@ import 'react-calendar/dist/Calendar.css';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { createGlobalStyle, css } from 'styled-components';
 import { Button } from '@paljs/ui/Button';
+
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+
 const AgentReport = () => {
   const CustomCSS = createGlobalStyle`
 ${() => css`
@@ -161,11 +165,18 @@ ${() => css`
   const [selectedTab, setSelectedTab] = React.useState(0);
   const [date1, setDate1] = React.useState(new Date());
   const [date2, setDate2] = React.useState(new Date());
+  const [isMobile, setMobile] = React.useState(null);
+
+  React.useEffect(() => {
+    if (window.innerWidth < 768) setMobile(true);
+    else setMobile(false);
+  }, []);
+  if (isMobile === null) return <div />;
   return (
-    <Layout title="Accordions">
+    <Layout title="Account List">
       <CustomCSS />
       <Row>
-        <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
+        <Col className="centerAll">
           <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-white">
             <div className="blue-title">Account List</div>
@@ -251,6 +262,7 @@ ${() => css`
                               marginTop: '1rem',
                               backgroundSize: 'cover',
                               borderRadius: 10,
+                              marginBottom: '1rem',
                             }}
                           >
                             Credit Player
@@ -349,49 +361,41 @@ ${() => css`
                   </td>
                 </tr>
               </thead>
-              <thead>
-                <tr>
-                  <td style={{ width: '5%', height: '44px' }}>#</td>
-                  <td style={{ width: '9%' }}>Account Type</td>
-                  <td style={{ width: '9%' }}>User name</td>
-                  <td style={{ width: '9%' }}>Login Name</td>
-                  <td style={{ width: '5%' }}>Edit</td>
-                  <td style={{ width: '5%' }}>Status</td>
-                  <td style={{ width: '5%' }}>Suspend</td>
-                  <td style={{ width: '5%' }}>Currency</td>
-                  <td style={{ width: '9%' }}>First/Last name</td>
-                  <td style={{ width: '9%' }}>Phone</td>
-                  <td style={{ width: '12%' }}>Create/Login Time</td>
-                  <td style={{ width: '12%' }}>Last Login</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colSpan={12}>
-                    <div className="grayRow">
-                      <table style={{ borderCollapse: 'collapse' }}>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '5%', height: '44px' }}>1</td>
-                            <td style={{ width: '9%' }}>SH</td>
-                            <td style={{ width: '9%' }}>IND</td>
-                            <td style={{ width: '9%' }}>IND</td>
-                            <td style={{ width: '5%' }}>..</td>
-                            <td style={{ width: '5%', color: 'green' }}>Open</td>
-                            <td style={{ width: '5%', color: 'green' }}>No</td>
-                            <td style={{ width: '5%' }}>SGD</td>
-                            <td style={{ width: '9%' }}>SH INDIA</td>
-                            <td style={{ width: '9%' }}>--</td>
-                            <td style={{ width: '12%' }}>2022-04-11 12:00:00</td>
-                            <td style={{ width: '12%' }}>2022-04-11 12:00:00</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
             </table>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>#</Th>
+                  <Th>Account Type</Th>
+                  <Th>User name</Th>
+                  <Th>Login Name</Th>
+                  <Th>Edit</Th>
+                  <Th>Status</Th>
+                  <Th>Suspend</Th>
+                  <Th>Currency</Th>
+                  <Th>First/Last name</Th>
+                  <Th>Phone</Th>
+                  <Th>Create/Login Time</Th>
+                  <Th>Last Login</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>1</Td>
+                  <Td>SH</Td>
+                  <Td>IND</Td>
+                  <Td>IND</Td>
+                  <Td>..</Td>
+                  <Td>Open</Td>
+                  <Td>No</Td>
+                  <Td>SGD</Td>
+                  <Td>SH INDIA</Td>
+                  <Td>--</Td>
+                  <Td>2022-04-11 12:00:00</Td>
+                  <Td>2022-04-11 12:00:00</Td>
+                </Tr>
+              </Tbody>
+            </Table>
           </div>
         </Col>
       </Row>

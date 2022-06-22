@@ -8,392 +8,597 @@ import { createGlobalStyle, css } from 'styled-components';
 import { Button } from '@paljs/ui/Button';
 import APICall from '../../utils/server_config';
 import { useRouter } from 'next/router';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
-const SportsTab = () => {
+const SportsTab = ({ isMobile }) => {
   return (
     <div style={{ width: '100%' }}>
       <table style={{ width: '100%', border: '1px solid white' }}>
         <thead style={{ background: 'url(/images/totalbet/member_total/header.png)', backgroundSize: 'cover' }}>
           <tr>
-            <td colSpan={6} style={{ color: 'white', height: '44px' }}>
+            <td colSpan={isMobile ? 3 : 6} style={{ color: 'white', height: '44px' }}>
               Max Credit / Bet Setting
             </td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colSpan={6}>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Sports:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <select style={{ width: '100%' }}>
-                          <option>Allowed</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '16%' }} />
-                      <td style={{ width: '16%' }}>Min Bet: </td>
-                      <td style={{ width: '16%' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%' }}>Min: 1</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Credit:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
-                      <td style={{ width: '16%', height: '40px' }}>Max Bet</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%' }}>Max: 10,000,000.00</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Password</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
-                      <td style={{ width: '16%', height: '40px' }}>Max per match:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <select style={{ width: '100%' }}>
-                          <option>SGD</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '16%' }}>Max: 20,000,000.00</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </td>
+            {!isMobile ? (
+              <td colSpan={6}>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Sports:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>Allowed</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '16%' }} />
+                        <td style={{ width: '16%' }}>Min Bet: </td>
+                        <td style={{ width: '16%' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%' }}>Min: 1</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Credit:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
+                        <td style={{ width: '16%', height: '40px' }}>Max Bet</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%' }}>Max: 10,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Password</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
+                        <td style={{ width: '16%', height: '40px' }}>Max per match:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>SGD</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '16%' }}>Max: 20,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            ) : (
+              <td colSpan={3}>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Sports:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>Allowed</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '33%' }} />
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%' }}>Min Bet: </td>
+                        <td style={{ width: '33%' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%' }}>Min: 1</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Credit:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%', color: 'gray' }}>Max: 1,800,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Max Bet</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%' }}>Max: 10,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Password</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%', color: 'gray' }}>Max: 1,800,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Max per match:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>USD</option>
+                            <option>SGD</option>
+                            <option>VND</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '33%' }}>Max: 20,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            )}
           </tr>
         </tbody>
       </table>
       <table style={{ width: '100%', border: '1px solid white' }}>
         <thead style={{ background: 'url(/images/totalbet/member_total/header.png)', backgroundSize: 'cover' }}>
           <tr>
-            <td colSpan={6} style={{ color: 'white', height: '44px' }}>
+            <td colSpan={isMobile ? 3 : 6} style={{ color: 'white', height: '44px' }}>
               Commission
             </td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colSpan={6}>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Sports:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <select style={{ width: '100%' }}>
-                          <option>Allowed</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '16%' }} />
-                      <td style={{ width: '16%' }}>Min Bet: </td>
-                      <td style={{ width: '16%' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%' }}>Min: 1</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Credit:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
-                      <td style={{ width: '16%', height: '40px' }}>Max Bet</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%' }}>Max: 10,000,000.00</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Password</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
-                      <td style={{ width: '16%', height: '40px' }}>Max per match:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <select style={{ width: '100%' }}>
-                          <option>SGD</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '16%' }}>Max: 20,000,000.00</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </td>
+            {!isMobile ? (
+              <td colSpan={6}>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Sports:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>Allowed</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '16%' }} />
+                        <td style={{ width: '16%' }}>Min Bet: </td>
+                        <td style={{ width: '16%' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%' }}>Min: 1</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Credit:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
+                        <td style={{ width: '16%', height: '40px' }}>Max Bet</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%' }}>Max: 10,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Password</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
+                        <td style={{ width: '16%', height: '40px' }}>Max per match:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>SGD</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '16%' }}>Max: 20,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            ) : (
+              <td colSpan={3}>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Sports:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>Allowed</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '33%' }} />
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%' }}>Min Bet: </td>
+                        <td style={{ width: '33%' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%' }}>Min: 1</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Credit:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%', color: 'gray' }}>Max: 1,800,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Max Bet</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%' }}>Max: 10,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Password</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%', color: 'gray' }}>Max: 1,800,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Max per match:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>SGD</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '33%' }}>Max: 20,000,000.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            )}
           </tr>
         </tbody>
       </table>
       <table style={{ width: '100%', border: '1px solid white' }}>
         <thead style={{ background: 'url(/images/totalbet/member_total/header.png)', backgroundSize: 'cover' }}>
           <tr>
-            <td colSpan={6} style={{ color: 'white', height: '44px' }}>
+            <td colSpan={isMobile ? 3 : 6} style={{ color: 'white', height: '44px' }}>
               Position Taking
             </td>
           </tr>
         </thead>
-        <thead>
-          <tr>
-            <td style={{ width: '10%', height: '44px' }}>Type</td>
-            <td style={{ width: '20%' }}>Min PT</td>
-            <td style={{ width: '20%' }}>Forced PT</td>
-            <td style={{ width: '10%' }}>Total</td>
-            <td style={{ width: '20%' }}>Take Remaining</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colSpan={6}>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '10%', height: '40px' }}>PT1:</td>
-                      <td style={{ width: '20%', height: '40px' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '10%' }}>100</td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '10%', height: '40px' }}>PT2:</td>
-                      <td style={{ width: '20%', height: '40px' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '10%' }}>100</td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '10%', height: '40px' }}>Outlight:</td>
-                      <td style={{ width: '20%', height: '40px' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '10%' }}>100</td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '10%', height: '40px' }}>AH LIVE:</td>
-                      <td style={{ width: '20%', height: '40px' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '10%' }}>100</td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '10%', height: '40px' }}>OU Live:</td>
-                      <td style={{ width: '20%', height: '40px' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '10%' }}>100</td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </td>
-          </tr>
-        </tbody>
       </table>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Type</Th>
+            <Th>Min PT</Th>
+            <Th>Forced PT</Th>
+            <Th>Total</Th>
+            <Th>Take Remaining</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          <Tr>
+            <Td>PT1</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>PT2</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>Outlight</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>AH Live</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>OU Live</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+        </Tbody>
+      </Table>
     </div>
   );
 };
-const GameTab = () => {
+const GameTab = ({ isMobile }) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ lineHeight: '44px' }}> Product Setting </div>
       <table style={{ width: '100%', border: '1px solid white' }}>
         <thead style={{ background: 'url(/images/totalbet/member_total/header.png)', backgroundSize: 'cover' }}>
           <tr>
-            <td colSpan={6} style={{ color: 'white', height: '44px' }}>
+            <td colSpan={isMobile ? 3 : 6} style={{ color: 'white', height: '44px' }}>
               Games
             </td>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td colSpan={6}>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Player Max Win:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <select style={{ width: '100%' }}>
-                          <option>Allowed</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '16%' }} />
-                      <td style={{ width: '16%' }}>Player Max Lose: </td>
-                      <td style={{ width: '16%' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%' }}></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Daily Reset:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
-                      </td>
-                      <td style={{ width: '16%', color: 'gray' }}></td>
-                      <td style={{ width: '16%', height: '40px' }}></td>
-                      <td style={{ width: '16%', height: '40px' }}></td>
-                      <td style={{ width: '16%' }}></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </td>
-          </tr>
+          {isMobile ? (
+            <tr>
+              <td colSpan={isMobile ? 3 : 6}>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Player Max Win:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>Allowed</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '33%' }} />
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%' }}>Player Max Lose: </td>
+                        <td style={{ width: '33%' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%' }}></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Daily Reset:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '33%', color: 'gray' }}></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}></td>
+                        <td style={{ width: '33%', height: '40px' }}></td>
+                        <td style={{ width: '33%' }}></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          ) : (
+            <tr>
+              <td colSpan={6}>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Player Max Win:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <select style={{ width: '100%' }}>
+                            <option>Allowed</option>
+                          </select>
+                        </td>
+                        <td style={{ width: '16%' }} />
+                        <td style={{ width: '16%' }}>Player Max Lose: </td>
+                        <td style={{ width: '16%' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%' }}></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Daily Reset:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <input type="text" style={{ width: '100%' }} />
+                        </td>
+                        <td style={{ width: '16%', color: 'gray' }}></td>
+                        <td style={{ width: '16%', height: '40px' }}></td>
+                        <td style={{ width: '16%', height: '40px' }}></td>
+                        <td style={{ width: '16%' }}></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <table style={{ width: '100%', border: '1px solid white' }}>
         <thead style={{ background: 'url(/images/totalbet/member_total/header.png)', backgroundSize: 'cover' }}>
           <tr>
-            <td colSpan={6} style={{ color: 'white', height: '44px' }}>
+            <td colSpan={isMobile ? 3 : 6} style={{ color: 'white', height: '44px' }}>
               Commission
             </td>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td colSpan={6}>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '16%', height: '40px' }}>Game:</td>
-                      <td style={{ width: '16%', height: '40px' }}>
-                        <input style={{ width: '100%' }}></input>
-                      </td>
-                      <td style={{ width: '16%', color: 'gray' }}> % Max 10</td>
-                      <td style={{ width: '16%' }}></td>
-                      <td style={{ width: '16%' }}></td>
-                      <td style={{ width: '16%' }}></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </td>
-          </tr>
+          {isMobile ? (
+            <tr>
+              <td colSpan={3}>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '33%', height: '40px' }}>Game:</td>
+                        <td style={{ width: '33%', height: '40px' }}>
+                          <input style={{ width: '100%' }}></input>
+                        </td>
+                        <td style={{ width: '33%', color: 'gray' }}> % Max 10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          ) : (
+            <tr>
+              <td colSpan={6}>
+                <div className="grayRow">
+                  <table style={{ borderCollapse: 'collapse' }}>
+                    <tbody>
+                      <tr>
+                        <td style={{ width: '16%', height: '40px' }}>Game:</td>
+                        <td style={{ width: '16%', height: '40px' }}>
+                          <input style={{ width: '100%' }}></input>
+                        </td>
+                        <td style={{ width: '16%', color: 'gray' }}> % Max 10</td>
+                        <td style={{ width: '16%' }}></td>
+                        <td style={{ width: '16%' }}></td>
+                        <td style={{ width: '16%' }}></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <table style={{ width: '100%', border: '1px solid white' }}>
@@ -404,47 +609,95 @@ const GameTab = () => {
             </td>
           </tr>
         </thead>
-        <thead>
-          <tr>
-            <td style={{ width: '10%', height: '44px' }}>Type</td>
-            <td style={{ width: '20%' }}>Min PT</td>
-            <td style={{ width: '20%' }}>Forced PT</td>
-            <td style={{ width: '10%' }}>Total</td>
-            <td style={{ width: '20%' }}>Take Remaining</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td colSpan={6}>
-              <div className="grayRow">
-                <table style={{ borderCollapse: 'collapse' }}>
-                  <tbody>
-                    <tr>
-                      <td style={{ width: '10%', height: '40px' }}>PT1:</td>
-                      <td style={{ width: '20%', height: '40px' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                      <td style={{ width: '10%' }}>100</td>
-                      <td style={{ width: '20%' }}>
-                        <select style={{ width: '80%' }}>
-                          <option>0</option>
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </td>
-          </tr>
-        </tbody>
       </table>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th>Type</Th>
+            <Th>Min PT</Th>
+            <Th>Forced PT</Th>
+            <Th>Total</Th>
+            <Th>Take Remaining</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          <Tr>
+            <Td>PT1</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>PT2</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>Outlight</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>AH Live</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+          <Tr>
+            <Td>OU Live</Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+            <Td>
+              <input type="text" />
+            </Td>
+          </Tr>
+        </Tbody>
+      </Table>
     </div>
   );
 };
@@ -988,7 +1241,7 @@ const ThirdPartyService = () => {
   );
 };
 
-const AgentReport = () => {
+const NewSH = () => {
   const router = useRouter();
   const createAccount = () => {
     var username = document.getElementById('username').value;
@@ -999,7 +1252,6 @@ const AgentReport = () => {
     var currency = document.getElementById('currency').value;
     var agent_level = document.getElementById('agent_level').value;
     var email = document.getElementById('email').value;
-
     if (username.length < 2) return alert('Username too short');
     if (password.length < 6) return alert('Password too short');
     if (email.trim().length < 1) return alert('Enter the valid e-mail address');
@@ -1082,8 +1334,9 @@ ${() => css`
     border: 1px solid gray;
     color: gray;
     text-align: center;
-    height: 44px;
-    line-height: 44px;
+    height: 54px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
   div.tabs div.tab.selected {
     background: url(/images/sales/tabcell_bkg.png);
@@ -1189,7 +1442,13 @@ ${() => css`
   }
 `}`;
   const [selectedTab, setSelectedTab] = React.useState(0);
+  const [isMobile, setMobile] = React.useState(null);
 
+  React.useEffect(() => {
+    if (window.innerWidth < 768) setMobile(true);
+    else setMobile(false);
+  }, []);
+  if (isMobile === null) return <div />;
   return (
     <Layout title="Accordions">
       <CustomCSS />
@@ -1203,112 +1462,232 @@ ${() => css`
             <table style={{ width: '100%', border: '1px solid white' }}>
               <thead style={{ background: 'url(/images/totalbet/member_total/header.png)', backgroundSize: 'cover' }}>
                 <tr>
-                  <td colSpan={6} style={{ color: 'white', height: '44px' }}>
+                  <td colSpan={!isMobile ? 6 : 3} style={{ color: 'white', height: '44px' }}>
                     User Information
                   </td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td colSpan={6}>
-                    <div className="grayRow">
-                      <table style={{ borderCollapse: 'collapse' }}>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '16%', height: '40px' }}>Account Type</td>
-                            <td style={{ width: '16%', height: '40px' }}>
-                              <select style={{ width: '100%' }} id="agent_level">
-                                <option value="SMA">Super Master Agent</option>
-                              </select>
-                            </td>
-                            <td style={{ width: '16%' }} />
-                            <td style={{ width: '16%' }} />
-                            <td style={{ width: '16%' }} />
-                            <td style={{ width: '16%' }} />
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="grayRow">
-                      <table style={{ borderCollapse: 'collapse' }}>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '16%', height: '40px' }}>UserName</td>
-                            <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} id="username" />
-                            </td>
-                            <td style={{ width: '16%', color: 'gray' }}>*Required</td>
-                            <td style={{ width: '16%', height: '40px' }}>Email</td>
-                            <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} id="email" />
-                            </td>
-                            <td style={{ width: '16%' }}></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="grayRow">
-                      <table style={{ borderCollapse: 'collapse' }}>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '16%', height: '40px' }}>Password</td>
-                            <td style={{ width: '16%', height: '40px' }}>
-                              <input type="password" style={{ width: '100%' }} id="password" />
-                            </td>
-                            <td style={{ width: '16%', color: 'gray' }}>*Required</td>
-                            <td style={{ width: '16%', height: '40px' }}>Currency</td>
-                            <td style={{ width: '16%', height: '40px' }}>
-                              <select style={{ width: '100%' }} id="currency">
-                                <option value="USD">USD</option>
-                                <option value="SGD">SGD</option>
-                              </select>
-                            </td>
-                            <td style={{ width: '16%' }}></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="grayRow">
-                      <table style={{ borderCollapse: 'collapse' }}>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '16%', height: '40px' }}>First Name</td>
-                            <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} id="firstname" />
-                            </td>
-                            <td style={{ width: '16%' }}></td>
-                            <td style={{ width: '16%', height: '40px' }}>Phone</td>
-                            <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} id="phone" />
-                            </td>
-                            <td style={{ width: '16%' }}></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="grayRow">
-                      <table style={{ borderCollapse: 'collapse' }}>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '16%', height: '40px' }}>Last Name</td>
-                            <td style={{ width: '16%', height: '40px' }}>
-                              <input type="text" style={{ width: '100%' }} id="lastname" />
-                            </td>
-                            <td style={{ width: '16%' }}></td>
-                            <td style={{ width: '16%' }} />
-                            <td style={{ width: '16%' }} />
-                            <td style={{ width: '16%' }} />
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td>
+                  {!isMobile ? (
+                    <td colSpan={6}>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '16%', height: '40px' }}>Account Type</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <select style={{ width: '100%' }} id="agent_level">
+                                  <option value="SMA">SMA</option>
+                                </select>
+                              </td>
+                              <td style={{ width: '16%' }} />
+                              <td style={{ width: '16%' }} />
+                              <td style={{ width: '16%' }} />
+                              <td style={{ width: '16%' }} />
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '16%', height: '40px' }}>UserName</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="username" />
+                              </td>
+                              <td style={{ width: '16%', color: 'gray' }}>*Required</td>
+                              <td style={{ width: '16%', height: '40px' }}>Email</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="email" />
+                              </td>
+                              <td style={{ width: '16%' }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '16%', height: '40px' }}>Password</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <input type="password" style={{ width: '100%' }} id="password" />
+                              </td>
+                              <td style={{ width: '16%', color: 'gray' }}>*Required</td>
+                              <td style={{ width: '16%', height: '40px' }}>Currency</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <select style={{ width: '100%' }} id="currency">
+                                  <option value="USD">USD</option>
+                                  <option value="SGD">SGD</option>
+                                </select>
+                              </td>
+                              <td style={{ width: '16%' }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '16%', height: '40px' }}>First Name</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="firstname" />
+                              </td>
+                              <td style={{ width: '16%' }}></td>
+                              <td style={{ width: '16%', height: '40px' }}>Phone</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="phone" />
+                              </td>
+                              <td style={{ width: '16%' }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '16%', height: '40px' }}>Last Name</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="lastname" />
+                              </td>
+                              <td style={{ width: '16%' }}></td>
+                              <td style={{ width: '16%' }} />
+                              <td style={{ width: '16%' }} />
+                              <td style={{ width: '16%' }} />
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  ) : (
+                    <td colSpan={3}>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '33%', height: '40px' }}>Account Type</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <select style={{ width: '100%' }} id="agent_level">
+                                  <option value="SMA">SMA</option>
+                                </select>
+                              </td>
+                              <td style={{ width: '33%' }} />
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '33%', height: '40px' }}>UserName</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="username" />
+                              </td>
+                              <td style={{ width: '33%', color: 'gray' }}>*Required</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '33%', height: '40px' }}>Email</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="email" />
+                              </td>
+                              <td style={{ width: '33%' }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '33%', height: '40px' }}>Password</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <input type="password" style={{ width: '100%' }} id="password" />
+                              </td>
+                              <td style={{ width: '33%', color: 'gray' }}>*Required</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '33%', height: '40px' }}>Currency</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <select style={{ width: '100%' }} id="currency">
+                                  <option value="USD">USD</option>
+                                  <option value="SGD">SGD</option>
+                                  <option value="VND">VND</option>
+                                </select>
+                              </td>
+                              <td style={{ width: '33%' }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '33%', height: '40px' }}>First Name</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="firstname" />
+                              </td>
+                              <td style={{ width: '33%' }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '33%', height: '40px' }}>Phone</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="phone" />
+                              </td>
+                              <td style={{ width: '33%' }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
+                              <td style={{ width: '33%', height: '40px' }}>Last Name</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <input type="text" style={{ width: '100%' }} id="lastname" />
+                              </td>
+                              <td style={{ width: '33%' }}></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               </tbody>
             </table>
             <div style={{ position: 'relative', marginTop: '2rem', display: 'flex' }}>
-              <div style={{ lineHeight: '40px', marginLeft: '1rem' }}>Product: </div>
-              <div className="tabs">
+              <div style={{ lineHeight: '40px', height: '40px', marginLeft: isMobile ? '0rem' : '1rem' }}>
+                {isMobile ? ' ' : 'Product:'}
+              </div>
+              <div
+                className="tabs"
+                style={isMobile ? { left: 0, width: '100% !important' } : { width: 'calc(100% - 100px)' }}
+              >
                 <div className={'tab ' + (selectedTab === 0 && 'selected')} onClick={() => setSelectedTab(0)}>
                   Sports
                 </div>
@@ -1322,15 +1701,15 @@ ${() => css`
                   Game Provider
                 </div>
                 <div className={'tab ' + (selectedTab === 4 && 'selected')} onClick={() => setSelectedTab(4)}>
-                  Third Party Sports
+                  3rd Party Sports
                 </div>
               </div>
             </div>
-            {selectedTab == 0 ? <SportsTab /> : null}
-            {selectedTab == 1 ? <GameTab /> : null}
-            {selectedTab == 2 ? <LiveCasino /> : null}
-            {selectedTab == 3 ? <GameProvider /> : null}
-            {selectedTab == 4 ? <ThirdPartyService /> : null}
+            {selectedTab == 0 ? <SportsTab isMobile={isMobile} /> : null}
+            {selectedTab == 1 ? <GameTab isMobile={isMobile} /> : null}
+            {selectedTab == 2 ? <LiveCasino isMobile={isMobile} /> : null}
+            {selectedTab == 3 ? <GameProvider isMobile={isMobile} /> : null}
+            {selectedTab == 4 ? <ThirdPartyService isMobile={isMobile} /> : null}
             <Col breakPoint={{ xs: 12 }}>
               <Button
                 style={{
@@ -1384,4 +1763,4 @@ ${() => css`
   );
 };
 
-export default AgentReport;
+export default NewSH;

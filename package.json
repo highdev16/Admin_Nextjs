@@ -1,9 +1,9 @@
 {
-  "name": "nextjs-admin-template",
+  "name": "admin",
   "private": true,
-  "description": "Admin dashboard template based on nextjs with @paljs/ui component package",
-  "version": "0.1.0",
-  "author": "Ahmed Elywa",
+  "description": "Developed by Wei",
+  "version": "1.0.0",
+  "author": "Wei Qian",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "29.2.0",
     "@ckeditor/ckeditor5-react": "3.0.2",
@@ -15,6 +15,7 @@
     "apexcharts": "^3.35.3",
     "chart.js": "^3.8.0",
     "cookie-parser": "^1.4.6",
+    "is-mobile": "^3.1.1",
     "moment": "^2.29.3",
     "next": "^11.1.2",
     "react": "17.0.2",
@@ -22,6 +23,7 @@
     "react-calendar": "^3.7.0",
     "react-chartjs-2": "^4.1.0",
     "react-dom": "17.0.2",
+    "react-super-responsive-table": "^5.2.1",
     "recharts": "^2.1.10",
     "styled-components": "5.3.1"
   },

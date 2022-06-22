@@ -42,12 +42,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
     if (localTheme !== theme && theme === 'default') {
       setTheme(localTheme);
     }
-    // var authLayout = router.pathname.startsWith('/auth/login');
-    // if (!isLogin() && !authLayout) {
-    //   router.push('/auth/login');
-    // }
-    // isLogin();
-    isLogin() ? true : router.push('/auth/login');
+    isLogin() || router.push('/auth/login');
   }, []);
 
   const changeDir = () => {
@@ -61,13 +56,14 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
   if (typeof window !== 'undefined' && !user && !authLayout) {
     return <div />;
   }
+
   return (
     <Fragment>
       <SEO {...rest} />
       <ThemeProvider theme={themes(theme, dir)}>
         <Fragment>
           <SimpleLayout />
-          <Layout evaIcons={icons} dir={dir} className={!authLayout ? 'auth-layout' : 'auth-layout'}>
+          <Layout evaIcons={icons} dir={dir} className={'auth-layout'}>
             {!authLayout && (
               <Header
                 dir={dir}
@@ -79,11 +75,12 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
             <LayoutContainer>
               {!authLayout && (
                 <Sidebar
+                  responsive
+                  compactedBreakpoints={['xs', 'md']}
+                  state="compacted"
                   getState={getState}
                   ref={sidebarRef}
                   property="start"
-                  containerFixed
-                  responsive
                   className="menu-sidebar"
                 >
                   <header id="userLogoHead">
@@ -96,7 +93,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
                             </td>
                             <td className="WhiteLabel">
                               <div style={{ color: 'white !important' }}>Welcome!</div>
-                              <div style={{ color: 'white !important' }}>User</div>
+                              <div style={{ color: 'white !important' }}>{user.fullname}</div>
                             </td>
                           </tr>
                         </tbody>
@@ -107,6 +104,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
                     <Menu
                       nextJs
                       className="sidebar-menu"
+                      style={{ margin: '0px -1.25rem -1.25rem' }}
                       Link={Link}
                       ref={menuRef}
                       items={getSelectedMenu(menuItems(user), router.pathname)}

@@ -5,7 +5,19 @@ import { breakpointDown } from '@paljs/ui/breakpoints';
 const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
-
+  body {
+    top: 0px !important;
+  }
+  aside.expanded {
+    display: block;
+    opacity: 1;
+    transition: display 0.6s, opacity 0.6s linear;
+  }
+  aside.compacted {
+    display: none;
+    opacity: 0;
+    transition: display 0.6s, opacity 0.6s linear;
+  }
   #rfs-btn {
     border: 1px solid;
     border-color: rgba(107, 114, 128, 1);
@@ -135,6 +147,11 @@ ${({ theme }) => css`
     background-repeat: no-repeat !important;
     border-radius: 5px;
   }
+  ${breakpointDown('md')`
+    div.tabs {
+      
+    }
+  `}
   ${breakpointDown('xs')`
   .main-content-fullscreen {
     padding: 0 !important;
@@ -209,6 +226,22 @@ ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+  .responsiveTable tbody tr {
+    background: #dceffd;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+    width: 100%;
+  }
+  .responsiveTable td {
+    padding: 0.3rem 0;
+  }
+  .responsiveTable td input,
+  .responsiveTable td select {
+    width: 100%;
+  }
+  .responsiveTable tbody tr:nth-child(2n + 1) {
+    background: #d7f5eb;
   }
 `}
 `;
