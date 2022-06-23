@@ -9,12 +9,23 @@ import getUserInfo from '../../utils/localstorage';
 import { Button } from '@paljs/ui';
 import APICall from 'utils/server_config';
 import getNextLevel from 'utils/level';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const AgentGroup = () => {
   const [filterBy, setFilterBy] = React.useState('Agent ID');
   const [dataset, setDatasets] = React.useState([]);
   const [parentUser, setParentUser] = React.useState('');
+  const [isSubmitting, setSubmitting] = React.useState(false);
   const userInfo = getUserInfo();
+  const [isMobile, setMobile] = React.useState(null);
+
+  React.useEffect(() => {
+    if (window.innerWidth < 768) setMobile(true);
+    else setMobile(false);
+  }, []);
+  if (isMobile === null) return <div />;
+
   const CustomCSS = createGlobalStyle`
 ${() => css`
   .auth-layout .main-content {
@@ -103,6 +114,7 @@ ${() => css`
         href="javascript:void(0)"
         style={{ color: 'blue' }}
         onClick={(e) => {
+          setSubmitting(true);
           APICall(
             '/api/sales/get_agents',
             {
@@ -111,10 +123,12 @@ ${() => css`
               value: getNextLevel(agent.agent_level),
             },
             (data) => {
+              setSubmitting(false);
               setParentUser(agent.username);
               setDatasets(data);
             },
             (e) => {
+              setSubmitting(false);
               if (e[0] == 'login_issue') {
                 router.push('/auth/login');
               } else alert(e[1] || 'Failed to load data.');
@@ -130,7 +144,7 @@ ${() => css`
   return (
     <Layout title="Accordions">
       <CustomCSS />
-      <Row>
+      <Row style={{ marginLeft: 0, marginRight: 0 }}>
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
           <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-white">
@@ -143,7 +157,7 @@ ${() => css`
               </Col>
             </Row>
             <Row>
-              <Col breakPoint={{ xs: 3 }}>
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Filter</div>
                   <div className="form-value">
@@ -159,7 +173,7 @@ ${() => css`
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 3 }}>
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
                 {' '}
                 {filterBy !== 'Agent ID' ? (
                   <div className="form-item">
@@ -185,7 +199,7 @@ ${() => css`
                   </div>
                 )}
               </Col>
-              <Col breakPoint={{ xs: 3 }}>
+              <Col breakPoint={{ md: 6, sm: 12, lg: 3 }}>
                 {filterBy !== 'Agent ID' && (
                   <div className="form-item">
                     <div className="form-label">Status</div>
@@ -200,7 +214,7 @@ ${() => css`
                   </div>
                 )}
               </Col>
-              <Col breakPoint={{ xs: 3 }}>
+              <Col breakPoint={{ md: 6, sm: 12, lg: 3 }}>
                 {filterBy !== 'Agent ID' && (
                   <div className="form-item">
                     <div className="form-label">Payment Cycle</div>
@@ -247,9 +261,11 @@ ${() => css`
                       border: '0px',
                       background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
                       color: 'white',
-                      width: '170px',
+                      width: isMobile ? '100px' : '170px',
                     }}
                     onClick={() => {
+                      if (isSubmitting) return;
+                      setSubmitting(true);
                       APICall(
                         '/api/sales/get_agents',
                         {
@@ -264,9 +280,11 @@ ${() => css`
                             : '',
                         },
                         (data) => {
+                          setSubmitting(false);
                           setDatasets(data);
                         },
                         (e) => {
+                          setSubmitting(false);
                           if (e[0] == 'login_issue') {
                             router.push('/auth/login');
                           } else alert(e[1] || 'Failed to load data.');
@@ -274,7 +292,7 @@ ${() => css`
                       );
                     }}
                   >
-                    Search
+                    {isSubmitting ? 'Loading...' : 'Search'}
                   </Button>
                 </div>
               </Col>
@@ -287,82 +305,83 @@ ${() => css`
                     Agent Group {parentUser && `(${parentUser})`}
                   </td>
                 </tr>
-                <tr>
-                  <td style={{ width: '7%', height: '40px' }}>ID Agent</td>
-                  <td style={{ width: '7%' }}>Agent Level</td>
-                  <td style={{ width: '7%' }}>Real name</td>
-                  <td style={{ width: '7%' }}>Payment cycle</td>
-                  <td style={{ width: '13%' }}>Total number of agent</td>
-                  <td style={{ width: '13%' }}>Total number of players</td>
-                  <td style={{ width: '7%' }}>Status</td>
-                  <td style={{ width: '13%' }}>Last updated</td>
-                  <td style={{ width: '7%' }}>Note </td>
-                  <td style={{ width: '7%' }}>Operation</td>
-                  <td style={{ width: '3%' }}>
-                    <img src="/images/sales/eye.png" />
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={11}>
-                    {dataset.length ? (
-                      dataset.map((agent, i) => (
-                        <div className="grayRow" key={'row_' + i}>
-                          <table style={{ width: '100%' }} className="notranslate">
-                            <tbody>
-                              <tr>
-                                <td style={{ width: '7%', height: '40px' }}>{getHyperLink(agent)}</td>
-                                <td style={{ width: '7%' }}>{agent.agent_level}</td>
-                                <td style={{ width: '7%' }}>{agent.first_name + ' ' + agent.last_name}</td>
-                                <td style={{ width: '7%' }}>{agent.payment_cycle}</td>
-                                <td style={{ width: '13%' }}>
-                                  {agent.total_agent ? (
-                                    <a
-                                      href="javascript:void(0)"
-                                      style={{ color: 'blue' }}
-                                      onClick={() => {
-                                        APICall(
-                                          '/api/sales/get_agents',
-                                          {
-                                            mode: 'child',
-                                            value: agent.username,
-                                          },
-                                          (data) => {
-                                            setDatasets(data);
-                                          },
-                                          (e) => {
-                                            if (e[0] == 'login_issue') {
-                                              router.push('/auth/login');
-                                            } else alert(e[1] || 'Failed to load data.');
-                                          },
-                                        );
-                                      }}
-                                    >
-                                      {agent.total_agent}
-                                    </a>
-                                  ) : (
-                                    0
-                                  )}
-                                </td>
-                                <td style={{ width: '13%' }}>{agent.total_players}</td>
-                                <td style={{ width: '7%' }}>{agent.status}</td>
-                                <td style={{ width: '13%' }}>{agent.lastUpdated}</td>
-                                <td style={{ width: '7%' }}>{agent.note}</td>
-                                <td style={{ width: '7%' }}>{agent.operation}</td>
-                                <td style={{ width: '3%' }}>+</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="grayRow" style={{ height: '3rem', color: 'blue', lineHeight: '3rem' }}>
-                        No data
-                      </div>
-                    )}
-                  </td>
-                </tr>
               </tbody>
             </table>
+            {dataset.length ? (
+              <Table>
+                <Thead>
+                  <Tr>
+                    <Th>ID Agent</Th>
+                    <Th>Agent Level</Th>
+                    <Th>Real name</Th>
+                    <Th>Payment cycle</Th>
+                    <Th>Total number of agent</Th>
+                    <Th>Total number of players</Th>
+                    <Th>Status</Th>
+                    <Th>Last updated</Th>
+                    <Th>Note </Th>
+                    <Th>Operation</Th>
+                    <Th>
+                      <img src="/images/sales/eye.png" />
+                    </Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {dataset.length
+                    ? dataset.map((agent, i) => (
+                        <Tr key={'rowt_' + i}>
+                          <Td>{getHyperLink(agent)}</Td>
+                          <Td>{agent.agent_level}</Td>
+                          <Td>{agent.first_name + ' ' + agent.last_name}</Td>
+                          <Td>{agent.payment_cycle}</Td>
+                          <Td>
+                            {agent.total_agent ? (
+                              <a
+                                href="javascript:void(0)"
+                                style={{ color: 'blue' }}
+                                onClick={() => {
+                                  setSubmitting(false);
+                                  APICall(
+                                    '/api/sales/get_agents',
+                                    {
+                                      mode: 'child',
+                                      value: agent.username,
+                                    },
+                                    (data) => {
+                                      setSubmitting(false);
+                                      seTdatasets(data);
+                                    },
+                                    (e) => {
+                                      setSubmitting(false);
+                                      if (e[0] == 'login_issue') {
+                                        router.push('/auth/login');
+                                      } else alert(e[1] || 'Failed to load data.');
+                                    },
+                                  );
+                                }}
+                              >
+                                {agent.total_agent}
+                              </a>
+                            ) : (
+                              0
+                            )}
+                          </Td>
+                          <Td>{agent.total_players}</Td>
+                          <Td>{agent.status}</Td>
+                          <Td>{agent.lastUpdated}</Td>
+                          <Td>{agent.note}</Td>
+                          <Td>{agent.operation}</Td>
+                          <Td>+</Td>
+                        </Tr>
+                      ))
+                    : null}
+                </Tbody>
+              </Table>
+            ) : (
+              <div className="grayRow" style={{ lineHeight: '40px' }}>
+                No data
+              </div>
+            )}
           </div>
         </Col>
       </Row>

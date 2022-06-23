@@ -175,7 +175,7 @@ ${() => css`
   return (
     <Layout title="Account List">
       <CustomCSS />
-      <Row>
+      <Row style={{ marginLeft: 0, marginRight: 0 }}>
         <Col className="centerAll">
           <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-white">

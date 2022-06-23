@@ -243,6 +243,17 @@ ${({ theme }) => css`
   .responsiveTable tbody tr:nth-child(2n + 1) {
     background: #d7f5eb;
   }
+
+  @media screen and (max-width: 40em) {
+    .responsiveTable td.pivoted {
+      display: flex;
+      padding-left: 10px !important;
+      padding-left: -webkit-calc(10px) !important;
+    }
+    .responsiveTable td .tdBefore {
+      position: relative;
+    }
+  }
 `}
 `;
 export default SimpleLayout;

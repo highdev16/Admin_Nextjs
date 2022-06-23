@@ -136,7 +136,7 @@ ${() => css`
   return (
     <Layout title="Accordions">
       <CustomCSS />
-      <Row>
+      <Row style={{ marginLeft: 0, marginRight: 0 }}>
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
           <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-white">

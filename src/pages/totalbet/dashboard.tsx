@@ -79,7 +79,7 @@ const Accordions = () => {
   return (
     <Layout title="Accordions">
       <CustomCSS />
-      <Row>
+      <Row style={{ marginLeft: 0, marginRight: 0 }}>
         <Col breakPoint={{ xs: 0, md: 2 }} />
         <Col className="centerAll" breakPoint={{ xs: 12, md: 8 }}>
           <img src="/images/logo_black.png" className="contentHeaderImage" />
