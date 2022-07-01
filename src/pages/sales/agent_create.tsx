@@ -191,7 +191,7 @@ ${() => css`
         },
         (e) => {
           if (e[0] == 'login_issue') {
-            router.push('/auth/login');
+            window.location.href = '/auth/login';
           } else if (e[0] == -10) {
             alert('Already existing username or email');
           } else if (e[0] === -203) alert('Invalid email/username/password format.');

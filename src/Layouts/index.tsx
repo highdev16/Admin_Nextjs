@@ -42,7 +42,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
     if (localTheme !== theme && theme === 'default') {
       setTheme(localTheme);
     }
-    isLogin() || router.push('/auth/login');
+    isLogin() || (window.location.href = '/auth/login');
   }, []);
 
   const changeDir = () => {

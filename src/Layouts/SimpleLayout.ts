@@ -5,6 +5,78 @@ import { breakpointDown } from '@paljs/ui/breakpoints';
 const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
+
+  .ReactTable .-pagination {
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 3px;
+    -webkit-box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
+    box-shadow: 0 0 15px 0 rgb(0 0 0 / 10%);
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+  }
+  .ReactTable .-pagination .-next,
+  .ReactTable .-pagination .-previous {
+    -ms-flex: 1;
+    flex: 1 1;
+    text-align: center;
+  }
+  .ReactTable .-pagination .-center {
+    -ms-flex: 1.5;
+    flex: 1.5 1;
+    text-align: center;
+    margin-bottom: 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+  }
+  .ReactTable .-pagination .-next,
+  .ReactTable .-pagination .-previous {
+    -ms-flex: 1;
+    flex: 1 1;
+    text-align: center;
+  }
+  .ReactTable .-pagination .-pageJump input {
+    width: 70px;
+    text-align: center;
+  }
+  .ReactTable .-pagination input,
+  .ReactTable .-pagination select {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #fff;
+    padding: 5px 7px;
+    font-size: inherit;
+    border-radius: 3px;
+    font-weight: 400;
+    outline-width: 0;
+  }
+
+  .ReactTable .-pagination .-pageInfo {
+    display: inline-block;
+    margin: 3px 10px;
+    white-space: nowrap;
+    gap: 3rem;
+  }
+
+  .ReactTable .-pagination .-pageJump {
+    display: inline-block;
+  }
+  input[type='datetime-local'] {
+    max-width: 180px;
+  }
   body {
     top: 0px !important;
   }

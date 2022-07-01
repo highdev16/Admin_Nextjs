@@ -2,7 +2,7 @@ import Row from '@paljs/ui/Row';
 import Col from '@paljs/ui/Col';
 import React from 'react';
 import Layout from 'Layouts';
-
+import { useRouter } from 'next/router';
 import { createGlobalStyle, css } from 'styled-components';
 import getUserInfo from '../../utils/localstorage';
 
@@ -11,6 +11,7 @@ import APICall from 'utils/server_config';
 import getNextLevel from 'utils/level';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import Pagination from 'pages/extra-components/pagination';
 
 const AgentGroup = () => {
   const [filterBy, setFilterBy] = React.useState('Agent ID');
@@ -51,7 +52,7 @@ const AgentGroup = () => {
         (e) => {
           setSubmitting(false);
           if (e[0] == 'login_issue') {
-            router.push('/auth/login');
+            window.location.href = '/auth/login';
           } else alert(e[1] || 'Failed to load data.');
         },
       );
@@ -74,7 +75,7 @@ const AgentGroup = () => {
         (e) => {
           setSubmitting(false);
           if (e[0] == 'login_issue') {
-            router.push('/auth/login');
+            window.location.href = '/auth/login';
           } else alert(e[1] || 'Failed to load data.');
         },
       );
@@ -329,7 +330,7 @@ ${() => css`
                         (e) => {
                           setSubmitting(false);
                           if (e[0] == 'login_issue') {
-                            router.push('/auth/login');
+                            window.location.href = '/auth/login';
                           } else alert(e[1] || 'Failed to load data.');
                         },
                       );
@@ -350,86 +351,91 @@ ${() => css`
                 </tr>
               </tbody>
             </table>
-            {dataset.length ? (
-              <Table>
-                <Thead>
-                  <Tr>
-                    <Th>Agent ID</Th>
-                    <Th>Agent Level</Th>
-                    <Th>Real name</Th>
-                    <Th>Payment cycle</Th>
-                    <Th>Total number of agent</Th>
-                    <Th>Total number of players</Th>
-                    <Th>Status</Th>
-                    <Th>Last updated</Th>
-                    <Th>Note </Th>
-                    <Th>Operation</Th>
-                    <Th>
-                      <img src="/images/sales/eye.png" />
-                    </Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {dataset.length
-                    ? dataset.map((agent, i) => (
-                        <Tr key={'rowt_' + i}>
-                          <Td>{getHyperLink(agent)}</Td>
-                          <Td>{agent.agent_level}</Td>
-                          <Td>{agent.first_name + ' ' + agent.last_name}</Td>
-                          <Td>{agent.payment_cycle}</Td>
-                          <Td>
-                            {agent.total_agent ? (
-                              <a
-                                href="javascript:void(0)"
-                                style={{ color: 'blue' }}
-                                onClick={() => {
-                                  var detail = {};
-                                  detail['child_mode'] = 'agents';
-                                  detail['child_id'] = agent.username;
-                                  window.open(
-                                    window.location.pathname + '?data=' + encodeURIComponent(JSON.stringify(detail)),
-                                    '_blank',
-                                  );
-                                }}
-                              >
-                                {agent.total_agent}
-                              </a>
-                            ) : (
-                              0
-                            )}
-                          </Td>
-                          <Td>
-                            <a
-                              href="javascript:void(0)"
-                              style={{ color: 'blue', cursor: 'pointer' }}
-                              onClick={() => {
-                                var detail = {};
-                                detail['child_mode'] = 'players';
-                                detail['child_id'] = agent.username;
-                                window.open(
-                                  '/sales/player_list?data=' + encodeURIComponent(JSON.stringify(detail)),
-                                  '_blank',
-                                );
-                              }}
-                            >
-                              {agent.total_players}
-                            </a>
-                          </Td>
-                          <Td>{agent.status}</Td>
-                          <Td>{agent.lastUpdated}</Td>
-                          <Td>{agent.note}</Td>
-                          <Td>{agent.operation}</Td>
-                          <Td>+</Td>
-                        </Tr>
-                      ))
-                    : null}
-                </Tbody>
-              </Table>
-            ) : (
-              <div className="grayRow" style={{ lineHeight: '40px' }}>
-                No data
-              </div>
-            )}
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>Agent ID</Th>
+                  <Th>Agent Level</Th>
+                  <Th>Real name</Th>
+                  <Th>Payment cycle</Th>
+                  <Th>Total number of agent</Th>
+                  <Th>Total number of players</Th>
+                  <Th>Status</Th>
+                  <Th>Last updated</Th>
+                  <Th>Note </Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {isSubmitting ? (
+                  <tr>
+                    <td colSpan={9}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        Loading...
+                      </div>
+                    </td>
+                  </tr>
+                ) : dataset.length ? (
+                  dataset.map((agent, i) => (
+                    <Tr key={'rowt_' + i}>
+                      <Td>{getHyperLink(agent)}</Td>
+                      <Td>{agent.agent_level}</Td>
+                      <Td>{agent.first_name + ' ' + agent.last_name}</Td>
+                      <Td>{agent.payment_cycle}</Td>
+                      <Td>
+                        {agent.total_agent ? (
+                          <a
+                            href="javascript:void(0)"
+                            style={{ color: 'blue' }}
+                            onClick={() => {
+                              var detail = {};
+                              detail['child_mode'] = 'agents';
+                              detail['child_id'] = agent.username;
+                              window.open(
+                                window.location.pathname + '?data=' + encodeURIComponent(JSON.stringify(detail)),
+                                '_blank',
+                              );
+                            }}
+                          >
+                            {agent.total_agent}
+                          </a>
+                        ) : (
+                          0
+                        )}
+                      </Td>
+                      <Td>
+                        <a
+                          href="javascript:void(0)"
+                          style={{ color: 'blue', cursor: 'pointer' }}
+                          onClick={() => {
+                            var detail = {};
+                            detail['child_mode'] = 'players';
+                            detail['child_id'] = agent.username;
+                            window.open(
+                              '/sales/player_list?data=' + encodeURIComponent(JSON.stringify(detail)),
+                              '_blank',
+                            );
+                          }}
+                        >
+                          {agent.total_players}
+                        </a>
+                      </Td>
+                      <Td>{agent.status}</Td>
+                      <Td>{agent.lastUpdated}</Td>
+                      <Td>{agent.note}</Td>
+                    </Tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={9}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        No data
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </Tbody>
+            </Table>
+            <Pagination />
           </div>
         </Col>
       </Row>

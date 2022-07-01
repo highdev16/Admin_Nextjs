@@ -5,10 +5,23 @@ import Layout from 'Layouts';
 import 'react-calendar/dist/Calendar.css';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { createGlobalStyle, css } from 'styled-components';
-
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import APICall from 'utils/server_config';
+import { useRouter } from 'next/router';
 import { Button } from '@paljs/ui';
+import moment from 'moment';
+import Pagination from 'pages/extra-components/pagination';
 
 const AgentReport = () => {
+  const [isSubmitting, setSubmitting] = React.useState(false);
+  const [dataset, setDatasets] = React.useState([]);
+  const [url, setURL] = React.useState('');
+  const [params, setParams] = React.useState({});
+  const [pageIndex, setPageIndex] = React.useState(1);
+  const [pageCount, setPageCount] = React.useState(0);
+  const [pageRows, setPageRows] = React.useState(20);
+  const router = useRouter();
   const CustomCSS = createGlobalStyle`
 ${() => css`
   .auth-layout .main-content {
@@ -168,38 +181,28 @@ ${() => css`
           </div>
           <div className="content-area">
             <Row>
-              <Col breakPoint={{ xs: 12, md: 4 }}>
+              <Col breakPoint={{ xs: 12, md: 6 }}>
                 <div className="form-item">
                   <div className="form-label">Bet Time</div>
                   <div className="form-value">
                     <table style={{ width: '100%' }}>
                       <tr>
                         <td>
-                          <input type="text" />
+                          <input type="datetime-local" id="starttime" />
                         </td>
                         <td>
-                          <input type="text" />
+                          <input type="datetime-local" id="endtime" />
                         </td>
                       </tr>
                     </table>
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 4 }}>
-                <div className="form-item">
-                  <div className="form-label">Time zone</div>
-                  <div className="form-value">
-                    <select>
-                      <option>GMT+8</option>
-                    </select>
-                  </div>
-                </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 4 }}>
+              <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Member Account</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" id="username" />
                   </div>
                 </div>
               </Col>
@@ -208,7 +211,7 @@ ${() => css`
                   <div className="form-label">Game Provider</div>
                   <div className="form-value">
                     <select>
-                      <option>GMT+8</option>
+                      <option>All</option>
                     </select>
                   </div>
                 </div>
@@ -248,9 +251,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Transaction ID</div>
                   <div className="form-value">
-                    <select>
-                      <option>All</option>
-                    </select>
+                    <input type="text" id="transaction_id" />
                   </div>
                 </div>
               </Col>
@@ -259,7 +260,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Match ID</div>
                   <div className="form-value">
-                    <select></select>
+                    <input type="text" id="match_id" />
                   </div>
                 </div>
               </Col>
@@ -277,7 +278,7 @@ ${() => css`
                             </select>
                           </td>
                           <td style={{ width: '24%' }}>
-                            <input style={{ width: '100%' }} type="text" />
+                            <input style={{ width: '100%' }} type="text" id="bet_low" />
                           </td>
                           <td style={{ width: '24%' }}>
                             <select style={{ width: '100%' }}>
@@ -285,7 +286,7 @@ ${() => css`
                             </select>
                           </td>
                           <td style={{ width: '24%' }}>
-                            <input style={{ width: '100%' }} type="text" />
+                            <input style={{ width: '100%' }} type="text" id="bet_high" />
                           </td>
                         </tr>
                       </tbody>
@@ -302,12 +303,14 @@ ${() => css`
                       <tbody>
                         <tr>
                           <td style={{ width: '48%' }}>
-                            <select style={{ width: '100%' }}>
-                              <option>&gt;=</option>
+                            <select style={{ width: '100%' }} id="winlose_type">
+                              <option value="gt">&gt;=</option>
+                              <option value="lt">&gt;=</option>
+                              <option value="equal">=</option>
                             </select>
                           </td>
                           <td style={{ width: '48%' }}>
-                            <input style={{ width: '100%' }} type="text" />
+                            <input style={{ width: '100%' }} type="text" id="winlose" />
                           </td>
                         </tr>
                       </tbody>
@@ -323,12 +326,14 @@ ${() => css`
                       <tbody>
                         <tr>
                           <td style={{ width: '48%' }}>
-                            <select style={{ width: '100%' }}>
-                              <option>&gt;=</option>
+                            <select style={{ width: '100%' }} id="bonus_type">
+                              <option value="gt">&gt;=</option>
+                              <option value="lt">&lt;=</option>
+                              <option value="equal">=</option>
                             </select>
                           </td>
                           <td style={{ width: '48%' }}>
-                            <input style={{ width: '100%' }} type="text" />
+                            <input style={{ width: '100%' }} type="text" id="bonus" />
                           </td>
                         </tr>
                       </tbody>
@@ -336,7 +341,7 @@ ${() => css`
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Jackpot betting</div>
                   <div className="form-value">
@@ -356,8 +361,8 @@ ${() => css`
                     </table>
                   </div>
                 </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              </Col> */}
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Jackpot prize</div>
                   <div className="form-value">
@@ -377,9 +382,9 @@ ${() => css`
                     </table>
                   </div>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
-            <Row>
+            {/* <Row>
               <Col breakPoint={{ xs: 12 }}>
                 <div className="middle-title-area">
                   <div>Status</div>
@@ -392,7 +397,7 @@ ${() => css`
                   <div className="button">The player cancels</div>
                 </div>
               </Col>
-            </Row>
+            </Row> */}
             <Row>
               <Col breakPoint={{ xs: 12 }}>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -400,11 +405,14 @@ ${() => css`
                     <tbody>
                       <tr>
                         <td>
-                          <Button style={{ border: '0px', background: 'gray', color: 'white', width: '100px' }}>
+                          <Button
+                            style={{ border: '0px', background: 'gray', color: 'white', width: '100px' }}
+                            onClick={() => (window.location.href = '/sales/betting_history')}
+                          >
                             Reset
                           </Button>
                         </td>
-                        <td>
+                        {/* <td>
                           <Button
                             style={{
                               border: '0px',
@@ -429,7 +437,7 @@ ${() => css`
                           >
                             Today
                           </Button>
-                        </td>
+                        </td> */}
                         <td>
                           <Button
                             style={{
@@ -438,6 +446,42 @@ ${() => css`
                               color: 'white',
                               paddingLeft: '1rem',
                               paddingRight: '1rem',
+                              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                            }}
+                            onClick={() => {
+                              if (isSubmitting) return;
+                              setSubmitting(true);
+                              setDatasets([]);
+                              var fields =
+                                'starttime,endtime,username,transaction_id,match_id,bet_low,bet_high,winlose_type,winlose,bonus_type,bonus'.split(
+                                  ',',
+                                );
+                              var values = {};
+                              fields.map((s) => (values[s] = document.getElementById(s).value));
+
+                              if (document.getElementById('starttime').value)
+                                values['starttime'] = new Date(values['starttime']).getTime() || 0;
+                              if (document.getElementById('endtime').value)
+                                values['endtime'] = new Date(values['endtime']).getTime() || 0;
+
+                              APICall(
+                                '/api/sales/betting_history',
+                                { value: values, pageIndex: 1, pageRows },
+                                (data) => {
+                                  setURL('/api/sales/betting_history');
+                                  setParams({ value: values });
+                                  setPageIndex(1);
+                                  setPageCount(Math.ceil(data.total / pageRows));
+                                  setSubmitting(false);
+                                  setDatasets(data.data);
+                                },
+                                (e) => {
+                                  setSubmitting(false);
+                                  if (e[0] == 'login_issue') {
+                                    window.location.href = '/auth/login';
+                                  } else alert(e[1] || 'Failed to load data.');
+                                },
+                              );
                             }}
                           >
                             Search
@@ -458,49 +502,98 @@ ${() => css`
                   </td>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td style={{ width: '8%' }}>Member account Real name</td>
-                  <td style={{ width: '8%' }}>Agent Label</td>
-                  <td style={{ width: '8%' }}>Real name</td>
-                  <td style={{ width: '8%' }}>Name label</td>
-                  <td style={{ width: '8%' }}>New agent group</td>
-                  <td style={{ width: '8%' }}>Number of recharges</td>
-                  <td style={{ width: '8%' }}>Deposit amount</td>
-                  <td style={{ width: '8%' }}>Number of withdrawals</td>
-                  <td style={{ width: '8%' }}>Withdrawal amount</td>
-                  <td style={{ width: '8%' }}>Manual adjustment</td>
-                  <td style={{ width: '8%' }}>Total bet amount</td>
-                  <td style={{ width: '8%' }}>
-                    <img src="/images/sales/eye.png" />
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={12}>
-                    <div className="grayRow">
-                      <table>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '8%', height: '40px' }}>dung5678</td>
-                            <td style={{ width: '8%' }}>vip 0</td>
-                            <td style={{ width: '8%' }}>Default</td>
-                            <td style={{ width: '8%' }}>Eako</td>
-                            <td style={{ width: '8%' }}>dung5678</td>
-                            <td style={{ width: '8%' }}>2021-01-01</td>
-                            <td style={{ width: '8%' }}>0.51</td>
-                            <td style={{ width: '8%' }}>1,000.00</td>
-                            <td style={{ width: '8%' }}>0.00</td>
-                            <td style={{ width: '8%' }}>2022-05-18 00:34:12</td>
-                            <td style={{ width: '8%' }}>Activated</td>
-                            <td style={{ width: '8%' }}></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
             </table>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>Bet time</Th>
+                  <Th>Transaction ID</Th>
+                  <Th>Match ID number/round</Th>
+                  <Th>Game Type</Th>
+                  <Th>Game</Th>
+                  <Th>Member Account</Th>
+                  <Th>Bet amount</Th>
+                  {/* <Th>Valid bets</Th>
+                  <Th>Win/lose</Th> */}
+                </Tr>
+              </Thead>
+              <Tbody>
+                {isSubmitting ? (
+                  <tr>
+                    <td colSpan={10}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        Loading...
+                      </div>
+                    </td>
+                  </tr>
+                ) : dataset.length ? (
+                  dataset.map((player, i) => (
+                    <Tr key={'rowt_' + i}>
+                      <Td>{moment(player.betTime).format('YYYY-MM-DD HH:mm:ss')}</Td>
+                      <Td>{player.transactionID}</Td>
+                      <Td>{player.matchID}</Td>
+                      <Td>{player.gameType}</Td>
+                      <Td>{player.game}</Td>
+                      <Td>{player.username}</Td>
+                      <Td>{player.betAmount}</Td>
+                      {/* <Td>{player.validBets}</Td>
+                        <Td>{player.winlose}</Td> */}
+                    </Tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={10}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        No data
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </Tbody>
+            </Table>
+            <Pagination
+              pageIndex={pageIndex}
+              pageCount={pageCount}
+              pageRows={pageRows}
+              onPageSelect={(pageNumber) => {
+                APICall(
+                  url,
+                  { ...params, pageIndex: pageNumber, pageRows },
+                  (data) => {
+                    setURL('/api/sales/betting_history');
+                    setPageIndex(Math.min(Math.ceil(data.total / pageRows), pageNumber));
+                    setPageCount(Math.ceil(data.total / pageRows));
+                    setSubmitting(false);
+                    setDatasets(data.data);
+                  },
+                  (e) => {
+                    setSubmitting(false);
+                    if (e[0] == 'login_issue') {
+                      window.location.href = '/auth/login';
+                    } else alert(e[1] || 'Failed to load data.');
+                  },
+                );
+              }}
+              onPageRowsChanged={(pageRows) => {
+                setPageRows(pageRows);
+                APICall(
+                  url,
+                  { ...params, pageIndex: 1, pageRows },
+                  (data) => {
+                    setPageIndex(1);
+                    setPageCount(Math.ceil(data.total / pageRows));
+                    setSubmitting(false);
+                    setDatasets(data.data);
+                  },
+                  (e) => {
+                    setSubmitting(false);
+                    if (e[0] == 'login_issue') {
+                      window.location.href = '/auth/login';
+                    } else alert(e[1] || 'Failed to load data.');
+                  },
+                );
+              }}
+            />
           </div>
         </Col>
       </Row>

@@ -42,7 +42,7 @@ const AgentReport = () => {
         (e) => {
           setSubmitting(false);
           if (e[0] == 'login_issue') {
-            router.push('/auth/login');
+            window.location.href = '/auth/login';
           } else alert(e[1] || 'Failed to load data.');
         },
       );
@@ -350,7 +350,7 @@ ${() => css`
                         (e) => {
                           setSubmitting(false);
                           if (e[0] == 'login_issue') {
-                            router.push('/auth/login');
+                            window.location.href = '/auth/login';
                           } else alert(e[1] || 'Failed to load data.');
                         },
                       );
