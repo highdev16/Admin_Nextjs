@@ -181,20 +181,19 @@ ${() => css`
           </div>
           <div className="content-area">
             <Row>
-              <Col breakPoint={{ xs: 12, md: 6 }}>
+              <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Bet Time</div>
+                  <div className="form-label">Bet Time(from)</div>
                   <div className="form-value">
-                    <table style={{ width: '100%' }}>
-                      <tr>
-                        <td>
-                          <input type="datetime-local" id="starttime" />
-                        </td>
-                        <td>
-                          <input type="datetime-local" id="endtime" />
-                        </td>
-                      </tr>
-                    </table>
+                    <input type="datetime-local" id="starttime" />
+                  </div>
+                </div>
+              </Col>
+              <Col breakPoint={{ xs: 12, md: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Bet Time(to)</div>
+                  <div className="form-value">
+                    <input type="datetime-local" id="endtime" />
                   </div>
                 </div>
               </Col>
