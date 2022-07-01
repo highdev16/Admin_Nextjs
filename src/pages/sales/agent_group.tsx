@@ -435,7 +435,6 @@ ${() => css`
                 )}
               </Tbody>
             </Table>
-            <Pagination />
           </div>
         </Col>
       </Row>
