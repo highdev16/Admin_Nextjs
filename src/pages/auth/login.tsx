@@ -12,6 +12,7 @@ import Auth, { Group } from 'components/Auth';
 import Layout from 'Layouts';
 import Encryption from '../../utils/encryption';
 import APICall from '../../utils/server_config';
+import { title } from 'process';
 
 const options = [{ value: 'English', label: 'English' }];
 
@@ -33,6 +34,7 @@ const roundedBordersTextField = {
 export default function Login() {
   const [checked, setChecked] = React.useState(true);
   const [calling, setCalling] = React.useState(false);
+  const [currentTime, setCurrentTime] = React.useState(Date.now());
   const router = useRouter();
   React.useEffect(() => {
     document.cookie = '';
@@ -46,40 +48,27 @@ export default function Login() {
     setCalling(true);
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
+    var f = currentTime;
     APICall(
       '/api/login',
       {
         username,
         password,
+        f,
+        captcha: document.getElementById('validationCode').value,
       },
       (data) => {
         localStorage.setItem('user_info', data[1]);
-        var user = data[0];
-        var agent_level = '';
-        switch (user.agent_level) {
-          case 'admin':
-            agent_level = 'new_sh';
-            break;
-          case 'SH':
-            agent_level = 'new_ssma';
-            break;
-          case 'SSMA':
-            agent_level = 'new_sma';
-            break;
-          case 'SMA':
-            agent_level = 'new_ma';
-            break;
-          case 'MA':
-            agent_level = 'new_agent';
-            break;
-        }
-        setTimeout(() => (window.location.href = '/sales/agent_group'), 500);
+        setTimeout(() => (window.location.href = '/auth/confirm-login'), 500);
+        // setTimeout(() => (window.location.href = '/sales/agent_group'), 500);
       },
       (e) => {
         console.log(e);
         setCalling(false);
         if (e[0] === -2) window.alert('No account existed');
+        else if (e[0] === -2007) window.alert('Invalid validation code. Try again.');
         else window.alert('Failed to login');
+        setCurrentTime(Date.now());
       },
     );
   };
@@ -158,6 +147,14 @@ export default function Login() {
                     />
                   </div>
                 </InputGroup>
+                <img
+                  src={'/api/codevalidate/' + currentTime}
+                  width={150}
+                  height={50}
+                  style={{ cursor: 'pointer', border: '1px solid white', marginTop: '0.5rem' }}
+                  onClick={() => setCurrentTime(Date.now())}
+                  title="Click to choose other captcha."
+                />
                 <Group>
                   <Checkbox checked onChange={onCheckbox}>
                     Remember me

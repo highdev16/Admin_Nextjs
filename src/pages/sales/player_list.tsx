@@ -5,10 +5,51 @@ import Layout from 'Layouts';
 import 'react-calendar/dist/Calendar.css';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { createGlobalStyle, css } from 'styled-components';
+import APICall from '../../utils/server_config';
 
 import { Button } from '@paljs/ui';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import moment from 'moment';
 
 const AgentReport = () => {
+  const [isSubmitting, setSubmitting] = React.useState(false);
+  const [dataset, setDatasets] = React.useState([]);
+  React.useEffect(() => {
+    var detail = window.location.search;
+    if (detail.startsWith('?data=')) {
+      detail = detail.substring(6);
+      try {
+        detail = JSON.parse(decodeURIComponent(detail));
+      } catch (e) {
+        return;
+      }
+    } else return;
+    const child_mode = detail.child_mode;
+
+    if (child_mode == 'players') {
+      var username = detail.child_id;
+      if (!username) return;
+      setSubmitting(true);
+      APICall(
+        '/api/sales/player_lists_by_agent',
+        {
+          mode: 'child',
+          value: username,
+        },
+        (data) => {
+          setSubmitting(false);
+          setDatasets(data);
+        },
+        (e) => {
+          setSubmitting(false);
+          if (e[0] == 'login_issue') {
+            router.push('/auth/login');
+          } else alert(e[1] || 'Failed to load data.');
+        },
+      );
+    }
+  }, []);
   const CustomCSS = createGlobalStyle`
 ${() => css`
   .auth-layout .main-content {
@@ -156,15 +197,15 @@ ${() => css`
               </Col>
               <Col breakPoint={{ xs: 12, md: 2 }}>
                 <div className="empty-form-item">
-                  <input type="text" style={{ width: '100%' }}></input>
+                  <input type="datetime-local" id="datestart" style={{ width: '100%' }}></input>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 2 }}>
                 <div className="empty-form-item">
-                  <input type="text" style={{ width: '100%' }}></input>
+                  <input type="datetime-local" id="dateend" style={{ width: '100%' }}></input>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Settlement Type</div>
                   <div className="form-value">
@@ -178,12 +219,12 @@ ${() => css`
                 <div className="empty-form-item">
                   <input type="text" style={{ width: '100%', margin: 'auto' }} />
                 </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 1 }}>
+              </Col> */}
+              {/* <Col breakPoint={{ xs: 12, md: 1 }}>
                 <div className="empty-form-item">
                   <input type="text" style={{ width: '100%' }} />
                 </div>
-              </Col>
+              </Col> */}
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Search type</div>
@@ -196,9 +237,7 @@ ${() => css`
               </Col>
               <Col breakPoint={{ xs: 12, md: 2 }}>
                 <div className="empty-form-item">
-                  <select>
-                    <option>Exact search</option>
-                  </select>
+                  <input type="text" id="user_name_field" />
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 1 }}></Col>
@@ -206,13 +245,16 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Status</div>
                   <div className="form-value">
-                    <select>
-                      <option>All</option>
+                    <select id="status">
+                      <option value="All">All</option>
+                      <option value="1">Activated</option>
+                      <option value="2">Deactivated</option>
+                      <option value="3">Deleted</option>
                     </select>
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Agent Level</div>
                   <div className="form-value">
@@ -221,19 +263,17 @@ ${() => css`
                     </select>
                   </div>
                 </div>
-              </Col>
+              </Col> */}
 
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Label Name</div>
+                  <div className="form-label">Full Name</div>
                   <div className="form-value">
-                    <select>
-                      <option>Enter to select...</option>
-                    </select>
+                    <input type="text" id="fullname" />
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Confirm SMS</div>
                   <div className="form-value">
@@ -252,12 +292,19 @@ ${() => css`
                     </select>
                   </div>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
             <Row>
               <Col breakPoint={{ xs: 6 }}>
                 <div style={{ textAlign: 'right' }}>
-                  <Button style={{ border: '0px', background: 'gray', color: 'white', width: '100px' }}>Reset</Button>
+                  <Button
+                    style={{ border: '0px', background: 'gray', color: 'white', width: '100px' }}
+                    onClick={() => {
+                      window.location.href = window.location.pathname;
+                    }}
+                  >
+                    Reset
+                  </Button>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 6 }}>
@@ -267,7 +314,35 @@ ${() => css`
                       border: '0px',
                       background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
                       color: 'white',
-                      width: '170px',
+                      width: '100px',
+                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    }}
+                    onClick={() => {
+                      APICall(
+                        '/api/sales/player_lists_by_search',
+                        {
+                          mode: 'child',
+                          datestart: document.getElementById('datestart').value
+                            ? new Date(document.getElementById('datestart').value).getTime()
+                            : 0,
+                          dateend: document.getElementById('dateend').value
+                            ? new Date(document.getElementById('dateend').value).getTime()
+                            : 0,
+                          search: document.getElementById('user_name_field').value,
+                          status: document.getElementById('status').value,
+                          name: document.getElementById('fullname').value,
+                        },
+                        (data) => {
+                          setSubmitting(false);
+                          setDatasets(data);
+                        },
+                        (e) => {
+                          setSubmitting(false);
+                          if (e[0] == 'login_issue') {
+                            router.push('/auth/login');
+                          } else alert(e[1] || 'Failed to load data.');
+                        },
+                      );
                     }}
                   >
                     Search
@@ -276,63 +351,97 @@ ${() => css`
               </Col>
             </Row>
             <div style={{ height: '1rem' }} />
-            <table style={{ width: '100%', border: '1px solid white' }}>
-              <thead style={{ background: 'url(/images/totalbet/member_total/header.png)', backgroundSize: 'cover' }}>
-                <tr>
-                  <td colSpan={6} style={{ color: 'white', height: '25px' }}>
-                    Member Information
-                  </td>
-                  <td colSpan={3} style={{ color: 'white', height: '25px' }}>
-                    Wallet Information
-                  </td>
-                  <td colSpan={2} style={{ color: 'white', height: '25px' }}>
-                    Other
-                  </td>
-                  <td rowSpan={2} style={{ color: 'white', width: '8%' }}>
-                    Operation
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={3} style={{ color: 'white', width: '25%' }}>
-                    Group Level
-                  </td>
-                  <td style={{ color: 'white', width: '8%' }}>Label Name</td>
-                  <td style={{ color: 'white', width: '8%' }}>New Agent Group</td>
-                  <td style={{ color: 'white', width: '8%' }}>Registration date</td>
-                  <td style={{ color: 'white', width: '5%' }}>Total Balance</td>
-                  <td style={{ color: 'white', width: '6%' }}>Total Recharge</td>
-                  <td style={{ color: 'white', width: '5%' }}>Total Withdrawal</td>
-                  <td style={{ color: 'white', width: '12%' }}>Last Login</td>
-                  <td style={{ color: 'white', width: '8%' }}>Status</td>
-                </tr>
-              </thead>
+            <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '1rem' }}>
               <tbody>
-                <tr>
-                  <td colSpan={12}>
-                    <div className="grayRow">
-                      <table>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '8%', height: '40px' }}>dung5678</td>
-                            <td style={{ width: '8%' }}>vip 0</td>
-                            <td style={{ width: '8%' }}>Default</td>
-                            <td style={{ width: '8%' }}>Eako</td>
-                            <td style={{ width: '8%' }}>dung5678</td>
-                            <td style={{ width: '8%' }}>2021-01-01</td>
-                            <td style={{ width: '7%' }}>0.51</td>
-                            <td style={{ width: '6%' }}>1,000.00</td>
-                            <td style={{ width: '5%' }}>0.00</td>
-                            <td style={{ width: '12%' }}>2022-05-18 00:34:12</td>
-                            <td style={{ width: '8%' }}>Activated</td>
-                            <td style={{ width: '8%' }}></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                <tr className="titleimg">
+                  <td colSpan={11} style={{ textAlign: 'center', padding: '1rem', color: 'white', fontWeight: 'bold' }}>
+                    Player List
                   </td>
                 </tr>
               </tbody>
             </table>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Td>User Name</Td>
+                  <Td>Full Name</Td>
+                  <Td>Agent Name</Td>
+                  <Td>Registration date</Td>
+                  <Td>Total Balance</Td>
+                  <Td>Total Recharge</Td>
+                  <Td>Total Withdrawal</Td>
+                  <Td>Last Login</Td>
+                  <Td>Status</Td>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {isSubmitting ? (
+                  <tr>
+                    <td colSpan={9}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        Loading...
+                      </div>
+                    </td>
+                  </tr>
+                ) : dataset.length ? (
+                  dataset.map((player) => {
+                    return (
+                      <Tr>
+                        <Td>
+                          <a
+                            href="javascript:void(0)"
+                            style={{ color: 'blue' }}
+                            onClick={(e) => {
+                              var detail = {};
+                              detail['child_mode'] = 'Player ID';
+                              detail['child_id'] = player.username;
+                              window.open(
+                                '/sales/player_report?data=' + encodeURIComponent(JSON.stringify(detail)),
+                                '_blank',
+                              );
+                            }}
+                          >
+                            {player.username}
+                          </a>
+                        </Td>
+                        <Td>{player.fullname}</Td>
+                        <Td>
+                          <a
+                            href="javascript:void(0)"
+                            style={{ color: 'blue' }}
+                            onClick={(e) => {
+                              var detail = {};
+                              detail['child_mode'] = 'Agent ID';
+                              detail['child_id'] = player.agentname;
+                              window.open(
+                                '/sales/agent_group?data=' + encodeURIComponent(JSON.stringify(detail)),
+                                '_blank',
+                              );
+                            }}
+                          >
+                            {player.agentname}
+                          </a>
+                        </Td>
+                        <Td>{moment(player.registration_date).format('YYYY-MM-DD HH:mm:ss')}</Td>
+                        <Td>{player.total_balance || 0}</Td>
+                        <Td>{player.total_recharge || 0}</Td>
+                        <Td>{player.total_withdrawal || 0}</Td>
+                        <Td>{moment(player.last_login).format('YYYY-MM-DD HH:mm:ss')}</Td>
+                        <Td>{player.status}</Td>
+                      </Tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={9}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        No data
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </Tbody>
+            </Table>
           </div>
         </Col>
       </Row>

@@ -24,7 +24,7 @@ export interface SEOProps {
 }
 
 SEO.defaultProps = {
-  description: 'Free admin dashboard template based on Next.Js with @paljs/ui component package',
+  description: 'Admin Panel',
   keywords: [
     'admin-dashboard',
     'admin',

@@ -5,10 +5,48 @@ import Layout from 'Layouts';
 import 'react-calendar/dist/Calendar.css';
 import { breakpointDown } from '@paljs/ui/breakpoints';
 import { createGlobalStyle, css } from 'styled-components';
-
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { Button } from '@paljs/ui';
 
 const AgentReport = () => {
+  const [isSubmitting, setSubmitting] = React.useState(false);
+  const [dataset, setDatasets] = React.useState([]);
+  React.useEffect(() => {
+    var detail = window.location.search;
+    if (detail.startsWith('?data=')) {
+      detail = detail.substring(6);
+      try {
+        detail = JSON.parse(decodeURIComponent(detail));
+      } catch (e) {
+        return;
+      }
+    } else return;
+    const child_mode = detail.child_mode;
+
+    if (child_mode == 'Player ID') {
+      var username = detail.child_id;
+      if (!username) return;
+      setSubmitting(true);
+      APICall(
+        '/api/sales/player_reports_by_id',
+        {
+          mode: 'child',
+          value: username,
+        },
+        (data) => {
+          setSubmitting(false);
+          setDatasets(data);
+        },
+        (e) => {
+          setSubmitting(false);
+          if (e[0] == 'login_issue') {
+            router.push('/auth/login');
+          } else alert(e[1] || 'Failed to load data.');
+        },
+      );
+    }
+  }, []);
   const CustomCSS = createGlobalStyle`
 ${() => css`
   .auth-layout .main-content {
@@ -148,37 +186,35 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Member Account</div>
                   <div className="form-value">
-                    <select>
-                      <option value="SMA">Exact search</option>
+                    <select id="member_search_type">
+                      <option value="like">Containing</option>
+                      <option value="equal">Exact search</option>
                     </select>
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 2 }}>
-                <div className="form-item">
-                  <div className="form-label"></div>
-                  <div className="form-value"></div>
+              <Col breakPoint={{ xs: 12, md: 3 }}>
+                <div className="empty-form-item">
+                  <input type="text" id="username" style={{ width: '100%' }}></input>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Real Name</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" id="full_name" />
                   </div>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Agent Group</div>
+                  <div className="form-label">Agent</div>
                   <div className="form-value">
-                    <select>
-                      <option>11111</option>
-                    </select>
+                    <input type="text" id="agent" />
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Time zone</div>
                   <div className="form-value">
@@ -187,18 +223,18 @@ ${() => css`
                     </select>
                   </div>
                 </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              </Col> */}
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Name Labe</div>
+                  <div className="form-label">Name Label</div>
                   <div className="form-value">
                     <select>
                       <option>Select</option>
                     </select>
                   </div>
                 </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              </Col> */}
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="empty-form-item">
                   <input type="text" style={{ width: '100%', margin: 'auto' }} />
                 </div>
@@ -207,8 +243,8 @@ ${() => css`
                 <div className="empty-form-item">
                   <input type="text" style={{ width: '100%' }} />
                 </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              </Col> */}
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Lowest deposit</div>
                   <div className="form-value">
@@ -239,8 +275,8 @@ ${() => css`
                     <input type="text" />
                   </div>
                 </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              </Col> */}
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">More valid bets</div>
                   <div className="form-value">
@@ -271,12 +307,17 @@ ${() => css`
                     <input type="text" />
                   </div>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
             <Row>
               <Col breakPoint={{ xs: 6 }}>
                 <div style={{ textAlign: 'right' }}>
-                  <Button style={{ border: '0px', background: 'gray', color: 'white', width: '100px' }}>Reset</Button>
+                  <Button
+                    style={{ border: '0px', background: 'gray', color: 'white', width: '100px' }}
+                    onClick={() => (window.location.href = window.location.pathname)}
+                  >
+                    Reset
+                  </Button>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 6 }}>
@@ -287,6 +328,28 @@ ${() => css`
                       background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
                       color: 'white',
                       width: '170px',
+                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    }}
+                    onClick={() => {
+                      if (isSubmitting) return;
+                      setSubmitting(true);
+                      APICall(
+                        '/api/sales/player_reports_by_id',
+                        {
+                          mode: 'child',
+                          value: username,
+                        },
+                        (data) => {
+                          setSubmitting(false);
+                          setDatasets(data);
+                        },
+                        (e) => {
+                          setSubmitting(false);
+                          if (e[0] == 'login_issue') {
+                            router.push('/auth/login');
+                          } else alert(e[1] || 'Failed to load data.');
+                        },
+                      );
                     }}
                   >
                     Search
@@ -303,49 +366,57 @@ ${() => css`
                   </td>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td style={{ width: '8%' }}>Member account Real name</td>
-                  <td style={{ width: '8%' }}>Agent Label</td>
-                  <td style={{ width: '8%' }}>Real name</td>
-                  <td style={{ width: '8%' }}>Name label</td>
-                  <td style={{ width: '8%' }}>New agent group</td>
-                  <td style={{ width: '8%' }}>Number of recharges</td>
-                  <td style={{ width: '8%' }}>Deposit amount</td>
-                  <td style={{ width: '8%' }}>Number of withdrawals</td>
-                  <td style={{ width: '8%' }}>Withdrawal amount</td>
-                  <td style={{ width: '8%' }}>Manual adjustment</td>
-                  <td style={{ width: '8%' }}>Total bet amount</td>
-                  <td style={{ width: '8%' }}>
-                    <img src="/images/sales/eye.png" />
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={12}>
-                    <div className="grayRow">
-                      <table>
-                        <tbody>
-                          <tr>
-                            <td style={{ width: '8%', height: '40px' }}>dung5678</td>
-                            <td style={{ width: '8%' }}>vip 0</td>
-                            <td style={{ width: '8%' }}>Default</td>
-                            <td style={{ width: '8%' }}>Eako</td>
-                            <td style={{ width: '8%' }}>dung5678</td>
-                            <td style={{ width: '8%' }}>2021-01-01</td>
-                            <td style={{ width: '8%' }}>0.51</td>
-                            <td style={{ width: '8%' }}>1,000.00</td>
-                            <td style={{ width: '8%' }}>0.00</td>
-                            <td style={{ width: '8%' }}>2022-05-18 00:34:12</td>
-                            <td style={{ width: '8%' }}>Activated</td>
-                            <td style={{ width: '8%' }}></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
             </table>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>UserName</Th>
+                  <Th>Agent</Th>
+                  <Th>Full Name</Th>
+                  <Th>Number of recharges</Th>
+                  <Th>Deposit amount</Th>
+                  <Th>Number of withdrawal</Th>
+                  <Th>Withdrawal amount</Th>
+                  <Th>Manual adjustment</Th>
+                  <Th>Total Bet Amount</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {isSubmitting ? (
+                  <tr>
+                    <td colSpan={9}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        Loading...
+                      </div>
+                    </td>
+                  </tr>
+                ) : dataset.length ? (
+                  dataset.map((player) => {
+                    return (
+                      <Tr>
+                        <Td>{player.UserName}</Td>
+                        <Td>{player.Sponsor}</Td>
+                        <Td>{player.FullName}</Td>
+                        <Td>{player.numberOfRecharges}</Td>
+                        <Td>{player.depositAmount}</Td>
+                        <Td>{player.numberOfWithdrawal}</Td>
+                        <Td>{player.withdrawalAmount}</Td>
+                        <Td>{player.manualAdjustment}</Td>
+                        <Td>{player.totalBetAmount}</Td>
+                      </Tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={9}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        No data
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </Tbody>
+            </Table>
           </div>
         </Col>
       </Row>

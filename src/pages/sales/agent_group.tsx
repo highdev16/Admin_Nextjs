@@ -23,6 +23,60 @@ const AgentGroup = () => {
   React.useEffect(() => {
     if (window.innerWidth < 768) setMobile(true);
     else setMobile(false);
+    var detail = window.location.search;
+    if (detail.startsWith('?data=')) {
+      detail = detail.substring(6);
+      try {
+        detail = JSON.parse(decodeURIComponent(detail));
+      } catch (e) {
+        return;
+      }
+    } else return;
+    const child_mode = detail.child_mode;
+    if (child_mode == 'agents') {
+      const username = detail.child_id;
+      if (!username) return;
+      setSubmitting(true);
+      APICall(
+        '/api/sales/get_agents',
+        {
+          mode: 'child',
+          value: username,
+        },
+        (data) => {
+          setSubmitting(false);
+          setDatasets(data);
+        },
+        (e) => {
+          setSubmitting(false);
+          if (e[0] == 'login_issue') {
+            router.push('/auth/login');
+          } else alert(e[1] || 'Failed to load data.');
+        },
+      );
+    } else if (child_mode == 'Agent ID') {
+      const username = detail.child_id;
+      if (!username) return;
+      setSubmitting(true);
+      APICall(
+        '/api/sales/get_agents',
+        {
+          mode: 'Agent ID',
+          value: username,
+        },
+        (data) => {
+          setSubmitting(false);
+          setParentUser(username);
+          setDatasets(data);
+        },
+        (e) => {
+          setSubmitting(false);
+          if (e[0] == 'login_issue') {
+            router.push('/auth/login');
+          } else alert(e[1] || 'Failed to load data.');
+        },
+      );
+    }
   }, []);
   if (isMobile === null) return <div />;
 
@@ -114,26 +168,11 @@ ${() => css`
         href="javascript:void(0)"
         style={{ color: 'blue' }}
         onClick={(e) => {
-          setSubmitting(true);
-          APICall(
-            '/api/sales/get_agents',
-            {
-              mode: 'Agent Level',
-              user: agent.username,
-              value: getNextLevel(agent.agent_level),
-            },
-            (data) => {
-              setSubmitting(false);
-              setParentUser(agent.username);
-              setDatasets(data);
-            },
-            (e) => {
-              setSubmitting(false);
-              if (e[0] == 'login_issue') {
-                router.push('/auth/login');
-              } else alert(e[1] || 'Failed to load data.');
-            },
-          );
+          var detail = {};
+          detail['child_mode'] = 'agents_by_id';
+          detail['child_id'] = agent.username;
+          detail['child_level'] = agent.agent_level;
+          window.open(window.location.pathname + '?data=' + encodeURIComponent(JSON.stringify(detail)), '_blank');
         }}
       >
         {agent.username}
@@ -153,7 +192,7 @@ ${() => css`
           <div className="content-area">
             <Row>
               <Col breakPoint={{ xs: 12 }}>
-                <div className="content-title">Tìm kiếm</div>
+                <div className="content-title">Search</div>
               </Col>
             </Row>
             <Row>
@@ -194,7 +233,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Agent ID</div>
                     <div className="form-value">
-                      <input type="text" id="agent_id_filter" />
+                      <input type="text" id="agent_id_filter" placeholder="Enter the agent ID to search" />
                     </div>
                   </div>
                 )}
@@ -262,6 +301,7 @@ ${() => css`
                       background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
                       color: 'white',
                       width: isMobile ? '100px' : '170px',
+                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
                     }}
                     onClick={() => {
                       if (isSubmitting) return;
@@ -311,7 +351,7 @@ ${() => css`
               <Table>
                 <Thead>
                   <Tr>
-                    <Th>ID Agent</Th>
+                    <Th>Agent ID</Th>
                     <Th>Agent Level</Th>
                     <Th>Real name</Th>
                     <Th>Payment cycle</Th>
@@ -340,23 +380,12 @@ ${() => css`
                                 href="javascript:void(0)"
                                 style={{ color: 'blue' }}
                                 onClick={() => {
-                                  setSubmitting(false);
-                                  APICall(
-                                    '/api/sales/get_agents',
-                                    {
-                                      mode: 'child',
-                                      value: agent.username,
-                                    },
-                                    (data) => {
-                                      setSubmitting(false);
-                                      seTdatasets(data);
-                                    },
-                                    (e) => {
-                                      setSubmitting(false);
-                                      if (e[0] == 'login_issue') {
-                                        router.push('/auth/login');
-                                      } else alert(e[1] || 'Failed to load data.');
-                                    },
+                                  var detail = {};
+                                  detail['child_mode'] = 'agents';
+                                  detail['child_id'] = agent.username;
+                                  window.open(
+                                    window.location.pathname + '?data=' + encodeURIComponent(JSON.stringify(detail)),
+                                    '_blank',
                                   );
                                 }}
                               >
@@ -366,7 +395,23 @@ ${() => css`
                               0
                             )}
                           </Td>
-                          <Td>{agent.total_players}</Td>
+                          <Td>
+                            <a
+                              href="javascript:void(0)"
+                              style={{ color: 'blue', cursor: 'pointer' }}
+                              onClick={() => {
+                                var detail = {};
+                                detail['child_mode'] = 'players';
+                                detail['child_id'] = agent.username;
+                                window.open(
+                                  '/sales/player_list?data=' + encodeURIComponent(JSON.stringify(detail)),
+                                  '_blank',
+                                );
+                              }}
+                            >
+                              {agent.total_players}
+                            </a>
+                          </Td>
                           <Td>{agent.status}</Td>
                           <Td>{agent.lastUpdated}</Td>
                           <Td>{agent.note}</Td>
