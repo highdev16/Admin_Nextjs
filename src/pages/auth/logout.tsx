@@ -18,7 +18,7 @@ export default function Logout() {
   React.useEffect(() => {
     document.cookie = '';
     localStorage.removeItem('user_info');
-    window.location.href = '/auth/login';
+    router.push('/auth/login');
   }, []);
   return <div />;
 }
