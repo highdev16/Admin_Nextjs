@@ -31,6 +31,7 @@ const AgentReport = () => {
       var username = detail.child_id;
       if (!username) return;
       setSubmitting(true);
+      setDatasets([]);
       APICall(
         '/api/sales/player_lists_by_agent',
         {

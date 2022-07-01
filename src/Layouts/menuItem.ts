@@ -89,10 +89,10 @@ const items = (user) => [
         title: 'Agent Report',
         link: { href: '/sales/agent_report' },
       },
-      {
-        title: 'Sales team commission report',
-        link: { href: '/sales/commission_report' },
-      },
+      // {
+      //   title: 'Sales team commission report',
+      //   link: { href: '/sales/commission_report' },
+      // },
       {
         title: 'Player List',
         link: { href: '/sales/player_list' },

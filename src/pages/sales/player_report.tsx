@@ -8,6 +8,7 @@ import { createGlobalStyle, css } from 'styled-components';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { Button } from '@paljs/ui';
+import APICall from '../../utils/server_config';
 
 const AgentReport = () => {
   const [isSubmitting, setSubmitting] = React.useState(false);
@@ -28,10 +29,10 @@ const AgentReport = () => {
       var username = detail.child_id;
       if (!username) return;
       setSubmitting(true);
+      setDatasets([]);
       APICall(
         '/api/sales/player_reports_by_id',
         {
-          mode: 'child',
           value: username,
         },
         (data) => {
@@ -333,11 +334,14 @@ ${() => css`
                     onClick={() => {
                       if (isSubmitting) return;
                       setSubmitting(true);
+                      setDatasets([]);
                       APICall(
-                        '/api/sales/player_reports_by_id',
+                        '/api/sales/player_reports_by_search',
                         {
-                          mode: 'child',
-                          value: username,
+                          member_search_type: document.getElementById('member_search_type').value,
+                          username: document.getElementById('username').value,
+                          full_name: document.getElementById('full_name').value,
+                          agent: document.getElementById('agent').value,
                         },
                         (data) => {
                           setSubmitting(false);
@@ -395,14 +399,30 @@ ${() => css`
                     return (
                       <Tr>
                         <Td>{player.UserName}</Td>
-                        <Td>{player.Sponsor}</Td>
+                        <Td>
+                          <a
+                            href="javascript:void(0)"
+                            style={{ color: 'blue' }}
+                            onClick={(e) => {
+                              var detail = {};
+                              detail['child_mode'] = 'Agent ID';
+                              detail['child_id'] = player.Sponsor;
+                              window.open(
+                                '/sales/agent_group?data=' + encodeURIComponent(JSON.stringify(detail)),
+                                '_blank',
+                              );
+                            }}
+                          >
+                            {player.Sponsor}
+                          </a>
+                        </Td>
                         <Td>{player.FullName}</Td>
                         <Td>{player.numberOfRecharges}</Td>
                         <Td>{player.depositAmount}</Td>
-                        <Td>{player.numberOfWithdrawal}</Td>
+                        <Td>{player.numberOfWithdrawals}</Td>
                         <Td>{player.withdrawalAmount}</Td>
-                        <Td>{player.manualAdjustment}</Td>
-                        <Td>{player.totalBetAmount}</Td>
+                        <Td>{player.manualAdjustment || 0}</Td>
+                        <Td>{player.totalBets}</Td>
                       </Tr>
                     );
                   })

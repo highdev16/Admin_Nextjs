@@ -37,6 +37,7 @@ const AgentGroup = () => {
       const username = detail.child_id;
       if (!username) return;
       setSubmitting(true);
+      setDatasets([]);
       APICall(
         '/api/sales/get_agents',
         {
@@ -58,6 +59,7 @@ const AgentGroup = () => {
       const username = detail.child_id;
       if (!username) return;
       setSubmitting(true);
+      setDatasets([]);
       APICall(
         '/api/sales/get_agents',
         {
@@ -306,6 +308,7 @@ ${() => css`
                     onClick={() => {
                       if (isSubmitting) return;
                       setSubmitting(true);
+                      setDatasets([]);
                       APICall(
                         '/api/sales/get_agents',
                         {
