@@ -88,20 +88,15 @@ export default function SetupPasswordAndCode() {
                         var password = e.target.value;
                         var error = '';
                         if (password.length > 20 || password.length < 6) error = 'Should be 6-20 characters.';
-                        if (
-                          password.toLowerCase().indexOf(firstname.toLowerCase()) > -1 ||
-                          password.toLowerCase().indexOf(lastname.toLowerCase()) > -1
-                        ) {
-                          error = 'Should not contain your first/last name.';
-                        }
                         if (!password.match(/[a-z]/g)) error = 'Should contain lowercase letter.';
-                        if (!password.match(/[A-Z]/g)) error = 'Should contain uppercase letter.;';
-                        if (!password.match(/[0-9]/g)) error = 'Should contain number;';
+                        if (!password.match(/[A-Z]/g)) error = 'Should contain uppercase letter.';
+                        if (!password.match(/[0-9]/g)) error = 'Should contain number';
                         setError1(error);
                       }}
                     />
                   </div>
                 </InputGroup>
+                <div style={{ color: 'red' }}>{error1}</div>
                 <div style={{ marginTop: '1rem' }}>Confirm Password</div>
                 <InputGroup fullWidth>
                   <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
@@ -111,12 +106,13 @@ export default function SetupPasswordAndCode() {
                       placeholder=""
                       style={{ border: 0, background: 'transparent' }}
                       onChange={(e) => {
-                        if (document.getElementById('password').value != e.target.value) setError2('');
+                        if (document.getElementById('password').value == e.target.value) setError2('');
                         else setError2("Passwords don't match.");
                       }}
                     />
                   </div>
                 </InputGroup>
+                <div style={{ color: 'red' }}>{error2}</div>
                 <div style={{ marginTop: '1rem' }}>Pin code</div>
                 <InputGroup fullWidth>
                   <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>

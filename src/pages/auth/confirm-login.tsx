@@ -24,6 +24,7 @@ const roundedBordersTextField = {
 };
 
 export default function ConfirmLogin() {
+  const [pinCode, setPinCode] = React.useState([1, 2, 3, 4, 5, 6].map((s) => ''));
   return (
     <Layout title="Login">
       <Row>
@@ -89,24 +90,19 @@ export default function ConfirmLogin() {
                                 color: 'white',
                                 textAlign: 'center',
                               }}
-                              onKeyDown={(e) => {
-                                // alert(e.key);
-                                if (e.key < '0' || e.key > '9') {
-                                  document.getElementById('pintext_' + (i - 1)).value = '';
-                                }
-                              }}
+                              value={pinCode[i - 1]}
                               onKeyUp={(e) => {
-                                if (e.key < '0' || e.key > '9') {
-                                  document.getElementById('pintext_' + (i - 1)).value = '';
-                                  return;
-                                }
-                                var t = document.getElementById('pintext_' + (i - 1)).value;
-                                document.getElementById('pintext_' + (i - 1)).value = e.key;
-                                setTimeout(() => {
+                                var value = e.key;
+                                if (value >= '0' && value <= '9') {
+                                  setPinCode((oldCode) => {
+                                    var old = [...oldCode];
+                                    old[i - 1] = value;
+                                    return old;
+                                  });
                                   document.getElementById('pintext_' + i)
                                     ? document.getElementById('pintext_' + i).focus()
                                     : document.getElementById('pintext_' + (i - 1)).blur();
-                                }, 0);
+                                }
                               }}
                             />
                           </div>
