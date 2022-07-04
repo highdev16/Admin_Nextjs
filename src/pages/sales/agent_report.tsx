@@ -10,6 +10,9 @@ import getUserInfo from '../../utils/localstorage';
 import { Button } from '@paljs/ui';
 import APICall from 'utils/server_config';
 import getNextLevel from 'utils/level';
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import Pagination from 'pages/extra-components/pagination';
 
 const AgentReport = () => {
   const CustomCSS = createGlobalStyle`
