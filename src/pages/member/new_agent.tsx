@@ -1521,6 +1521,7 @@ ${() => css`
                                 <select style={{ width: '100%' }} id="currency">
                                   <option value="USD">USD</option>
                                   <option value="SGD">SGD</option>
+                                  <option value="VND">VND</option>
                                 </select>
                               </td>
                               <td style={{ width: '16%' }}></td>
@@ -1628,6 +1629,7 @@ ${() => css`
                                 <select style={{ width: '100%' }} id="currency">
                                   <option value="USD">USD</option>
                                   <option value="SGD">SGD</option>
+                                  <option value="VND">VND</option>
                                   <option value="VND">VND</option>
                                 </select>
                               </td>

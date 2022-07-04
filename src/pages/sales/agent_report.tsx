@@ -139,7 +139,7 @@ ${() => css`
   const [date1, setDate1] = React.useState(new Date());
   const [date2, setDate2] = React.useState(new Date());
 
-  const [dataset, setDataSet] = React.useState([]);
+  const [dataset, setDatasets] = React.useState([]);
   const userInfo = getUserInfo();
 
   return (
@@ -173,7 +173,7 @@ ${() => css`
                 </table>
               </div>
             </Row>
-            <div style={{ lineHeight: '40px', textAlign: 'left' }}>Shortcut Date Selector:</div>
+            {/* <div style={{ lineHeight: '40px', textAlign: 'left' }}>Shortcut Date Selector:</div>
             <div style={{ position: 'relative', height: '50px' }}>
               <div className="tabs">
                 <div className={'tab ' + (selectedTab === 0 && 'selected')} onClick={() => setSelectedTab(0)}>
@@ -201,16 +201,16 @@ ${() => css`
                   This month
                 </div>
               </div>
-            </div>
-            <Row>
+            </div> */}
+            {/* <Row>
               <Col breakPoint={{ xs: 12 }}>
                 <div style={{ color: 'red', textAlign: 'left', fontStyle: 'italic' }}>
                   *Check the last 60 days dealer report
                 </div>
               </Col>
-            </Row>
+            </Row> */}
             <Row>
-              <Col breakPoint={{ xs: 3 }}>
+              {/* <Col breakPoint={{ xs: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Time zone</div>
                   <div className="form-value">
@@ -219,7 +219,7 @@ ${() => css`
                     </select>
                   </div>
                 </div>
-              </Col>
+              </Col> */}
               <Col breakPoint={{ xs: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Agent Level</div>
@@ -236,7 +236,7 @@ ${() => css`
                   </div>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 3 }}>
+              {/* <Col breakPoint={{ xs: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Report Type</div>
                   <div className="form-value">
@@ -248,8 +248,8 @@ ${() => css`
                     </select>
                   </div>
                 </div>
-              </Col>
-              <Col breakPoint={{ xs: 3 }}>
+              </Col> */}
+              {/* <Col breakPoint={{ xs: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Data Filter</div>
                   <div className="form-value">
@@ -261,7 +261,7 @@ ${() => css`
                     </select>
                   </div>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
             <Row>
               <Col breakPoint={{ xs: 6 }}>
@@ -319,52 +319,94 @@ ${() => css`
                     </div>
                   </td>
                 </tr>
-                <tr>
-                  <td style={{ width: '10%', height: '40px' }}>Agent ID</td>
-                  <td style={{ width: '7%' }}>Agent Level</td>
-                  <td style={{ width: '12%' }}>Number of downstream agents</td>
-                  <td style={{ width: '10%' }}>Total number of subscribers</td>
-                  <td style={{ width: '7%' }}>Total number of players</td>
-                  <td style={{ width: '7%' }}>No duplicate bettors</td>
-                  <td style={{ width: '10%' }}>Deposit order</td>
-                  <td style={{ width: '10%' }}>Deposit amount/First deposit</td>
-                  <td style={{ width: '10%' }}>Deposit amount</td>
-                  <td style={{ width: '10%' }}>Withdrawal amount</td>
-                  <td style={{ width: '7%' }}>Manual adjustment</td>
-                  <td style={{ width: '3%' }}>
-                    <img src="/images/sales/eye.png" />
-                  </td>
-                </tr>
-                <tr>
-                  <td colSpan={12}>
-                    {dataset.map((_) => (
-                      <div className="grayRow">
-                        <table style={{ width: '100%' }}>
-                          <tbody>
-                            <tr>
-                              <td style={{ width: '10%', height: '40px' }}>Agent ID</td>
-                              <td style={{ width: '7%' }}>Agent Level</td>
-                              <td style={{ width: '12%' }}>Number of downstream agents</td>
-                              <td style={{ width: '10%' }}>Total number of subscribers</td>
-                              <td style={{ width: '7%' }}>Total number of players</td>
-                              <td style={{ width: '7%' }}>No duplicate bettors</td>
-                              <td style={{ width: '10%' }}>Deposit order</td>
-                              <td style={{ width: '10%' }}>Deposit amount/First deposit</td>
-                              <td style={{ width: '10%' }}>Deposit amount</td>
-                              <td style={{ width: '10%' }}>Withdrawal amount</td>
-                              <td style={{ width: '7%' }}>Manual adjustment</td>
-                              <td style={{ width: '3%' }}>
-                                <img src="/images/sales/eye.png" />
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    ))}
-                  </td>
-                </tr>
               </tbody>
             </table>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>Agent ID</Th>
+                  <Th>Agent Level</Th>
+                  <Th>Number of downstream agents</Th>
+                  <Th>Total number of subscribers</Th>
+                  <Th>Total number of players</Th>
+                  <Th>No duplicate bettors</Th>
+                  <Th>Deposit order</Th>
+                  <Th>Deposit amount/First deposit</Th>
+                  <Th>Deposit amount</Th>
+                  <Th>Withdrawal amount</Th>
+                  <Th>Manual adjustment</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {isSubmitting ? (
+                  <tr>
+                    <td colSpan={11}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        Loading...
+                      </div>
+                    </td>
+                  </tr>
+                ) : dataset.length ? (
+                  dataset.map((agent, i) => (
+                    <Tr key={'rowt_' + i}>
+                      <Td>{getHyperLink(agent)}</Td>
+                      <Td>{agent.agent_level}</Td>
+                      <Td>{agent.first_name + ' ' + agent.last_name}</Td>
+                      <Td>{agent.payment_cycle}</Td>
+                      <Td>
+                        {agent.total_agent ? (
+                          <a
+                            href="javascript:void(0)"
+                            style={{ color: 'blue' }}
+                            onClick={() => {
+                              var detail = {};
+                              detail['child_mode'] = 'agents';
+                              detail['child_id'] = agent.username;
+                              window.open(
+                                window.location.pathname + '?data=' + encodeURIComponent(JSON.stringify(detail)),
+                                '_blank',
+                              );
+                            }}
+                          >
+                            {agent.total_agent}
+                          </a>
+                        ) : (
+                          0
+                        )}
+                      </Td>
+                      <Td>
+                        <a
+                          href="javascript:void(0)"
+                          style={{ color: 'blue', cursor: 'pointer' }}
+                          onClick={() => {
+                            var detail = {};
+                            detail['child_mode'] = 'players';
+                            detail['child_id'] = agent.username;
+                            window.open(
+                              '/sales/player_list?data=' + encodeURIComponent(JSON.stringify(detail)),
+                              '_blank',
+                            );
+                          }}
+                        >
+                          {agent.total_players}
+                        </a>
+                      </Td>
+                      <Td>{agent.status}</Td>
+                      <Td>{agent.lastUpdated}</Td>
+                      <Td>{agent.note}</Td>
+                    </Tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={11}>
+                      <div className="grayRow" style={{ lineHeight: '40px' }}>
+                        No data
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </Tbody>
+            </Table>
           </div>
         </Col>
       </Row>

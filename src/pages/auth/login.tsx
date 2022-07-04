@@ -59,7 +59,8 @@ export default function Login() {
       },
       (data) => {
         localStorage.setItem('user_info', data[1]);
-        setTimeout(() => (window.location.href = '/auth/confirm-login'), 500);
+        if (data[2]) setTimeout(() => (window.location.href = '/auth/confirm-login'), 500);
+        else setTimeout(() => (window.location.href = '/auth/setup'), 500);
         // setTimeout(() => (window.location.href = '/sales/agent_group'), 500);
       },
       (e) => {
