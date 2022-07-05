@@ -237,8 +237,8 @@ const items = (user) => [
         link: { href: '/security/change_password' },
       },
       {
-        title: 'Change Login Name',
-        link: { href: '/security/change_login_name' },
+        title: 'Change Pin Code',
+        link: { href: '/security/change_pin_code' },
       },
     ],
   },

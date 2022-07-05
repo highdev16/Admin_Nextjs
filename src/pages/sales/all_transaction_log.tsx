@@ -446,6 +446,7 @@ const AgentReport = () => {
                               paddingRight: '1rem',
                             }}
                             onClick={() => {
+                              if (isSubmitting) return;
                               const paramValues = {
                                 member: document.getElementById('member_account').value,
                                 min: Number(document.getElementById('max_amount').value) || 0,
@@ -548,6 +549,7 @@ const AgentReport = () => {
               pageCount={pageCount}
               pageRows={pageRows}
               onPageSelect={(pageNumber) => {
+                if (isSubmitting) return;
                 setSubmitting(true);
                 APICall(
                   url,
@@ -567,6 +569,7 @@ const AgentReport = () => {
                 );
               }}
               onPageRowsChanged={(pageRows) => {
+                if (isSubmitting) return;
                 setSubmitting(true);
                 setPageRows(pageRows);
                 APICall(

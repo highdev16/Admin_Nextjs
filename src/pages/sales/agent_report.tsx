@@ -395,6 +395,7 @@ ${() => css`
                       width: '170px',
                     }}
                     onClick={() => {
+                      if (isSubmitting) return;
                       const paramValues = {
                         mode: 'Agent Level',
                         agent_level: document.getElementById('agent_level').value,
@@ -507,6 +508,7 @@ ${() => css`
               pageCount={pageCount}
               pageRows={pageRows}
               onPageSelect={(pageNumber) => {
+                if (isSubmitting) return;
                 setSubmitting(true);
                 APICall(
                   url,
@@ -526,6 +528,7 @@ ${() => css`
                 );
               }}
               onPageRowsChanged={(pageRows) => {
+                if (isSubmitting) return;
                 setSubmitting(true);
                 setPageRows(pageRows);
                 APICall(

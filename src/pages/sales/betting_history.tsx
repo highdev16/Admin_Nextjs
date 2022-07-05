@@ -555,6 +555,7 @@ ${() => css`
               pageCount={pageCount}
               pageRows={pageRows}
               onPageSelect={(pageNumber) => {
+                if (isSubmitting) return;
                 setSubmitting(true);
                 APICall(
                   url,
@@ -575,6 +576,7 @@ ${() => css`
                 );
               }}
               onPageRowsChanged={(pageRows) => {
+                if (isSubmitting) return;
                 setSubmitting(true);
                 setPageRows(pageRows);
                 APICall(
