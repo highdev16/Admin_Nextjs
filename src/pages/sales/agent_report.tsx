@@ -400,8 +400,8 @@ ${() => css`
                         agent_level: document.getElementById('agent_level').value,
                         parent_username: document.getElementById('parent_username').value.trim(),
                         username: document.getElementById('username').value.trim(),
-                        date1,
-                        date2,
+                        date1: new Date(date1).getTime(),
+                        date2: new Date(date2).getTime(),
                       };
                       setParams(paramValues);
                       setSubmitting(true);
