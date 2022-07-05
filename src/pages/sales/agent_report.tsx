@@ -138,13 +138,27 @@ ${() => css`
     }
   `}
 `}`;
-  const [selectedTab, setSelectedTab] = React.useState(0);
+  const [url, setURL] = React.useState('');
+  const [params, setParams] = React.useState({});
+  const [pageIndex, setPageIndex] = React.useState(1);
+  const [pageCount, setPageCount] = React.useState(0);
+  const [pageRows, setPageRows] = React.useState(20);
+
   const [isSubmitting, setSubmitting] = React.useState(0);
   const [date1, setDate1] = React.useState(new Date());
   const [date2, setDate2] = React.useState(new Date());
 
   const [dataset, setDatasets] = React.useState([]);
   const userInfo = getUserInfo();
+
+  const [isMobile, setMobile] = React.useState(null);
+
+  React.useEffect(() => {
+    if (window.innerWidth < 768) setMobile(true);
+    else setMobile(false);
+  }, []);
+
+  if (isMobile === null) return <div />;
 
   return (
     <Layout title="Accordions">
@@ -166,14 +180,22 @@ ${() => css`
               </div>
               <div className="desktop">
                 <table style={{ width: '100%' }}>
-                  <tr>
-                    <td style={{ verticalAlign: 'baseline' }}>
-                      <Calendar onChange={setDate1} value={date1} />
-                    </td>
-                    <td style={{ verticalAlign: 'baseline' }}>
-                      <Calendar onChange={setDate2} value={date2} />
-                    </td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <td style={{ verticalAlign: 'baseline' }}>
+                        <Calendar
+                          onChange={(e) => {
+                            console.log(e);
+                            setDate1(e);
+                          }}
+                          value={date1}
+                        />
+                      </td>
+                      <td style={{ verticalAlign: 'baseline' }}>
+                        <Calendar onChange={setDate2} value={date2} />
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </Row>
@@ -224,7 +246,7 @@ ${() => css`
                   </div>
                 </div>
               </Col> */}
-              <Col breakPoint={{ xs: 3 }}>
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Agent Level</div>
                   <div className="form-value">
@@ -236,6 +258,96 @@ ${() => css`
                       {['admin', 'SH', 'SSMA', 'SMA', 'MA'].indexOf(userInfo.aLevel) > -1 && (
                         <option value="Agent">Agent</option>
                       )}
+                    </select>
+                  </div>
+                </div>
+              </Col>
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Upstream Agent:</div>
+                  <div className="form-value">
+                    <input type="text" id="parent_username" placeholder="Exact agent username" />
+                  </div>
+                </div>
+              </Col>
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Agent Username:</div>
+                  <div className="form-value">
+                    <input type="text" id="username" placeholder="Search Containing" />
+                  </div>
+                </div>
+              </Col>
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Shortcut Date Selector:</div>
+                  <div className="form-value">
+                    <select
+                      id="shortcut_date_selector"
+                      onChange={(e) => {
+                        var date;
+                        switch (e.target.value) {
+                          case 'All':
+                            setDate1(new Date(2022, 0, 1));
+                            setDate2(new Date());
+                            break;
+                          case 'Today':
+                            setDate1(new Date());
+                            setDate2(new Date());
+                            break;
+                          case 'Yesterday':
+                            setDate1(new Date(Date.now() - 86400 * 1000));
+                            setDate2(new Date(Date.now() - 86400 * 1000));
+                            break;
+                          case 'Past 7 days':
+                            setDate1(new Date(Date.now() - 86400 * 1000 * 6));
+                            setDate2(new Date());
+                            break;
+                          case 'Past 30 days':
+                            setDate1(new Date(Date.now() - 86400 * 1000 * 29));
+                            setDate2(new Date());
+                            break;
+                          case 'This week':
+                            date = new Date();
+                            while (date.getDay()) {
+                              date = new Date(date.getTime() - 86400);
+                            }
+                            setDate1(date);
+                            setDate2(new Date());
+                            break;
+                          case 'Last week':
+                            date = new Date(Date.now() - 86400 * 1000);
+                            while (date.getDay()) {
+                              date = new Date(date.getTime() - 86400);
+                            }
+                            setDate1(date);
+                            setDate2(new Date(date.getTime() + 86400 * 1000 * 6));
+                            break;
+                          case 'This month':
+                            date = new Date();
+                            while (date.getDate() > 1) {
+                              date = new Date(date.getTime() - 86400);
+                            }
+                            setDate1(date);
+                            setDate2(new Date());
+                            break;
+                        }
+                      }}
+                    >
+                      {[
+                        'All',
+                        'Today',
+                        'Yesterday',
+                        'Past 7 days',
+                        'Past 30 days',
+                        'This week',
+                        'Last Week',
+                        'This month',
+                      ].map((s) => (
+                        <option key={s} value={s}>
+                          {s}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -283,16 +395,32 @@ ${() => css`
                       width: '170px',
                     }}
                     onClick={() => {
+                      const paramValues = {
+                        mode: 'Agent Level',
+                        agent_level: document.getElementById('agent_level').value,
+                        parent_username: document.getElementById('parent_username').value.trim(),
+                        username: document.getElementById('username').value.trim(),
+                        date1,
+                        date2,
+                      };
+                      setParams(paramValues);
+                      setSubmitting(true);
                       APICall(
                         '/api/sales/agent_report',
                         {
-                          mode: 'Agent Level',
-                          agent_level: document.getElementById('agent_level').value,
+                          ...paramValues,
+                          pageIndex: 1,
+                          pageRows,
                         },
                         (data) => {
-                          setDatasets(data);
+                          setURL('/api/sales/agent_report');
+                          setPageIndex(1);
+                          setPageCount(Math.ceil(data.total / pageRows));
+                          setSubmitting(false);
+                          setDatasets(data.data);
                         },
                         (e) => {
+                          setSubmitting(false);
                           if (e[0] == 'login_issue') {
                             window.location.href = '/auth/login';
                           } else alert(e[1] || 'Failed to load data.');
@@ -300,7 +428,7 @@ ${() => css`
                       );
                     }}
                   >
-                    Search
+                    {isSubmitting ? 'Loading... ' : 'Search'}
                   </Button>
                 </div>
               </Col>
@@ -333,9 +461,9 @@ ${() => css`
                   <Th>Number of downstream agents</Th>
                   <Th>Total number of subscribers</Th>
                   <Th>Total number of players</Th>
-                  <Th>No duplicate bettors</Th>
+                  {/* <Th>No duplicate bettors</Th>
                   <Th>Deposit order</Th>
-                  <Th>Deposit amount/First deposit</Th>
+                  <Th>Deposit amount/First deposit</Th> */}
                   <Th>Deposit amount</Th>
                   <Th>Withdrawal amount</Th>
                   <Th>Manual adjustment</Th>
@@ -344,7 +472,7 @@ ${() => css`
               <Tbody>
                 {isSubmitting ? (
                   <tr>
-                    <td colSpan={11}>
+                    <td colSpan={8}>
                       <div className="grayRow" style={{ lineHeight: '40px' }}>
                         Loading...
                       </div>
@@ -353,56 +481,19 @@ ${() => css`
                 ) : dataset.length ? (
                   dataset.map((agent, i) => (
                     <Tr key={'rowt_' + i}>
-                      <Td>{getHyperLink(agent)}</Td>
+                      <Td>{agent.username}</Td>
                       <Td>{agent.agent_level}</Td>
-                      <Td>{agent.first_name + ' ' + agent.last_name}</Td>
-                      <Td>{agent.payment_cycle}</Td>
-                      <Td>
-                        {agent.total_agent ? (
-                          <a
-                            href="javascript:void(0)"
-                            style={{ color: 'blue' }}
-                            onClick={() => {
-                              var detail = {};
-                              detail['child_mode'] = 'agents';
-                              detail['child_id'] = agent.username;
-                              window.open(
-                                window.location.pathname + '?data=' + encodeURIComponent(JSON.stringify(detail)),
-                                '_blank',
-                              );
-                            }}
-                          >
-                            {agent.total_agent}
-                          </a>
-                        ) : (
-                          0
-                        )}
-                      </Td>
-                      <Td>
-                        <a
-                          href="javascript:void(0)"
-                          style={{ color: 'blue', cursor: 'pointer' }}
-                          onClick={() => {
-                            var detail = {};
-                            detail['child_mode'] = 'players';
-                            detail['child_id'] = agent.username;
-                            window.open(
-                              '/sales/player_list?data=' + encodeURIComponent(JSON.stringify(detail)),
-                              '_blank',
-                            );
-                          }}
-                        >
-                          {agent.total_players}
-                        </a>
-                      </Td>
-                      <Td>{agent.status}</Td>
-                      <Td>{agent.lastUpdated}</Td>
-                      <Td>{agent.note}</Td>
+                      <Td>{agent.downAgents || 0}</Td>
+                      <Td>{agent.subscribers || 0}</Td>
+                      <Td>{agent.players || 0}</Td>
+                      <Td>{(Number(agent.depositAmount) || 0).toFixed(2)}</Td>
+                      <Td>{(Number(agent.withdrawAmount) || 0).toFixed(2)}</Td>
+                      <Td>{0}</Td>
                     </Tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={11}>
+                    <td colSpan={8}>
                       <div className="grayRow" style={{ lineHeight: '40px' }}>
                         No data
                       </div>
@@ -411,6 +502,50 @@ ${() => css`
                 )}
               </Tbody>
             </Table>
+            <Pagination
+              pageIndex={pageIndex}
+              pageCount={pageCount}
+              pageRows={pageRows}
+              onPageSelect={(pageNumber) => {
+                setSubmitting(true);
+                APICall(
+                  url,
+                  { ...params, pageIndex: pageNumber, pageRows },
+                  (data) => {
+                    setPageIndex(Math.min(Math.ceil(data.total / pageRows), pageNumber));
+                    setPageCount(Math.ceil(data.total / pageRows));
+                    setSubmitting(false);
+                    setDatasets(data.data);
+                  },
+                  (e) => {
+                    setSubmitting(false);
+                    if (e[0] == 'login_issue') {
+                      window.location.href = '/auth/login';
+                    } else alert(e[1] || 'Failed to load data.');
+                  },
+                );
+              }}
+              onPageRowsChanged={(pageRows) => {
+                setSubmitting(true);
+                setPageRows(pageRows);
+                APICall(
+                  url,
+                  { ...params, pageIndex: 1, pageRows },
+                  (data) => {
+                    setPageIndex(1);
+                    setPageCount(Math.ceil(data.total / pageRows));
+                    setSubmitting(false);
+                    setDatasets(data.data);
+                  },
+                  (e) => {
+                    setSubmitting(false);
+                    if (e[0] == 'login_issue') {
+                      window.location.href = '/auth/login';
+                    } else alert(e[1] || 'Failed to load data.');
+                  },
+                );
+              }}
+            />
           </div>
         </Col>
       </Row>

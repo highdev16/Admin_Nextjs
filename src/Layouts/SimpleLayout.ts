@@ -5,7 +5,9 @@ import { breakpointDown } from '@paljs/ui/breakpoints';
 const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
-
+  .react-calendar__tile--active, .react-calendar__tile--active:enabled:hover {
+    background: orange !important;
+  }
   .ReactTable .-pagination {
     z-index: 1;
     display: -ms-flexbox;

@@ -9,9 +9,9 @@ const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsCh
     setIndex(pageIndex);
   }, [pageIndex]);
   return (
-    <div class="ReactTable">
-      <div class="-pagination">
-        <div class="-previous">
+    <div className="ReactTable">
+      <div className="-pagination">
+        <div className="-previous">
           <Button
             type="button"
             disabled=""
@@ -22,10 +22,10 @@ const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsCh
             Previous
           </Button>
         </div>
-        <div class="-center">
-          <span class="-pageInfo">
+        <div className="-center">
+          <span className="-pageInfo">
             Page
-            <div class="-pageJump">
+            <div className="-pageJump">
               <input
                 aria-label="jump to page"
                 type="number"
@@ -42,19 +42,19 @@ const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsCh
               />
             </div>
             &nbsp; of &nbsp;
-            <span class="-totalPages">{pageCount}</span>
+            <span className="-totalPages">{pageCount}</span>
           </span>
-          <span class="select-wrap -pageSizeOptions">
-            <select aria-label="rows per page" onChange={(e) => onPageRowsChanged(e.target.value)}>
+          <span className="select-wrap -pageSizeOptions">
+            <select aria-label="rows per page" onChange={(e) => onPageRowsChanged(e.target.value)} value={pageRows}>
               {[5, 10, 20, 50, 100].map((s) => (
-                <option key={'option' + s} value={s} selected={pageRows == s}>
+                <option key={'option' + s} value={s}>
                   {s} Rows
                 </option>
               ))}
             </select>
           </span>
         </div>
-        <div class="-next">
+        <div className="-next">
           <Button
             type="button"
             disabled=""

@@ -81,7 +81,6 @@ const AgentGroup = () => {
       );
     }
   }, []);
-  if (isMobile === null) return <div />;
 
   const CustomCSS = createGlobalStyle`
 ${() => css`
@@ -164,7 +163,7 @@ ${() => css`
     width: 100%;
   }
 `}`;
-
+  if (isMobile === null) return <div />;
   const getHyperLink = (agent) => {
     return (
       <a
