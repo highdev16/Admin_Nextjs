@@ -9,6 +9,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { Button } from '@paljs/ui';
 import APICall from '../../utils/server_config';
+import setUserInfo from '../../utils/localstorageset';
 
 const AgentReport = () => {
   const [isSubmitting, setSubmitting] = React.useState(false);
@@ -238,7 +239,7 @@ ${() => css`
                                 document.getElementById('confirm_password').value
                               )
                                 return alert("Passwords don't match.");
-                              var password = document.getElementById('new_password'),
+                              var password = document.getElementById('new_password').value,
                                 error = '';
                               if (password.length > 20 || password.length < 6) error = 'Should be 6-20 characters.';
                               if (!password.match(/[a-z]/g)) error = 'Should contain lowercase letter.';
@@ -254,6 +255,7 @@ ${() => css`
                                 },
                                 (data) => {
                                   if (data === true) {
+                                    setUserInfo('passwordsetup', true);
                                     alert('Successfully updated.');
                                     document.getElementById('current_password').value =
                                       document.getElementById('new_password').value =

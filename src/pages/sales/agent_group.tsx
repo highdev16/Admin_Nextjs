@@ -220,7 +220,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Agent Level</div>
                     <div className="form-value">
-                      <select id="agent_level" class="notranslate">
+                      <select id="agent_level" className="notranslate">
                         {['admin'].indexOf(userInfo.aLevel) > -1 && <option value="SH">SH</option>}
                         {['admin', 'SH'].indexOf(userInfo.aLevel) > -1 && <option value="SSMA">SSMA</option>}
                         {['admin', 'SH', 'SSMA'].indexOf(userInfo.aLevel) > -1 && <option value="SMA">SMA</option>}

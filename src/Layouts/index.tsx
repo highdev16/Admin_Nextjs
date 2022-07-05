@@ -14,6 +14,7 @@ import Link from 'next/link';
 import menuItems from './menuItem';
 import SEO, { SEOProps } from 'components/SEO';
 import isLogin from '../utils/localstorage';
+import getUserInfo from '../utils/localstorage';
 
 const getDefaultTheme = (): DefaultTheme['name'] => {
   return 'dark';
@@ -27,7 +28,8 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
   const [menuState, setMenuState] = useState(false);
   const menuRef = useRef<MenuRefObject>(null);
   const [seeHeader, setSeeHeader] = useState(true);
-
+  const userInfo = getUserInfo();
+  console.log(userInfo);
   const getState = (state?: 'hidden' | 'visible' | 'compacted' | 'expanded') => {
     setSeeHeader(state !== 'compacted');
   };
@@ -107,7 +109,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
                       style={{ margin: '0px -1.25rem -1.25rem' }}
                       Link={Link}
                       ref={menuRef}
-                      items={getSelectedMenu(menuItems(user), router.pathname)}
+                      items={getSelectedMenu(menuItems(user, userInfo), router.pathname)}
                       currentPath={router.pathname}
                       toggleSidebar={() => sidebarRef.current?.hide()}
                     />

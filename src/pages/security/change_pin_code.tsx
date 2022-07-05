@@ -9,10 +9,13 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { Button } from '@paljs/ui';
 import APICall from '../../utils/server_config';
+import getUserInfo from '../../utils/localstorage';
+import setUserInfo from '../../utils/localstorageset';
 
 const AgentReport = () => {
   const [isSubmitting, setSubmitting] = React.useState(false);
   const [dataset, setDatasets] = React.useState([]);
+  let userInfo = getUserInfo();
   React.useEffect(() => {}, []);
   const CustomCSS = createGlobalStyle`
 ${() => css`
@@ -165,16 +168,18 @@ ${() => css`
               </tbody>
             </table>
             <Row>
-              <Col breakPoint={{ xs: 12, md: 6 }}>
-                <div className="form-item">
-                  <div className="form-label" style={{ width: 150 }}>
-                    Current Pin Code
+              {userInfo.sixDigitCode && (
+                <Col breakPoint={{ xs: 12, md: 6 }}>
+                  <div className="form-item">
+                    <div className="form-label" style={{ width: 150 }}>
+                      Current Pin Code
+                    </div>
+                    <div className="form-value">
+                      <input type="password" id="current_password" maxLength={6} />
+                    </div>
                   </div>
-                  <div className="form-value">
-                    <input type="password" id="current_password" maxLength={6} />
-                  </div>
-                </div>
-              </Col>
+                </Col>
+              )}
             </Row>
             <Row>
               <Col breakPoint={{ xs: 12, md: 6 }}>
@@ -217,9 +222,15 @@ ${() => css`
                             }}
                             onClick={() => {
                               if (isSubmitting) return;
-                              if (document.getElementById('current_password').value.length != 6)
+                              if (
+                                document.getElementById('current_password') &&
+                                document.getElementById('current_password').value.length != 6
+                              )
                                 return alert('Old Pin code should be 6 digits.');
-                              if (!/^[0-9]*$/.test(document.getElementById('current_password').value))
+                              if (
+                                document.getElementById('current_password') &&
+                                !/^[0-9]*$/.test(document.getElementById('current_password').value)
+                              )
                                 return alert('Only digits are acceptable for pin codes. Try again.');
                               if (
                                 document.getElementById('new_password').value !=
@@ -239,16 +250,20 @@ ${() => css`
                               APICall(
                                 '/api/security/change_pincode',
                                 {
-                                  old: document.getElementById('current_password').value,
+                                  old: document.getElementById('current_password')
+                                    ? document.getElementById('current_password').value
+                                    : '',
                                   new: document.getElementById('new_password').value,
                                 },
                                 (data) => {
                                   if (data === true) {
+                                    userInfo = setUserInfo('sixDigitCode', 'okbudy');
                                     alert('Successfully updated.');
-                                    document.getElementById('current_password').value =
-                                      document.getElementById('new_password').value =
-                                      document.getElementById('confirm_password').value =
-                                        '';
+                                    if (document.getElementById('current_password'))
+                                      document.getElementById('current_password').value = '';
+                                    document.getElementById('new_password').value = document.getElementById(
+                                      'confirm_password',
+                                    ).value = '';
                                   } else {
                                     alert(data);
                                   }
@@ -263,7 +278,7 @@ ${() => css`
                               );
                             }}
                           >
-                            {isSubmitting ? 'Updating...' : 'Update Password'}
+                            {isSubmitting ? 'Updating...' : 'Update Pin Code'}
                           </Button>
                         </td>
                       </tr>
