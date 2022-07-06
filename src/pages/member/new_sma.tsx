@@ -10,6 +10,7 @@ import APICall from '../../utils/server_config';
 import { useRouter } from 'next/router';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import getUserInfo from '../../utils/localstorage';
 
 const SportsTab = ({ isMobile }) => {
   return (
@@ -1243,9 +1244,12 @@ const ThirdPartyService = () => {
 
 const NewSH = () => {
   const router = useRouter();
+  const userInfo = getUserInfo();
   const createAccount = () => {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
+    var cpassword = document.getElementById('cpassword').value;
+    if (password != cpassword) return alert("Passwords don't match.");
     var firstname = document.getElementById('firstname').value;
     var lastname = document.getElementById('lastname').value;
     var phone = document.getElementById('phone').value;
@@ -1448,6 +1452,7 @@ ${() => css`
     if (window.innerWidth < 768) setMobile(true);
     else setMobile(false);
   }, []);
+  if (userInfo.aLevel !== 'SSMA') return <div />;
   if (isMobile === null) return <div />;
   return (
     <Layout title="Accordions">
@@ -1516,15 +1521,11 @@ ${() => css`
                                 <input type="password" style={{ width: '100%' }} id="password" />
                               </td>
                               <td style={{ width: '16%', color: 'gray' }}>*Required</td>
-                              <td style={{ width: '16%', height: '40px' }}>Currency</td>
+                              <td style={{ width: '16%', height: '40px' }}>Confirm Password</td>
                               <td style={{ width: '16%', height: '40px' }}>
-                                <select style={{ width: '100%' }} id="currency">
-                                  <option value="USD">USD</option>
-                                  <option value="SGD">SGD</option>
-                                  <option value="VND">VND</option>
-                                </select>
+                                <input type="password" style={{ width: '100%' }} id="cpassword" />
                               </td>
-                              <td style={{ width: '16%' }}></td>
+                              <td style={{ width: '16%', color: 'gray' }}>*Required</td>
                             </tr>
                           </tbody>
                         </table>
@@ -1556,9 +1557,15 @@ ${() => css`
                                 <input type="text" style={{ width: '100%' }} id="lastname" />
                               </td>
                               <td style={{ width: '16%' }}></td>
-                              <td style={{ width: '16%' }} />
-                              <td style={{ width: '16%' }} />
-                              <td style={{ width: '16%' }} />
+                              <td style={{ width: '16%', height: '40px' }}>Currency</td>
+                              <td style={{ width: '16%', height: '40px' }}>
+                                <select style={{ width: '100%' }} id="currency">
+                                  <option value="USD">USD</option>
+                                  <option value="SGD">SGD</option>
+                                  <option value="VND">VND</option>
+                                </select>
+                              </td>
+                              <td style={{ width: '16%' }}></td>
                             </tr>
                           </tbody>
                         </table>
@@ -1624,12 +1631,24 @@ ${() => css`
                         <table style={{ borderCollapse: 'collapse' }}>
                           <tbody>
                             <tr>
+                              <td style={{ width: '33%', height: '40px' }}>Confirm Password</td>
+                              <td style={{ width: '33%', height: '40px' }}>
+                                <input type="password" style={{ width: '100%' }} id="cpassword" />
+                              </td>
+                              <td style={{ width: '33%', color: 'gray' }}>*Required</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="grayRow">
+                        <table style={{ borderCollapse: 'collapse' }}>
+                          <tbody>
+                            <tr>
                               <td style={{ width: '33%', height: '40px' }}>Currency</td>
                               <td style={{ width: '33%', height: '40px' }}>
                                 <select style={{ width: '100%' }} id="currency">
                                   <option value="USD">USD</option>
                                   <option value="SGD">SGD</option>
-                                  <option value="VND">VND</option>
                                   <option value="VND">VND</option>
                                 </select>
                               </td>
@@ -1655,9 +1674,9 @@ ${() => css`
                         <table style={{ borderCollapse: 'collapse' }}>
                           <tbody>
                             <tr>
-                              <td style={{ width: '33%', height: '40px' }}>Phone</td>
+                              <td style={{ width: '33%', height: '40px' }}>Last Name</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="phone" />
+                                <input type="text" style={{ width: '100%' }} id="lastname" />
                               </td>
                               <td style={{ width: '33%' }}></td>
                             </tr>
@@ -1668,9 +1687,9 @@ ${() => css`
                         <table style={{ borderCollapse: 'collapse' }}>
                           <tbody>
                             <tr>
-                              <td style={{ width: '33%', height: '40px' }}>Last Name</td>
+                              <td style={{ width: '33%', height: '40px' }}>Phone</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="lastname" />
+                                <input type="text" style={{ width: '100%' }} id="phone" />
                               </td>
                               <td style={{ width: '33%' }}></td>
                             </tr>
