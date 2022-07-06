@@ -10,10 +10,12 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { Button } from '@paljs/ui';
 import APICall from '../../utils/server_config';
 import setUserInfo from '../../utils/localstorageset';
+import getUserInfo from '../../utils/localstorage';
 
 const AgentReport = () => {
   const [isSubmitting, setSubmitting] = React.useState(false);
   const [dataset, setDatasets] = React.useState([]);
+  const userInfo = getUserInfo();
   React.useEffect(() => {}, []);
   const CustomCSS = createGlobalStyle`
 ${() => css`
@@ -255,12 +257,17 @@ ${() => css`
                                 },
                                 (data) => {
                                   if (data === true) {
+                                    var flag = 0;
+                                    if (!userInfo.passwordsetup) flag = 1;
                                     setUserInfo('passwordsetup', true);
                                     alert('Successfully updated.');
                                     document.getElementById('current_password').value =
                                       document.getElementById('new_password').value =
                                       document.getElementById('confirm_password').value =
                                         '';
+                                    setTimeout(() => {
+                                      if (flag) window.location.href = '/security/change_pin_code';
+                                    }, 500);
                                   } else {
                                     alert(data);
                                   }
