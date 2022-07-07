@@ -20,7 +20,6 @@ export function AppWrapper({ children }) {
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
-  console.log("parent", isMobile);
   return (
     <AppContext.Provider value={{ isMobile, setMobile }}>
       <AppContext.Consumer>

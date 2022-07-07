@@ -43,7 +43,7 @@ export default function Login() {
   const onCheckbox = (v) => {
     setChecked(v);
   };
-  const onLogin = () => {
+  var onLogin = () => {
     if (calling) return;
     setCalling(true);
     var username = document.getElementById('username').value;
@@ -67,11 +67,14 @@ export default function Login() {
         }
       },
       (e) => {
+        document.getElementById('validationCode').value = '';
         console.log(e);
         setCalling(false);
         if (e[0] === -2) window.alert('No account existed');
-        else if (e[0] === -2007) window.alert('Invalid validation code. Try again.');
-        else window.alert('Failed to login');
+        else if (e[0] === -2007) {
+          window.alert('Invalid validation code. Try again.');
+          document.getElementById('validationCode').value = '';
+        } else window.alert('Failed to login');
         setCurrentTime(Date.now());
       },
     );
@@ -146,8 +149,14 @@ export default function Login() {
                     <input
                       type="text"
                       placeholder=""
+                      autoComplete="off"
                       id="validationCode"
                       style={{ border: 0, background: 'transparent' }}
+                      onKeyDown={(e) => {
+                        if (e.keyCode == 13) {
+                          onLogin();
+                        }
+                      }}
                     />
                   </div>
                 </InputGroup>
@@ -160,12 +169,12 @@ export default function Login() {
                   title="Click to choose other captcha."
                 />
                 <Group>
-                  <Checkbox checked onChange={onCheckbox}>
+                  {/* <Checkbox checked onChange={onCheckbox}>
                     Remember me
-                  </Checkbox>
-                  <Link href="/auth/request-password">
-                    <a>Forgot Password?</a>
-                  </Link>
+                  </Checkbox> */}
+                  {/* <Link href="/auth/forgotpassword"> */}
+                  <a href="/auth/forgotpassword">Forgot Password?</a>
+                  {/* </Link> */}
                 </Group>
                 <Button
                   status="Success"
@@ -175,16 +184,10 @@ export default function Login() {
                   style={{ background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)' }}
                   onClick={onLogin}
                 >
-                  Login
+                  {calling ? 'Logging in...' : 'Login'}
                 </Button>
               </div>
             </form>
-            <p>
-              Don&apos;t have account?{' '}
-              <Link href="/auth/register">
-                <a>Register</a>
-              </Link>
-            </p>
           </Auth>
         </Col>
       </Row>

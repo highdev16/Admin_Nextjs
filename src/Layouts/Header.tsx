@@ -16,10 +16,11 @@ const HeaderStyle = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  .user-picture.image {
+    display: none;
+  }
   ${breakpointDown('sm')`
-    .right{
-      display: none;
-    }
+
   `}
   .right > div {
     height: auto;
@@ -98,9 +99,37 @@ const Header: React.FC<HeaderProps> = (props) => {
   const router = useRouter();
   const [timeAndDate, setTimeAndDate] = React.useState(Date.now());
   const userInfo = getUserInfo();
+  const [isMobile, setMobile] = React.useState(true);
+
+  const onResize = () => {
+    if (window.innerWidth < 768) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  };
+  useEffect(() => {
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
   useEffect(() => {
     var addScript = document.createElement('script');
     addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');
+    document.body.appendChild(addScript);
+    addScript = document.createElement('style');
+    addScript.innerHTML = `#goog-gt-tt {
+      display: none !important;
+    }
+  
+    .goog-tooltip {
+      display: none !important;
+    }
+  
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
+    }`;
     document.body.appendChild(addScript);
     window.googleTranslateElementInit = googleTranslateElementInit;
   }, []);
@@ -116,23 +145,34 @@ const Header: React.FC<HeaderProps> = (props) => {
       <HeaderStyle>
         <Actions
           size="Medium"
-          actions={[
-            {
-              icon: { name: 'menu-2-outline' },
-              url: {
-                onClick: props.toggleSidebar,
-              },
-            },
-            {
-              content: (
-                <Link href="/">
-                  <a className="logo">{showGoodmorning()}</a>
-                </Link>
-              ),
-            },
-            {
-              content: <div style={{ width: '160px' }}>{getTimeString(timeAndDate)}</div>,
-            },
+          actions={
+            isMobile
+              ? [
+                  {
+                    icon: { name: 'menu-2-outline' },
+                    url: {
+                      onClick: props.toggleSidebar,
+                    },
+                  },
+                ]
+              : [
+                  {
+                    icon: { name: 'menu-2-outline' },
+                    url: {
+                      onClick: props.toggleSidebar,
+                    },
+                  },
+                  {
+                    content: (
+                      <Link href="/">
+                        <a className="logo">{showGoodmorning()}</a>
+                      </Link>
+                    ),
+                  },
+                  {
+                    content: <div style={{ width: '160px' }}>{getTimeString(timeAndDate)}</div>,
+                  },
+                ]
             // {
             //   content: (
             //     <SelectStyled
@@ -153,7 +193,7 @@ const Header: React.FC<HeaderProps> = (props) => {
             //     </Button>
             //   ),
             // },
-          ]}
+          }
         />
         <Actions
           size="Small"

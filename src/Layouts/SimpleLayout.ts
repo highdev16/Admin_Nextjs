@@ -8,6 +8,20 @@ ${({ theme }) => css`
   .react-calendar__tile--active, .react-calendar__tile--active:enabled:hover {
     background: orange !important;
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+  nav {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
   .ReactTable .-pagination {
     z-index: 1;
     display: -ms-flexbox;
@@ -164,6 +178,11 @@ ${({ theme }) => css`
     flex: 0.15 !important;
   }
 
+  .digit-code-6 {
+    ${breakpointDown('md')`
+      padding: 0rem 0.5rem !important;
+    `}
+  }
   .auth-layout {
     .main-content-fullscreen {
       padding: 0 !important;

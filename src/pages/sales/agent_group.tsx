@@ -14,7 +14,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Pagination from 'pages/extra-components/pagination';
 
 const AgentGroup = () => {
-  const [filterBy, setFilterBy] = React.useState('Agent ID');
+  const [filterBy, setFilterBy] = React.useState('Agent Level');
   const [dataset, setDatasets] = React.useState([]);
   const [parentUser, setParentUser] = React.useState('');
   const [isSubmitting, setSubmitting] = React.useState(false);
@@ -207,6 +207,7 @@ ${() => css`
                         setFilterBy(e.target.value);
                       }}
                       id="agent_filter_mode"
+                      value={filterBy}
                     >
                       <option value="Agent ID">Agent ID</option>
                       <option value="Agent Level">Agent Level</option>

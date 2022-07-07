@@ -236,48 +236,6 @@ ${() => css`
               </Col>
             </Row> */}
             <Row>
-              {/* <Col breakPoint={{ xs: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Time zone</div>
-                  <div className="form-value">
-                    <select>
-                      <option value="ID Agent">GMT+0800 (System TimeZone)</option>
-                    </select>
-                  </div>
-                </div>
-              </Col> */}
-              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Agent Level</div>
-                  <div className="form-value">
-                    <select id="agent_level">
-                      {['admin'].indexOf(userInfo.aLevel) > -1 && <option value="SH">SH</option>}
-                      {['admin', 'SH'].indexOf(userInfo.aLevel) > -1 && <option value="SSMA">SSMA</option>}
-                      {['admin', 'SH', 'SSMA'].indexOf(userInfo.aLevel) > -1 && <option value="SMA">SMA</option>}
-                      {['admin', 'SH', 'SSMA', 'SMA'].indexOf(userInfo.aLevel) > -1 && <option value="MA">MA</option>}
-                      {['admin', 'SH', 'SSMA', 'SMA', 'MA'].indexOf(userInfo.aLevel) > -1 && (
-                        <option value="Agent">Agent</option>
-                      )}
-                    </select>
-                  </div>
-                </div>
-              </Col>
-              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Upstream Agent:</div>
-                  <div className="form-value">
-                    <input type="text" id="parent_username" placeholder="Exact agent username" />
-                  </div>
-                </div>
-              </Col>
-              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Agent Username:</div>
-                  <div className="form-value">
-                    <input type="text" id="username" placeholder="Search Containing" />
-                  </div>
-                </div>
-              </Col>
               <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Shortcut Date Selector:</div>
@@ -288,7 +246,7 @@ ${() => css`
                         var date;
                         switch (e.target.value) {
                           case 'All':
-                            setDate1(new Date(2022, 0, 1));
+                            setDate1(new Date(2020, 0, 1));
                             setDate2(new Date());
                             break;
                           case 'Today':
@@ -344,7 +302,7 @@ ${() => css`
                         'Last Week',
                         'This month',
                       ].map((s) => (
-                        <option key={s} value={s}>
+                        <option key={s} value={s} selected={s == 'Today'}>
                           {s}
                         </option>
                       ))}
@@ -352,6 +310,49 @@ ${() => css`
                   </div>
                 </div>
               </Col>
+              {/* <Col breakPoint={{ xs: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Time zone</div>
+                  <div className="form-value">
+                    <select>
+                      <option value="ID Agent">GMT+0800 (System TimeZone)</option>
+                    </select>
+                  </div>
+                </div>
+              </Col> */}
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Agent Level</div>
+                  <div className="form-value">
+                    <select id="agent_level">
+                      {['admin'].indexOf(userInfo.aLevel) > -1 && <option value="SH">SH</option>}
+                      {['admin', 'SH'].indexOf(userInfo.aLevel) > -1 && <option value="SSMA">SSMA</option>}
+                      {['admin', 'SH', 'SSMA'].indexOf(userInfo.aLevel) > -1 && <option value="SMA">SMA</option>}
+                      {['admin', 'SH', 'SSMA', 'SMA'].indexOf(userInfo.aLevel) > -1 && <option value="MA">MA</option>}
+                      {['admin', 'SH', 'SSMA', 'SMA', 'MA'].indexOf(userInfo.aLevel) > -1 && (
+                        <option value="Agent">Agent</option>
+                      )}
+                    </select>
+                  </div>
+                </div>
+              </Col>
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Upstream Agent:</div>
+                  <div className="form-value">
+                    <input type="text" id="parent_username" placeholder="Exact agent username" />
+                  </div>
+                </div>
+              </Col>
+              <Col breakPoint={{ sm: 12, md: 6, lg: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Agent Username:</div>
+                  <div className="form-value">
+                    <input type="text" id="username" placeholder="Search Containing" />
+                  </div>
+                </div>
+              </Col>
+
               {/* <Col breakPoint={{ xs: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Report Type</div>

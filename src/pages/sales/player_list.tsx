@@ -241,7 +241,6 @@ ${() => css`
                   <input type="text" id="user_name_field" />
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 1 }}></Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Status</div>

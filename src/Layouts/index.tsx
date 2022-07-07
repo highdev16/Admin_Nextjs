@@ -29,7 +29,6 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
   const menuRef = useRef<MenuRefObject>(null);
   const [seeHeader, setSeeHeader] = useState(true);
   const userInfo = getUserInfo();
-  console.log(userInfo);
   const getState = (state?: 'hidden' | 'visible' | 'compacted' | 'expanded') => {
     setSeeHeader(state !== 'compacted');
   };
@@ -44,7 +43,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
     if (localTheme !== theme && theme === 'default') {
       setTheme(localTheme);
     }
-    isLogin() || router.push('/auth/login');
+    if (!router.pathname.startsWith('/auth/forgot')) isLogin() || router.push('/auth/login');
   }, []);
 
   const changeDir = () => {
@@ -58,7 +57,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
   if (typeof window !== 'undefined' && !user && !authLayout) {
     return <div />;
   }
-
+  console.log(user);
   return (
     <Fragment>
       <SEO {...rest} />
@@ -95,7 +94,7 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
                             </td>
                             <td className="WhiteLabel">
                               <div style={{ color: 'white !important' }}>Welcome!</div>
-                              <div style={{ color: 'white !important' }}>{user.fullname}</div>
+                              <div style={{ color: 'white !important' }}>{user.username}</div>
                             </td>
                           </tr>
                         </tbody>
