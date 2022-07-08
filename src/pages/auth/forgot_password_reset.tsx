@@ -44,10 +44,10 @@ export default function ForgotPassword() {
         },
         (e) => {
           window.alert(e[1] || 'Failed to validate the link.');
-          window.location.href = '/auth/login';
+          setToken(false);
         },
       );
-    }
+    } else return;
     var timer = setInterval(() => {
       if (document.getElementById('password')) {
         document.getElementById('password').focus();
@@ -86,6 +86,9 @@ export default function ForgotPassword() {
     );
   };
 
+  if (token === false) {
+    return <div>Error.</div>;
+  }
   if (!token) return <div>Loading...</div>;
   return (
     <Layout title="Login">

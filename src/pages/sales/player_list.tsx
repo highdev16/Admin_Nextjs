@@ -338,6 +338,7 @@ ${() => css`
                         },
                         (e) => {
                           setSubmitting(false);
+                          setDatasets([]);
                           if (e[0] == 'login_issue') {
                             window.location.href = '/auth/login';
                           } else alert(e[1] || 'Failed to load data.');
@@ -389,9 +390,10 @@ ${() => css`
                       <Tr>
                         <Td>
                           <a
-                            href="javascript:void(0)"
+                            href="#"
                             style={{ color: 'blue' }}
                             onClick={(e) => {
+                              e.preventDefault();
                               var detail = {};
                               detail['child_mode'] = 'Player ID';
                               detail['child_id'] = player.username;
@@ -407,9 +409,10 @@ ${() => css`
                         <Td>{player.fullname}</Td>
                         <Td>
                           <a
-                            href="javascript:void(0)"
+                            href="#"
                             style={{ color: 'blue' }}
                             onClick={(e) => {
+                              e.preventDefault();
                               var detail = {};
                               detail['child_mode'] = 'Agent ID';
                               detail['child_id'] = player.agentname;

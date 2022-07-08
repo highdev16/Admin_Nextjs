@@ -57,7 +57,6 @@ const LayoutPage: React.FC<SEOProps> = ({ children, ...rest }) => {
   if (typeof window !== 'undefined' && !user && !authLayout) {
     return <div />;
   }
-  console.log(user);
   return (
     <Fragment>
       <SEO {...rest} />

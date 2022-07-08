@@ -19,7 +19,7 @@ const AgentReport = () => {
   const [pageIndex, setPageIndex] = React.useState(1);
   const [pageCount, setPageCount] = React.useState(0);
   const [pageRows, setPageRows] = React.useState(20);
-
+  const [pageTotal, setPageTotal] = React.useState(0);
   const [isSubmitting, setSubmitting] = React.useState(0);
   const [date1, setDate1] = React.useState(new Date());
   const [date2, setDate2] = React.useState(new Date());
@@ -470,11 +470,13 @@ const AgentReport = () => {
                                   setURL('/api/sales/all_transaction_log');
                                   setPageIndex(1);
                                   setPageCount(Math.ceil(data.total / pageRows));
+                                  setPageTotal(data.total);
                                   setSubmitting(false);
                                   setDatasets(data.data);
                                 },
                                 (e) => {
                                   setSubmitting(false);
+                                  setDatasets([]);
                                   if (e[0] == 'login_issue') {
                                     window.location.href = '/auth/login';
                                   } else alert(e[1] || 'Failed to load data.');
@@ -545,6 +547,7 @@ const AgentReport = () => {
               </Tbody>
             </Table>
             <Pagination
+              total={pageTotal}
               pageIndex={pageIndex}
               pageCount={pageCount}
               pageRows={pageRows}
@@ -557,11 +560,13 @@ const AgentReport = () => {
                   (data) => {
                     setPageIndex(Math.min(Math.ceil(data.total / pageRows), pageNumber));
                     setPageCount(Math.ceil(data.total / pageRows));
+                    setPageTotal(data.total);
                     setSubmitting(false);
                     setDatasets(data.data);
                   },
                   (e) => {
                     setSubmitting(false);
+                    setDatasets([]);
                     if (e[0] == 'login_issue') {
                       window.location.href = '/auth/login';
                     } else alert(e[1] || 'Failed to load data.');
@@ -579,10 +584,12 @@ const AgentReport = () => {
                     setPageIndex(1);
                     setPageCount(Math.ceil(data.total / pageRows));
                     setSubmitting(false);
+                    setPageTotal(data.total);
                     setDatasets(data.data);
                   },
                   (e) => {
                     setSubmitting(false);
+                    setDatasets([]);
                     if (e[0] == 'login_issue') {
                       window.location.href = '/auth/login';
                     } else alert(e[1] || 'Failed to load data.');

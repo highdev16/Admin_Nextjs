@@ -19,6 +19,7 @@ const AgentReport = () => {
   const [url, setURL] = React.useState('');
   const [params, setParams] = React.useState({});
   const [pageIndex, setPageIndex] = React.useState(1);
+  const [pageTotal, setPageTotal] = React.useState(0);
   const [pageCount, setPageCount] = React.useState(0);
   const [pageRows, setPageRows] = React.useState(20);
   const router = useRouter();
@@ -472,10 +473,12 @@ ${() => css`
                                   setPageIndex(1);
                                   setPageCount(Math.ceil(data.total / pageRows));
                                   setSubmitting(false);
+                                  setPageTotal(data.total);
                                   setDatasets(data.data);
                                 },
                                 (e) => {
                                   setSubmitting(false);
+                                  setDatasets([]);
                                   if (e[0] == 'login_issue') {
                                     window.location.href = '/auth/login';
                                   } else alert(e[1] || 'Failed to load data.');
@@ -551,6 +554,7 @@ ${() => css`
               </Tbody>
             </Table>
             <Pagination
+              total={pageTotal}
               pageIndex={pageIndex}
               pageCount={pageCount}
               pageRows={pageRows}
@@ -564,11 +568,13 @@ ${() => css`
                     setURL('/api/sales/betting_history');
                     setPageIndex(Math.min(Math.ceil(data.total / pageRows), pageNumber));
                     setPageCount(Math.ceil(data.total / pageRows));
+                    setPageTotal(data.total);
                     setSubmitting(false);
                     setDatasets(data.data);
                   },
                   (e) => {
                     setSubmitting(false);
+                    setDatasets([]);
                     if (e[0] == 'login_issue') {
                       window.location.href = '/auth/login';
                     } else alert(e[1] || 'Failed to load data.');
@@ -586,10 +592,12 @@ ${() => css`
                     setPageIndex(1);
                     setPageCount(Math.ceil(data.total / pageRows));
                     setSubmitting(false);
+                    setPageTotal(data.total);
                     setDatasets(data.data);
                   },
                   (e) => {
                     setSubmitting(false);
+                    setDatasets([]);
                     if (e[0] == 'login_issue') {
                       window.location.href = '/auth/login';
                     } else alert(e[1] || 'Failed to load data.');

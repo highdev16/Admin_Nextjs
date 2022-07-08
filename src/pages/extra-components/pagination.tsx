@@ -3,7 +3,7 @@ import Col from '@paljs/ui/Col';
 import { Button } from '@paljs/ui';
 import React from 'react';
 
-const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsChanged }) => {
+const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsChanged, total }) => {
   const [index, setIndex] = React.useState(pageIndex);
   React.useEffect(() => {
     setIndex(pageIndex);
@@ -12,15 +12,16 @@ const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsCh
     <div className="ReactTable">
       <div className="-pagination">
         <div className="-previous">
-          <Button
-            type="button"
-            disabled=""
-            onClick={() => {
+          <a
+            href="#"
+            style={{ lineHeight: '40px' }}
+            onClick={(e) => {
+              e.preventDefault();
               onPageSelect(Math.max(1, index - 1));
             }}
           >
             Previous
-          </Button>
+          </a>
         </div>
         <div className="-center">
           <span className="-pageInfo">
@@ -42,7 +43,9 @@ const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsCh
               />
             </div>
             &nbsp; of &nbsp;
-            <span className="-totalPages">{pageCount}</span>
+            <span className="-totalPages">
+              {pageCount} (Total: {total})
+            </span>
           </span>
           <span className="select-wrap -pageSizeOptions">
             <select aria-label="rows per page" onChange={(e) => onPageRowsChanged(e.target.value)} value={pageRows}>
@@ -55,16 +58,17 @@ const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsCh
           </span>
         </div>
         <div className="-next">
-          <Button
-            type="button"
-            disabled=""
-            onClick={() => {
+          <a
+            href="#"
+            style={{ lineHeight: '40px' }}
+            onClick={(e) => {
+              e.preventDefault();
               // alert(pageIndex);
               onPageSelect(Math.min(pageCount, pageIndex + 1));
             }}
           >
             Next
-          </Button>
+          </a>
         </div>
       </div>
     </div>

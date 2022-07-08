@@ -119,17 +119,22 @@ export default function Login() {
             </div>
             <form className="" style={{ ...roundedBorders }}>
               <div style={{ padding: '2rem 2rem' }}>
-                <div>Language</div>
+                {/* <div>Language</div>
                 <InputGroup fullWidth>
                   <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
                     <Select options={options} placeholder="English" />
-                    {/* <input type="text" placeholder="" style={{ border: 0, background: 'transparent' }} /> */}
                   </div>
-                </InputGroup>
+                </InputGroup> */}
                 <div style={{ marginTop: '1rem' }}>Username</div>
                 <InputGroup fullWidth>
                   <div style={{ ...roundedBordersTextField, width: '100%', borderRadius: 3 }}>
-                    <input type="text" id="username" placeholder="" style={{ border: 0, background: 'transparent' }} />
+                    <input
+                      type="text"
+                      id="username"
+                      autoComplete="off"
+                      placeholder=""
+                      style={{ border: 0, background: 'transparent' }}
+                    />
                   </div>
                 </InputGroup>
                 <div style={{ marginTop: '1rem' }}>Password</div>

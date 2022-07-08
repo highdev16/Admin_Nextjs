@@ -167,9 +167,10 @@ ${() => css`
   const getHyperLink = (agent) => {
     return (
       <a
-        href="javascript:void(0)"
+        href="#"
         style={{ color: 'blue' }}
         onClick={(e) => {
+          e.preventDefault();
           var detail = {};
           detail['child_mode'] = 'agents_by_id';
           detail['child_id'] = agent.username;
@@ -384,9 +385,10 @@ ${() => css`
                       <Td>
                         {agent.total_agent ? (
                           <a
-                            href="javascript:void(0)"
+                            href="#"
                             style={{ color: 'blue' }}
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.preventDefault();
                               var detail = {};
                               detail['child_mode'] = 'agents';
                               detail['child_id'] = agent.username;
@@ -404,9 +406,10 @@ ${() => css`
                       </Td>
                       <Td>
                         <a
-                          href="javascript:void(0)"
+                          href="#"
                           style={{ color: 'blue', cursor: 'pointer' }}
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.preventDefault();
                             var detail = {};
                             detail['child_mode'] = 'players';
                             detail['child_id'] = agent.username;
