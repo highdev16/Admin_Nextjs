@@ -86,7 +86,7 @@ const GridPage = () => {
                 })}
               </Row>
               <h2>Auto Width</h2>
-              <p>Add any number of auto sizing columns to a row. Let the grid figure it out.</p>
+              <p>Add any No. of auto sizing columns to a row. Let the grid figure it out.</p>
               <Row>
                 <Col breakPoint={{ xs: true }}>
                   <Box row>xs</Box>

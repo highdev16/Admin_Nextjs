@@ -45,7 +45,7 @@ const AgentReport = () => {
         },
         (data) => {
           setSubmitting(false);
-          setDatasets(data);
+          setDatasets(data.data);
           setPageIndex(1);
           setPageCount(1);
           setPageTotal(1);
@@ -436,9 +436,9 @@ ${() => css`
                   <Th>UserName</Th>
                   <Th>Agent</Th>
                   <Th>Full Name</Th>
-                  <Th>Number of recharges</Th>
+                  <Th>No. of deposits</Th>
                   <Th>Deposit amount</Th>
-                  <Th>Number of withdrawal</Th>
+                  <Th>No. of withdrawal</Th>
                   <Th>Withdrawal amount</Th>
                   <Th>Manual adjustment</Th>
                   <Th>Total Bet Amount</Th>

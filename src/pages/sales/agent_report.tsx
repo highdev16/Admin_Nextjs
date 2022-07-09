@@ -13,6 +13,7 @@ import getNextLevel from 'utils/level';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Pagination from 'pages/extra-components/pagination';
+import formatNumber from 'utils/formatNumber';
 
 const AgentReport = () => {
   const CustomCSS = createGlobalStyle`
@@ -234,6 +235,7 @@ ${() => css`
   };
   const onClickDownStreamAgents = (e) => {
     e.preventDefault();
+    if (e.target.innerHTML == '0') return alert('No data to look inside.');
     var username = e.target.id;
     username = username.split('_')[1];
     var data = encodeURIComponent(
@@ -250,6 +252,7 @@ ${() => css`
   };
   const onClickDownPlayers = (e) => {
     e.preventDefault();
+    if (e.target.innerHTML == '0') return alert('No data to look inside.');
     var username = e.target.id;
     username = username.split('_')[1];
     var data = encodeURIComponent(
@@ -557,7 +560,7 @@ ${() => css`
                       border: '0px',
                       background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
                       color: 'white',
-                      width: '170px',
+                      width: '100px',
                     }}
                     onClick={onClickSearch}
                   >
@@ -591,15 +594,15 @@ ${() => css`
                 <Tr>
                   <Th>Agent ID</Th>
                   <Th>Agent Level</Th>
-                  <Th>Number of downstream agents</Th>
-                  {/* <Th>Total number of subscribers</Th> */}
-                  <Th>Total number of players</Th>
+                  <Th>No. of downstream agents</Th>
+                  {/* <Th>Total No. of subscribers</Th> */}
+                  <Th>Total No. of players</Th>
                   {/* <Th>No duplicate bettors</Th>
                   <Th>Deposit order</Th>
                   <Th>Deposit amount/First deposit</Th> */}
                   <Th>Deposit amount</Th>
                   <Th>Withdrawal amount</Th>
-                  <Th>Manual adjustment</Th>
+                  <Th>Win/Lose</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -617,19 +620,36 @@ ${() => css`
                       <Td>{agent.username}</Td>
                       <Td>{agent.agent_level}</Td>
                       <Td>
-                        <a id={'usernamerow_' + agent.username} href="#" onClick={onClickDownStreamAgents}>
-                          {agent.downAgents || 0}
+                        <a
+                          id={'usernamerow_' + agent.username}
+                          href="#"
+                          onClick={onClickDownStreamAgents}
+                          style={{ color: 'blue' }}
+                        >
+                          {formatNumber(agent.downAgents || 0, 0)}
                         </a>
                       </Td>
                       {/* <Td>{agent.subscribers || 0}</Td> */}
                       <Td>
-                        <a id={'usernamerow_' + agent.username} href="#" onClick={onClickDownPlayers}>
-                          {agent.players || 0}
+                        <a
+                          id={'usernamerow_' + agent.username}
+                          href="#"
+                          onClick={onClickDownPlayers}
+                          style={{ color: 'blue' }}
+                        >
+                          {formatNumber(agent.players || 0, 0)}
                         </a>
                       </Td>
-                      <Td>{(Number(agent.depositAmount) || 0).toFixed(2)}</Td>
-                      <Td>{(Number(agent.withdrawAmount) || 0).toFixed(2)}</Td>
-                      <Td>{0}</Td>
+                      <Td>{formatNumber(agent.depositAmount || 0, 2)}</Td>
+                      <Td>{formatNumber(agent.withdrawAmount || 0, 2)}</Td>
+                      <Td
+                        style={{
+                          color: (agent.winlose || 0) > 0 ? 'green' : (agent.winlose || 0) < 0 ? 'red' : '#aaa',
+                          fontWeight: agent.winlose || 0 ? 1000 : 400,
+                        }}
+                      >
+                        {formatNumber(agent.winlose || 0, 2)}
+                      </Td>
                     </Tr>
                   ))
                 ) : (

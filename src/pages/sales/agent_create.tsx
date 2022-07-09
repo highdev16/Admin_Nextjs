@@ -569,7 +569,7 @@ ${() => css`
                         </Col>
                         <Col breakPoint={{ xs: 5 }}>
                           <div className="form-item">
-                            <div className="form-label">Number of active guests:</div>
+                            <div className="form-label">No. of active guests:</div>
                             <div className="form-value">
                               <input type="text" />
                             </div>

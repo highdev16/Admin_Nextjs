@@ -5,7 +5,16 @@ import { breakpointDown } from '@paljs/ui/breakpoints';
 const SimpleLayout = createGlobalStyle`
 ${({ theme }) => css`
   ${GlobalStyle}
-  .react-calendar__tile--active, .react-calendar__tile--active:enabled:hover {
+  @media screen and (max-width: 40em) {
+    .responsiveTable td .tdBefore {
+      left: 0rem;
+    }
+  }
+  .main-container {
+    height: 100% !important;
+  }
+  .react-calendar__tile--active,
+  .react-calendar__tile--active:enabled:hover {
     background: orange !important;
   }
   input::-webkit-outer-spin-button,

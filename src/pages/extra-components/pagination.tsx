@@ -2,6 +2,7 @@ import Row from '@paljs/ui/Row';
 import Col from '@paljs/ui/Col';
 import { Button } from '@paljs/ui';
 import React from 'react';
+import formatNumber from '../../utils/formatNumber';
 
 const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsChanged, total }) => {
   const [index, setIndex] = React.useState(pageIndex);
@@ -44,7 +45,7 @@ const Pagination = ({ pageCount, pageIndex, pageRows, onPageSelect, onPageRowsCh
             </div>
             &nbsp; of &nbsp;
             <span className="-totalPages">
-              {pageCount} (Total: {total})
+              {pageCount} (Total: {formatNumber(total, 0)})
             </span>
           </span>
           <span className="select-wrap -pageSizeOptions">

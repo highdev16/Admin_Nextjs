@@ -230,15 +230,21 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Search type</div>
                   <div className="form-value">
-                    <select>
-                      <option>Member Account</option>
+                    <select
+                      id="search_type"
+                      onChange={(e) =>
+                        (document.getElementById('user_name_field').placeholder = 'Enter ' + e.target.value)
+                      }
+                    >
+                      <option value="username">Username</option>
+                      <option value="fullname">Full Name</option>
                     </select>
                   </div>
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 2 }}>
                 <div className="empty-form-item">
-                  <input type="text" id="user_name_field" />
+                  <input type="text" id="user_name_field" placeholder="Enter username" />
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
@@ -265,14 +271,6 @@ ${() => css`
                 </div>
               </Col> */}
 
-              <Col breakPoint={{ xs: 12, md: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Full Name</div>
-                  <div className="form-value">
-                    <input type="text" id="fullname" />
-                  </div>
-                </div>
-              </Col>
               {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Confirm SMS</div>
@@ -328,9 +326,15 @@ ${() => css`
                           dateend: document.getElementById('dateend').value
                             ? new Date(document.getElementById('dateend').value).getTime()
                             : 0,
-                          search: document.getElementById('user_name_field').value,
+                          search:
+                            document.getElementById('search_type').value == 'username'
+                              ? document.getElementById('user_name_field').value
+                              : '',
                           status: document.getElementById('status').value,
-                          name: document.getElementById('fullname').value,
+                          name:
+                            document.getElementById('search_type').value == 'username'
+                              ? ''
+                              : document.getElementById('user_name_field').value,
                         },
                         (data) => {
                           setSubmitting(false);

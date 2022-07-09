@@ -145,7 +145,6 @@ export default function ConfirmLogin() {
                                 color: 'white',
                                 textAlign: 'center',
                               }}
-                              accept="0123456789"
                               value={pinCode[i - 1]}
                               onChange={(e) => {
                                 if (Number.isNaN(Number(e.target.value))) {
@@ -161,9 +160,12 @@ export default function ConfirmLogin() {
                                     old[i - 1] = value;
                                     return old;
                                   });
-                                  document.getElementById('pintext_' + i)
-                                    ? document.getElementById('pintext_' + i).focus()
-                                    : document.getElementById('pintext_' + (i - 1)).blur();
+                                  if (document.getElementById('pintext_' + i))
+                                    document.getElementById('pintext_' + i).focus();
+                                  else {
+                                    document.getElementById('pintext_' + (i - 1)).blur();
+                                    setTimeout(onSubmit, 100);
+                                  }
                                 }
                               }}
                             />
@@ -174,7 +176,7 @@ export default function ConfirmLogin() {
                   })}
                 </Row>
                 <div style={{ height: '2rem' }}></div>
-                <Button
+                {/* <Button
                   status="Success"
                   type="button"
                   shape="SemiRound"
@@ -183,7 +185,7 @@ export default function ConfirmLogin() {
                   onClick={onSubmit}
                 >
                   {isSubmitting ? 'Checking...' : 'Confirm'}
-                </Button>
+                </Button> */}
               </div>
             </form>
             <p>
