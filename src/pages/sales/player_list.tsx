@@ -11,10 +11,19 @@ import { Button } from '@paljs/ui';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import moment from 'moment';
+import Pagination from 'pages/extra-components/pagination';
+import formatNumber from 'utils/formatNumber';
 
 const AgentReport = () => {
   const [isSubmitting, setSubmitting] = React.useState(false);
   const [dataset, setDatasets] = React.useState([]);
+  const [url, setURL] = React.useState('');
+  const [params, setParams] = React.useState({});
+  const [pageIndex, setPageIndex] = React.useState(1);
+  const [pageCount, setPageCount] = React.useState(0);
+  const [pageRows, setPageRows] = React.useState(20);
+  const [pageTotal, setPageTotal] = React.useState(0);
+
   React.useEffect(() => {
     var detail = window.location.search;
     if (detail.startsWith('?data=')) {
@@ -32,15 +41,26 @@ const AgentReport = () => {
       if (!username) return;
       setSubmitting(true);
       setDatasets([]);
+      var paramss = {
+        mode: 'child',
+        value: username,
+      };
+
       APICall(
         '/api/sales/player_lists_by_agent',
         {
-          mode: 'child',
-          value: username,
+          ...paramss,
+          pageIndex: 1,
+          pageRows,
         },
         (data) => {
+          setURL('/api/sales/player_lists_by_agent');
+          setPageIndex(1);
+          setPageCount(Math.ceil(data.total / pageRows));
+          setPageTotal(data.total);
           setSubmitting(false);
-          setDatasets(data);
+          setDatasets(data.data);
+          setParams(paramss);
         },
         (e) => {
           setSubmitting(false);
@@ -316,29 +336,41 @@ ${() => css`
                       cursor: isSubmitting ? 'not-allowed' : 'pointer',
                     }}
                     onClick={() => {
+                      if (isSubmitting) return;
+                      setSubmitting(false);
+                      var paramss = {
+                        mode: 'child',
+                        datestart: document.getElementById('datestart').value
+                          ? new Date(document.getElementById('datestart').value).getTime()
+                          : 0,
+                        dateend: document.getElementById('dateend').value
+                          ? new Date(document.getElementById('dateend').value).getTime()
+                          : 0,
+                        search:
+                          document.getElementById('search_type').value == 'username'
+                            ? document.getElementById('user_name_field').value
+                            : '',
+                        status: document.getElementById('status').value,
+                        name:
+                          document.getElementById('search_type').value == 'username'
+                            ? ''
+                            : document.getElementById('user_name_field').value,
+                      };
                       APICall(
                         '/api/sales/player_lists_by_search',
                         {
-                          mode: 'child',
-                          datestart: document.getElementById('datestart').value
-                            ? new Date(document.getElementById('datestart').value).getTime()
-                            : 0,
-                          dateend: document.getElementById('dateend').value
-                            ? new Date(document.getElementById('dateend').value).getTime()
-                            : 0,
-                          search:
-                            document.getElementById('search_type').value == 'username'
-                              ? document.getElementById('user_name_field').value
-                              : '',
-                          status: document.getElementById('status').value,
-                          name:
-                            document.getElementById('search_type').value == 'username'
-                              ? ''
-                              : document.getElementById('user_name_field').value,
+                          ...paramss,
+                          pageIndex: 1,
+                          pageRows,
                         },
                         (data) => {
+                          setURL('/api/sales/player_lists_by_search');
+                          setPageIndex(1);
+                          setPageCount(Math.ceil(data.total / pageRows));
+                          setPageTotal(data.total);
                           setSubmitting(false);
-                          setDatasets(data);
+                          setDatasets(data.data);
+                          setParams(paramss);
                         },
                         (e) => {
                           setSubmitting(false);
@@ -430,9 +462,9 @@ ${() => css`
                           </a>
                         </Td>
                         <Td>{moment(player.registration_date).format('YYYY-MM-DD HH:mm:ss')}</Td>
-                        <Td>{player.total_balance || 0}</Td>
-                        <Td>{player.total_recharge || 0}</Td>
-                        <Td>{player.total_withdrawal || 0}</Td>
+                        <Td>{formatNumber(player.total_balance || 0)}</Td>
+                        <Td>{formatNumber(player.total_recharge || 0)}</Td>
+                        <Td>{formatNumber(player.total_withdrawal || 0)}</Td>
                         <Td>{moment(player.last_login).format('YYYY-MM-DD HH:mm:ss')}</Td>
                         <Td>{player.status}</Td>
                       </Tr>
@@ -449,6 +481,57 @@ ${() => css`
                 )}
               </Tbody>
             </Table>
+            <Pagination
+              pageIndex={pageIndex}
+              pageCount={pageCount}
+              pageRows={pageRows}
+              total={pageTotal}
+              onPageSelect={(pageNumber) => {
+                if (isSubmitting) return;
+                setSubmitting(true);
+                APICall(
+                  url,
+                  { ...params, pageIndex: pageNumber, pageRows },
+                  (data) => {
+                    setPageIndex(Math.min(Math.ceil(data.total / pageRows), pageNumber));
+                    setPageCount(Math.ceil(data.total / pageRows));
+                    setPageTotal(data.total);
+                    setSubmitting(false);
+                    setDatasets(data.data);
+                  },
+                  (e) => {
+                    setSubmitting(false);
+                    setDatasets([]);
+                    if (e[0] == 'login_issue') {
+                      window.location.href = '/auth/login';
+                    } else alert(e[1] || 'Failed to load data.');
+                  },
+                );
+              }}
+              onPageRowsChanged={(pageRows) => {
+                if (isSubmitting) return;
+                setSubmitting(true);
+                setPageRows(pageRows);
+                APICall(
+                  url,
+                  { ...params, pageIndex: 1, pageRows },
+                  (data) => {
+                    setPageIndex(1);
+                    setPageCount(Math.ceil(data.total / pageRows));
+                    setPageTotal(data.total);
+                    setSubmitting(false);
+                    setDatasets(data.data);
+                  },
+                  (e) => {
+                    setDatasets([]);
+                    setSubmitting(false);
+                    if (e[0] == 'login_issue') {
+                      window.location.href = '/auth/login';
+                    } else alert(e[1] || 'Failed to load data.');
+                  },
+                );
+              }}
+            />
           </div>
         </Col>
       </Row>
