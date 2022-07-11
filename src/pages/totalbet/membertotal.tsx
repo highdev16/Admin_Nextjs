@@ -181,7 +181,7 @@ const Accordions = () => {
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
           <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-blue">
-            <div className="white-title">Member Account</div>
+            <div className="white-title">Player Username</div>
             <div className="white-title credit-option selected">Credit</div>
             <div className="white-title cash-option">Cash</div>
             <div className="ticket first-child">

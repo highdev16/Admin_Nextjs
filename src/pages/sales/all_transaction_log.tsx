@@ -192,7 +192,7 @@ const AgentReport = () => {
         <Col className="centerAll" breakPoint={{ xs: 12, md: 12 }}>
           <img src="/images/logo_black.png" className="contentHeaderImage" />
           <div className="header-white">
-            <div className="blue-title">All Transaction Logs</div>
+            <div className="blue-title">Crypto/Fiat (in & out)</div>
           </div>
           <div className="content-area">
             <Row>
@@ -214,9 +214,23 @@ const AgentReport = () => {
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Member Account</div>
+                  <div className="form-label">User name</div>
                   <div className="form-value">
                     <input type="text" id="member_account" />
+                  </div>
+                </div>
+              </Col>
+              <Col breakPoint={{ xs: 12, md: 3 }}>
+                <div className="form-item">
+                  <div className="form-label">Transaction Mode</div>
+                  <div className="form-value">
+                    <select id="transaction_mode">
+                      <option value="Fiat Deposit">Fiat Deposit</option>
+                      <option value="Fiat Withdraw">Fiat Withdraw</option>
+                      <option value="Crypto Deposit">Crypto Deposit</option>
+                      <option value="Crypto Withdraw">Crypto Withdraw</option>
+                      <option value="Admin Funding">Admin Funding</option>
+                    </select>
                   </div>
                 </div>
               </Col>
@@ -447,13 +461,18 @@ const AgentReport = () => {
                             }}
                             onClick={() => {
                               if (isSubmitting) return;
+                              if (Number.isNaN(Number(document.getElementById('min_amount').value)))
+                                return alert('Enter the valid min deposit value.');
+                              if (Number.isNaN(Number(document.getElementById('max_amount').value)))
+                                return alert('Enter the valid max deposit value.');
                               const paramValues = {
                                 member: document.getElementById('member_account').value,
-                                min: Number(document.getElementById('max_amount').value) || 0,
+                                min: Number(document.getElementById('min_amount').value) || 0,
                                 max: Number(document.getElementById('max_amount').value) || Math.pow(10, 20),
+                                mode: document.getElementById('transaction_mode').value,
                                 date1: new Date(document.getElementById('fromdate').value).getTime() || 0,
                                 date2:
-                                  (new Date(document.getElementById('todate').value).getTime() || 9656995982852) +
+                                  (new Date(document.getElementById('todate').value).getTime() || 9656995982000) +
                                   86400 * 1000 -
                                   1,
                               };
@@ -508,11 +527,11 @@ const AgentReport = () => {
                 <Tr>
                   <Th>Day Trading</Th>
                   <Th>Transaction Type</Th>
-                  <Th>Member Account</Th>
+                  <Th>Player Username</Th>
                   <Th>Transaction Amount</Th>
                   <Th>Currency</Th>
                   {/* <Th>Before settlement</Th> */}
-                  <Th>Balance after transaction</Th>
+                  {/* <Th>Balance after transaction</Th> */}
                 </Tr>
               </Thead>
               <Tbody>
@@ -532,7 +551,7 @@ const AgentReport = () => {
                       <Td>{data.UserName}</Td>
                       <Td>{data.Amount}</Td>
                       <Td>{data.Unit}</Td>
-                      <Td>-</Td>
+                      {/* <Td>-</Td> */}
                     </Tr>
                   ))
                 ) : (

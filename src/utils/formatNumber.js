@@ -3,7 +3,13 @@ function formatNumber(number, decimals) {
   number = Number(number);
   if (Number.isNaN(number)) return '-';
   number = number.toFixed(decimals).split('.');
+  var sign = '';
+  if (number[0] < 0) {
+    sign = '-';
+    number[0] = number[0].substring(1);
+  }
   number[0] = number[0].split('');
+  
   var retVal = '';
   var count = number[0].length;
   for (let i = 0; i < count; i++) {
@@ -12,7 +18,7 @@ function formatNumber(number, decimals) {
   }
   if (retVal.startsWith(',')) retVal = retVal.substring(1);
   number[0] = retVal;
-  return number.join('.');
+  return sign + number.join('.');
 }
   
 export default formatNumber;

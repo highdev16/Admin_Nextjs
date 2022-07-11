@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import { Button } from '@paljs/ui';
 import moment from 'moment';
 import Pagination from 'pages/extra-components/pagination';
-
+import formatNumber from 'utils/formatNumber';
 const AgentReport = () => {
   const [isSubmitting, setSubmitting] = React.useState(false);
   const [dataset, setDatasets] = React.useState([]);
@@ -200,7 +200,7 @@ ${() => css`
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Member Account</div>
+                  <div className="form-label">Player Username</div>
                   <div className="form-value">
                     <input type="text" id="username" />
                   </div>
@@ -508,13 +508,13 @@ ${() => css`
             <Table>
               <Thead>
                 <Tr>
-                  <Th>Bet time</Th>
+                  <Th>Username</Th>
+                  <Th>TRX Time</Th>
                   <Th>Transaction ID</Th>
                   <Th>Match ID number/round</Th>
-                  <Th>Game Type</Th>
-                  <Th>Game</Th>
-                  <Th>Member Account</Th>
-                  <Th>Bet amount</Th>
+                  <Th>Bet Type</Th>
+                  <Th>Amount</Th>
+                  <Th>Provider</Th>
                   {/* <Th>Valid bets</Th>
                   <Th>Win/lose</Th> */}
                 </Tr>
@@ -531,13 +531,14 @@ ${() => css`
                 ) : dataset.length ? (
                   dataset.map((player, i) => (
                     <Tr key={'rowt_' + i}>
+                      <Td>{player.username}</Td>
                       <Td>{moment(player.betTime).format('YYYY-MM-DD HH:mm:ss')}</Td>
                       <Td>{player.transactionID}</Td>
                       <Td>{player.matchID}</Td>
                       <Td>{player.gameType}</Td>
+                      <Td>{formatNumber(player.betAmount)}</Td>
                       <Td>{player.game}</Td>
-                      <Td>{player.username}</Td>
-                      <Td>{player.betAmount}</Td>
+
                       {/* <Td>{player.validBets}</Td>
                         <Td>{player.winlose}</Td> */}
                     </Tr>

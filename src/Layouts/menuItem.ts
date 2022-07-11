@@ -119,12 +119,16 @@ const items = (user, userInfo) => {
             title: 'Player Report',
             link: { href: '/sales/player_report' },
           },
+          // {
+          //   title: 'Player Deposit/Withdraw',
+          //   link: { href: '/sales/player_deposit_withdraw' },
+          // },
           {
             title: 'Betting History',
             link: { href: '/sales/betting_history' },
           },
           {
-            title: 'All Transaction Logs',
+            title: 'Crypto/Fiat (in & out)',
             link: { href: '/sales/all_transaction_log' },
           },
         ].filter((s) => s.title.length > 0),

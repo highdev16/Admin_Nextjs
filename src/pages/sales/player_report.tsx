@@ -10,6 +10,8 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { Button } from '@paljs/ui';
 import APICall from '../../utils/server_config';
 import Pagination from 'pages/extra-components/pagination';
+import formatNumber from 'utils/formatNumber';
+import CloseIcon from '@mui/icons-material/Close';
 
 const AgentReport = () => {
   const [isSubmitting, setSubmitting] = React.useState(false);
@@ -21,6 +23,47 @@ const AgentReport = () => {
   const [pageRows, setPageRows] = React.useState(20);
   const [pageTotal, setPageTotal] = React.useState(0);
 
+  const onSearch = () => {
+    if (isSubmitting) return;
+    setSubmitting(true);
+    setDatasets([]);
+    var params1 = {
+      member_search_type: 'like', // document.getElementById('member_search_type').value,
+      username:
+        document.getElementById('member_search_type').value == 'Username'
+          ? document.getElementById('username').value
+          : '',
+      full_name:
+        document.getElementById('member_search_type').value == 'Full Name'
+          ? document.getElementById('username').value
+          : '',
+      agent:
+        document.getElementById('member_search_type').value == 'Agent' ? document.getElementById('username').value : '',
+    };
+    APICall(
+      '/api/sales/player_reports_by_search',
+      {
+        ...params1,
+        pageIndex: 1,
+        pageRows,
+      },
+      (data) => {
+        setURL('/api/sales/player_reports_by_search');
+        setPageIndex(1);
+        setPageCount(Math.ceil(data.total / pageRows));
+        setPageTotal(data.total);
+        setSubmitting(false);
+        setDatasets(data.data);
+        setParams(params1);
+      },
+      (e) => {
+        setSubmitting(false);
+        if (e[0] == 'login_issue') {
+          window.location.href = '/auth/login';
+        } else alert(e[1] || 'Failed to load data.');
+      },
+    );
+  };
   React.useEffect(() => {
     var detail = window.location.search;
     if (detail.startsWith('?data=')) {
@@ -221,6 +264,34 @@ ${() => css`
   `}
 `}`;
 
+  const onNumberOfWithdrawals = (e) => {
+    e.preventDefault();
+    window.open(
+      '/sales/player_deposit_withdraw?data=' +
+        encodeURIComponent(
+          JSON.stringify({
+            mode: 'Withdraw',
+            username: e.target.getAttribute('data-id'),
+          }),
+        ),
+      '_blank',
+    );
+  };
+
+  const onNumberOfDeposits = (e) => {
+    e.preventDefault();
+    window.open(
+      '/sales/player_deposit_withdraw?data=' +
+        encodeURIComponent(
+          JSON.stringify({
+            mode: 'Deposit',
+            username: e.target.getAttribute('data-id'),
+          }),
+        ),
+      '_blank',
+    );
+  };
+
   return (
     <Layout title="Accordions">
       <CustomCSS />
@@ -234,11 +305,12 @@ ${() => css`
             <Row>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Player username</div>
+                  <div className="form-label">Search Mode</div>
                   <div className="form-value">
                     <select id="member_search_type">
-                      <option value="like">Containing</option>
-                      <option value="equal">Exact search</option>
+                      <option value="Username">Username</option>
+                      <option value="Full Name">Full Name</option>
+                      <option value="Agent">Agent</option>
                     </select>
                   </div>
                 </div>
@@ -248,22 +320,14 @@ ${() => css`
                   <input type="text" id="username" style={{ width: '100%' }}></input>
                 </div>
               </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
+              {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
-                  <div className="form-label">Real Name</div>
+                  <div className="form-label">Full Name</div>
                   <div className="form-value">
                     <input type="text" id="full_name" />
                   </div>
                 </div>
-              </Col>
-              <Col breakPoint={{ xs: 12, md: 3 }}>
-                <div className="form-item">
-                  <div className="form-label">Agent</div>
-                  <div className="form-value">
-                    <input type="text" id="agent" />
-                  </div>
-                </div>
-              </Col>
+              </Col> */}
               {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Time zone</div>
@@ -377,43 +441,10 @@ ${() => css`
                       border: '0px',
                       background: 'linear-gradient(89.33deg, #0075FF 0.58%, #00D1FF 104.03%)',
                       color: 'white',
-                      width: '170px',
+                      width: '100px',
                       cursor: isSubmitting ? 'not-allowed' : 'pointer',
                     }}
-                    onClick={() => {
-                      if (isSubmitting) return;
-                      setSubmitting(true);
-                      setDatasets([]);
-                      var params1 = {
-                        member_search_type: document.getElementById('member_search_type').value,
-                        username: document.getElementById('username').value,
-                        full_name: document.getElementById('full_name').value,
-                        agent: document.getElementById('agent').value,
-                      };
-                      APICall(
-                        '/api/sales/player_reports_by_search',
-                        {
-                          ...params1,
-                          pageIndex: 1,
-                          pageRows,
-                        },
-                        (data) => {
-                          setURL('/api/sales/player_reports_by_search');
-                          setPageIndex(1);
-                          setPageCount(Math.ceil(data.total / pageRows));
-                          setPageTotal(data.total);
-                          setSubmitting(false);
-                          setDatasets(data.data);
-                          setParams(params1);
-                        },
-                        (e) => {
-                          setSubmitting(false);
-                          if (e[0] == 'login_issue') {
-                            window.location.href = '/auth/login';
-                          } else alert(e[1] || 'Failed to load data.');
-                        },
-                      );
-                    }}
+                    onClick={onSearch}
                   >
                     Search
                   </Button>
@@ -440,7 +471,7 @@ ${() => css`
                   <Th>Deposit amount</Th>
                   <Th>No. of withdrawal</Th>
                   <Th>Withdrawal amount</Th>
-                  <Th>Manual adjustment</Th>
+                  <Th>Win/Lose</Th>
                   <Th>Total Bet Amount</Th>
                 </Tr>
               </Thead>
@@ -477,12 +508,45 @@ ${() => css`
                           </a>
                         </Td>
                         <Td>{player.FullName}</Td>
-                        <Td>{player.numberOfRecharges}</Td>
-                        <Td>{player.depositAmount}</Td>
-                        <Td>{player.numberOfWithdrawals}</Td>
-                        <Td>{player.withdrawalAmount}</Td>
-                        <Td>{player.manualAdjustment || 0}</Td>
-                        <Td>{player.totalBets}</Td>
+                        <Td>
+                          {Number(player.numberOfRecharges) ? (
+                            <a
+                              href="#"
+                              onClick={onNumberOfDeposits}
+                              style={{ color: 'blue' }}
+                              data-id={player.UserName}
+                            >
+                              {formatNumber(player.numberOfRecharges, 0)}
+                            </a>
+                          ) : (
+                            formatNumber(player.numberOfRecharges, 0)
+                          )}
+                        </Td>
+                        <Td>{formatNumber(player.depositAmount)}</Td>
+                        <Td>
+                          {Number(player.numberOfWithdrawals) ? (
+                            <a
+                              href="#"
+                              onClick={onNumberOfWithdrawals}
+                              style={{ color: 'blue' }}
+                              data-id={player.UserName}
+                            >
+                              {formatNumber(player.numberOfWithdrawals, 0)}
+                            </a>
+                          ) : (
+                            formatNumber(player.numberOfWithdrawals, 0)
+                          )}
+                        </Td>
+                        <Td>{formatNumber(player.withdrawalAmount)}</Td>
+                        <Td
+                          style={{
+                            color: player.winlose > 0 ? 'green' : player.winlose < 0 ? 'red' : '#aaa',
+                            fontWeight: player.winlose > 0 || player.winlose < 0 ? 1000 : 400,
+                          }}
+                        >
+                          {formatNumber(player.winlose)}
+                        </Td>
+                        <Td>{formatNumber(player.totalBets)}</Td>
                       </Tr>
                     );
                   })

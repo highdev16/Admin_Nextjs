@@ -188,6 +188,7 @@ ${() => css`
 `}`;
   if (isMobile === null) return <div />;
   const getHyperLink = (agent) => {
+    return agent.username;
     return (
       <a
         href="#"
