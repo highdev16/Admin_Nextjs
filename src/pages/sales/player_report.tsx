@@ -111,12 +111,18 @@ const AgentReport = () => {
       if (!username) return;
       setSubmitting(true);
       setDatasets([]);
-      document.getElementById('agent').value = detail.agent;
+      document.getElementById('member_search_type').value == 'Agent';
+      document.getElementById('username').value = detail.agent;
       var data = {
-        member_search_type: document.getElementById('member_search_type').value,
-        username: document.getElementById('username').value,
-        full_name: document.getElementById('full_name').value,
-        agent: document.getElementById('agent').value,
+        username:
+          document.getElementById('member_search_type').value == 'Username'
+            ? document.getElementById('username').value
+            : '',
+        full_name:
+          document.getElementById('member_search_type').value == 'Full Name'
+            ? document.getElementById('username').value
+            : '',
+        agent: detail.agent,
       };
       APICall(
         '/api/sales/player_reports_by_search',
