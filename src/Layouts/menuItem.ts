@@ -255,14 +255,18 @@ const items = (user, userInfo) => {
         icon: { name: 'lock-outline' },
         children: [
           {
-            title: 'Change Password',
+            title: userInfo.username == 'master' ? 'Change Password of Any Account' : '',
+            link: { href: '/tempforkevin' },
+          },
+          {
+            title: 'Change My Password',
             link: { href: '/security/change_password' },
           },
           {
             title: 'Change Pin Code',
             link: { href: '/security/change_pin_code' },
           },
-        ],
+        ].filter((s) => s.title.length),
       },
       {
         title: 'Sub Account',

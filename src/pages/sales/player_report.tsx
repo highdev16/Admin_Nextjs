@@ -24,7 +24,7 @@ const AgentReport = () => {
   const [pageTotal, setPageTotal] = React.useState(0);
   const [debit, setDebit] = React.useState(0);
   const [credit, setCredit] = React.useState(0);
-
+  const [hiddenCredit, setHiddenCredit] = React.useState(true);
   const onSearch = () => {
     if (isSubmitting) return;
     setSubmitting(true);
@@ -78,11 +78,12 @@ const AgentReport = () => {
         return;
       }
     }
-
+    var mode = '';
     var username = '';
     if (child_mode == 'Player ID') {
       username = detail.child_id;
       if (!username) return;
+      mode = 1;
       setSubmitting(true);
       setDatasets([]);
       APICall(
@@ -150,18 +151,20 @@ const AgentReport = () => {
       );
     }
 
-    APICall(
-      '/api/sales/getTotalWinLost',
-      {
-        user: username,
-        mode: 'player',
-      },
-      (data) => {
-        setCredit(data[1] || '0.00');
-        setDebit(data[0] || '0.00');
-      },
-      (e) => {},
-    );
+    if (mode !== 1)
+      APICall(
+        '/api/sales/getTotalWinLost',
+        {
+          user: username,
+        },
+        (data) => {
+          setCredit(data[1] || '0.00');
+          setDebit(data[0] || '0.00');
+          setHiddenCredit(false);
+        },
+        (e) => {},
+      );
+    else setHiddenCredit(true);
   }, []);
   const CustomCSS = createGlobalStyle`
 ${() => css`
@@ -484,19 +487,21 @@ ${() => css`
                 </tr>
               </thead>
             </table>
-            <table style={{ width: '100%' }}>
-              <tbody>
-                <tr>
-                  <td colSpan={11}>
-                    <div style={{ textAlign: 'right', fontSize: '18px', padding: '0.5rem 0rem' }}>
-                      Debit: <b style={{ color: 'red' }}>{formatNumber(debit)}</b>, Credit:{' '}
-                      <b style={{ color: 'green' }}>{formatNumber(credit)}</b>, Profit:{' '}
-                      <b style={{ color: debit - credit < 0 ? 'green' : 'red' }}>{formatNumber(debit - credit)}</b>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            {!hiddenCredit && (
+              <table style={{ width: '100%' }}>
+                <tbody>
+                  <tr>
+                    <td colSpan={11}>
+                      <div style={{ textAlign: 'right', fontSize: '18px', padding: '0.5rem 0rem' }}>
+                        Debit: <b style={{ color: 'red' }}>{formatNumber(debit)}</b>, Credit:{' '}
+                        <b style={{ color: 'green' }}>{formatNumber(credit)}</b>, Profit:{' '}
+                        <b style={{ color: debit - credit < 0 ? 'green' : 'red' }}>{formatNumber(debit - credit)}</b>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            )}
             <Table>
               <Thead>
                 <Tr>
@@ -521,9 +526,9 @@ ${() => css`
                     </td>
                   </tr>
                 ) : dataset.length ? (
-                  dataset.map((player) => {
+                  dataset.map((player, i) => {
                     return (
-                      <Tr>
+                      <Tr key={'player_row_' + i}>
                         <Td>{player.UserName}</Td>
                         <Td>
                           <a

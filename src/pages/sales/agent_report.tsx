@@ -187,7 +187,6 @@ ${() => css`
       '/api/sales/getTotalWinLost',
       {
         user: username,
-        mode: 'agent',
       },
       (data) => {
         setCredit(data[1] || '0.00');
@@ -589,7 +588,7 @@ ${() => css`
               <tbody>
                 <tr className="titleimg">
                   <td colSpan={11} style={{ textAlign: 'center', padding: '1rem', color: 'white', fontWeight: 'bold' }}>
-                    Upstream Agent Report
+                    Agent Report
                   </td>
                 </tr>
                 <tr>
