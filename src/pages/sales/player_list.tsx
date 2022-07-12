@@ -14,7 +14,7 @@ import moment from 'moment';
 import Pagination from 'pages/extra-components/pagination';
 import formatNumber from 'utils/formatNumber';
 
-const AgentReport = () => {
+const PlayerList = () => {
   const [isSubmitting, setSubmitting] = React.useState(false);
   const [dataset, setDatasets] = React.useState([]);
   const [url, setURL] = React.useState('');
@@ -26,18 +26,19 @@ const AgentReport = () => {
 
   React.useEffect(() => {
     var detail = window.location.search;
+    let child_mode;
     if (detail.startsWith('?data=')) {
       detail = detail.substring(6);
       try {
         detail = JSON.parse(decodeURIComponent(detail));
+        child_mode = detail.child_mode;
       } catch (e) {
         return;
       }
-    } else return;
-    const child_mode = detail.child_mode;
-
+    }
+    var username = '';
     if (child_mode == 'players') {
-      var username = detail.child_id;
+      username = detail.child_id;
       if (!username) return;
       setSubmitting(true);
       setDatasets([]);
@@ -539,4 +540,4 @@ ${() => css`
   );
 };
 
-export default AgentReport;
+export default PlayerList;

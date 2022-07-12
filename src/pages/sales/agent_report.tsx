@@ -157,11 +157,13 @@ ${() => css`
   const [agentLevel, setAgentLevel] = React.useState('All');
   const [isMobile, setMobile] = React.useState(null);
   const [isFlag, setFlag] = React.useState(false);
+  const [debit, setDebit] = React.useState(0);
+  const [credit, setCredit] = React.useState(0);
 
   React.useEffect(() => {
     if (window.innerWidth < 768) setMobile(true);
     else setMobile(false);
-
+    var username = '';
     var data = window.location.search;
     if (data.startsWith('?data=')) {
       data = data.substring(6);
@@ -175,11 +177,24 @@ ${() => css`
 
       setParentUsername(data.upstream_agent);
       setAgentUsername(data.agent_username);
+      username = data.upstream_agent;
       setAgentLevel(data.agent_level);
       setDate1(data.date1);
       setDate2(data.date2);
       setFlag(true);
     }
+    APICall(
+      '/api/sales/getTotalWinLost',
+      {
+        user: username,
+        mode: 'agent',
+      },
+      (data) => {
+        setCredit(data[1] || '0.00');
+        setDebit(data[0] || '0.00');
+      },
+      (e) => {},
+    );
   }, []);
 
   React.useEffect(() => {
@@ -584,6 +599,19 @@ ${() => css`
                       (This report will show the current subordinate agents and their data. If you need to settle with
                       an agent, please save the data before changing geographical positions. The system settles at
                       00:00~01:00 (GMT+8). Please check the data after settlement
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table style={{ width: '100%' }}>
+              <tbody>
+                <tr>
+                  <td colSpan={11}>
+                    <div style={{ textAlign: 'right', fontSize: '18px', padding: '0.5rem 0rem' }}>
+                      Debit: <b style={{ color: 'red' }}>{formatNumber(debit)}</b>, Credit:{' '}
+                      <b style={{ color: 'green' }}>{formatNumber(credit)}</b>, Profit:{' '}
+                      <b style={{ color: debit - credit < 0 ? 'green' : 'red' }}>{formatNumber(debit - credit)}</b>
                     </div>
                   </td>
                 </tr>

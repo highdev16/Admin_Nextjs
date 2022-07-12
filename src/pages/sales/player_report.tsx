@@ -22,6 +22,8 @@ const AgentReport = () => {
   const [pageCount, setPageCount] = React.useState(0);
   const [pageRows, setPageRows] = React.useState(20);
   const [pageTotal, setPageTotal] = React.useState(0);
+  const [debit, setDebit] = React.useState(0);
+  const [credit, setCredit] = React.useState(0);
 
   const onSearch = () => {
     if (isSubmitting) return;
@@ -66,18 +68,20 @@ const AgentReport = () => {
   };
   React.useEffect(() => {
     var detail = window.location.search;
+    let child_mode;
     if (detail.startsWith('?data=')) {
       detail = detail.substring(6);
       try {
         detail = JSON.parse(decodeURIComponent(detail));
+        child_mode = detail.child_mode;
       } catch (e) {
         return;
       }
-    } else return;
-    const child_mode = detail.child_mode;
+    }
 
+    var username = '';
     if (child_mode == 'Player ID') {
-      var username = detail.child_id;
+      username = detail.child_id;
       if (!username) return;
       setSubmitting(true);
       setDatasets([]);
@@ -103,7 +107,7 @@ const AgentReport = () => {
         },
       );
     } else if (child_mode == 'Player List') {
-      var username = detail.agent;
+      username = detail.agent;
       if (!username) return;
       setSubmitting(true);
       setDatasets([]);
@@ -139,6 +143,19 @@ const AgentReport = () => {
         },
       );
     }
+
+    APICall(
+      '/api/sales/getTotalWinLost',
+      {
+        user: username,
+        mode: 'player',
+      },
+      (data) => {
+        setCredit(data[1] || '0.00');
+        setDebit(data[0] || '0.00');
+      },
+      (e) => {},
+    );
   }, []);
   const CustomCSS = createGlobalStyle`
 ${() => css`
@@ -460,6 +477,19 @@ ${() => css`
                   </td>
                 </tr>
               </thead>
+            </table>
+            <table style={{ width: '100%' }}>
+              <tbody>
+                <tr>
+                  <td colSpan={11}>
+                    <div style={{ textAlign: 'right', fontSize: '18px', padding: '0.5rem 0rem' }}>
+                      Debit: <b style={{ color: 'red' }}>{formatNumber(debit)}</b>, Credit:{' '}
+                      <b style={{ color: 'green' }}>{formatNumber(credit)}</b>, Profit:{' '}
+                      <b style={{ color: debit - credit < 0 ? 'green' : 'red' }}>{formatNumber(debit - credit)}</b>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
             </table>
             <Table>
               <Thead>
