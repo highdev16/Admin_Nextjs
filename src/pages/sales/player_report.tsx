@@ -115,7 +115,7 @@ const AgentReport = () => {
       setDatasets([]);
       document.getElementById('member_search_type').value == 'Agent';
       document.getElementById('username').value = detail.agent;
-      var data = {
+      var data1 = {
         username:
           document.getElementById('member_search_type').value == 'Username'
             ? document.getElementById('username').value
@@ -129,13 +129,13 @@ const AgentReport = () => {
       APICall(
         '/api/sales/player_reports_by_search',
         {
-          ...data,
+          ...data1,
           pageIndex: 1,
           pageRows,
         },
         (data) => {
           setURL('/api/sales/player_reports_by_search');
-          setParams(data);
+          setParams(data1);
           setPageIndex(1);
           setPageCount(Math.ceil(data.total / pageRows));
           setPageTotal(data.total);
