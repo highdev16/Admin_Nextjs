@@ -234,7 +234,12 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Player username</div>
                   <div className="form-value">
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
                   </div>
                 </div>
               </Col>

@@ -239,12 +239,12 @@ ${() => css`
               </Col>
               <Col breakPoint={{ xs: 12, md: 1 }}>
                 <div className="empty-form-item">
-                  <input type="text" style={{ width: '100%', margin: 'auto' }} />
+                  <input type="text" autoComplete="off"  style={{ width: '100%', margin: 'auto' }} />
                 </div>
               </Col> */}
               {/* <Col breakPoint={{ xs: 12, md: 1 }}>
                 <div className="empty-form-item">
-                  <input type="text" style={{ width: '100%' }} />
+                  <input type="text" autoComplete="off"  style={{ width: '100%' }} />
                 </div>
               </Col> */}
               <Col breakPoint={{ xs: 12, md: 3 }}>
@@ -265,7 +265,7 @@ ${() => css`
               </Col>
               <Col breakPoint={{ xs: 12, md: 2 }}>
                 <div className="empty-form-item">
-                  <input type="text" id="user_name_field" placeholder="Enter username" />
+                  <input type="text" autoComplete="off" id="user_name_field" placeholder="Enter username" />
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
@@ -422,9 +422,9 @@ ${() => css`
                     </td>
                   </tr>
                 ) : dataset.length ? (
-                  dataset.map((player) => {
+                  dataset.map((player, index) => {
                     return (
-                      <Tr>
+                      <Tr key={'rows_' + index}>
                         <Td>
                           <a
                             href="#"
@@ -462,7 +462,11 @@ ${() => css`
                             {player.agentname}
                           </a>
                         </Td>
-                        <Td>{moment(player.registration_date).format('YYYY-MM-DD HH:mm:ss')}</Td>
+                        <Td>
+                          {player.registration_date
+                            ? moment(player.registration_date).format('YYYY-MM-DD HH:mm:ss')
+                            : '-'}
+                        </Td>
                         <Td>{formatNumber(player.total_balance || 0)}</Td>
                         <Td>{formatNumber(player.total_recharge || 0)}</Td>
                         <Td>{formatNumber(player.total_withdrawal || 0)}</Td>

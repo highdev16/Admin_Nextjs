@@ -189,7 +189,7 @@ ${() => css`
                         <div className="form-item">
                           <div className="form-label">User name</div>
                           <div className="form-value">
-                            <input type="text" />
+                            <input type="text" autoComplete="off" />
                           </div>
                         </div>
                         <div className="form-item">

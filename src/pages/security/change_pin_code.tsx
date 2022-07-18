@@ -175,7 +175,7 @@ ${() => css`
                       Current Pin Code
                     </div>
                     <div className="form-value">
-                      <input type="password" id="current_password" maxLength={6} />
+                      <input type="password" autoComplete="off" id="current_password" maxLength={6} />
                     </div>
                   </div>
                 </Col>
@@ -188,7 +188,7 @@ ${() => css`
                     New Pin Code
                   </div>
                   <div className="form-value">
-                    <input type="password" id="new_password" maxLength={6} />
+                    <input type="password" autoComplete="off" id="new_password" maxLength={6} />
                   </div>
                 </div>
               </Col>
@@ -200,7 +200,7 @@ ${() => css`
                     Confirm Pin Code
                   </div>
                   <div className="form-value">
-                    <input type="password" id="confirm_password" maxLength={6} />
+                    <input type="password" autoComplete="off" id="confirm_password" maxLength={6} />
                   </div>
                 </div>
               </Col>

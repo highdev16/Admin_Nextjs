@@ -12,10 +12,10 @@ export default function ResetPassword() {
       <Auth title="Change Password" subTitle="Please set a new password">
         <form>
           <InputGroup fullWidth>
-            <input type="password" placeholder="New Password" />
+            <input type="password" autoComplete="off" placeholder="New Password" />
           </InputGroup>
           <InputGroup fullWidth>
-            <input type="password" placeholder="Confirm Password" />
+            <input type="password" autoComplete="off" placeholder="Confirm Password" />
           </InputGroup>
           <Button status="Success" type="button" shape="SemiRound" fullWidth>
             Change Password

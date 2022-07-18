@@ -80,7 +80,13 @@ export default function ToastrPage() {
                     onChange={(v: Option) => onChangeHandle('position', v.value)}
                   />
                   <InputGroup fullWidth>
-                    <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      placeholder="Title"
+                      value={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
                   </InputGroup>
                   <InputGroup fullWidth>
                     <input

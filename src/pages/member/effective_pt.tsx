@@ -203,7 +203,7 @@ ${() => css`
                           <div className="form-label"> Select SH:</div>
                           <div className="form-value">
                             {' '}
-                            <input type="text" />
+                            <input type="text" autoComplete="off" />
                           </div>
                         </div>
                       </Col>

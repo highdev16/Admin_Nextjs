@@ -40,7 +40,7 @@ const SportsTab = ({ isMobile }) => {
                         <td style={{ width: '16%' }} />
                         <td style={{ width: '16%' }}>Min Bet: </td>
                         <td style={{ width: '16%' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%' }}>Min: 1</td>
                       </tr>
@@ -53,12 +53,12 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '16%', height: '40px' }}>Credit:</td>
                         <td style={{ width: '16%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
                         <td style={{ width: '16%', height: '40px' }}>Max Bet</td>
                         <td style={{ width: '16%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%' }}>Max: 10,000,000.00</td>
                       </tr>
@@ -71,7 +71,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '16%', height: '40px' }}>Password</td>
                         <td style={{ width: '16%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
                         <td style={{ width: '16%', height: '40px' }}>Max per match:</td>
@@ -109,7 +109,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%' }}>Min Bet: </td>
                         <td style={{ width: '33%' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%' }}>Min: 1</td>
                       </tr>
@@ -122,7 +122,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%', height: '40px' }}>Credit:</td>
                         <td style={{ width: '33%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%', color: 'gray' }}>Max: 1,800,000.00</td>
                       </tr>
@@ -135,7 +135,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%', height: '40px' }}>Max Bet</td>
                         <td style={{ width: '33%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%' }}>Max: 10,000,000.00</td>
                       </tr>
@@ -148,7 +148,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%', height: '40px' }}>Password</td>
                         <td style={{ width: '33%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%', color: 'gray' }}>Max: 1,800,000.00</td>
                       </tr>
@@ -202,7 +202,7 @@ const SportsTab = ({ isMobile }) => {
                         <td style={{ width: '16%' }} />
                         <td style={{ width: '16%' }}>Min Bet: </td>
                         <td style={{ width: '16%' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%' }}>Min: 1</td>
                       </tr>
@@ -215,12 +215,12 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '16%', height: '40px' }}>Credit:</td>
                         <td style={{ width: '16%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
                         <td style={{ width: '16%', height: '40px' }}>Max Bet</td>
                         <td style={{ width: '16%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%' }}>Max: 10,000,000.00</td>
                       </tr>
@@ -233,7 +233,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '16%', height: '40px' }}>Password</td>
                         <td style={{ width: '16%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
                         <td style={{ width: '16%', height: '40px' }}>Max per match:</td>
@@ -271,7 +271,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%' }}>Min Bet: </td>
                         <td style={{ width: '33%' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%' }}>Min: 1</td>
                       </tr>
@@ -284,7 +284,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%', height: '40px' }}>Credit:</td>
                         <td style={{ width: '33%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%', color: 'gray' }}>Max: 1,800,000.00</td>
                       </tr>
@@ -297,7 +297,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%', height: '40px' }}>Max Bet</td>
                         <td style={{ width: '33%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%' }}>Max: 10,000,000.00</td>
                       </tr>
@@ -310,7 +310,7 @@ const SportsTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%', height: '40px' }}>Password</td>
                         <td style={{ width: '33%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%', color: 'gray' }}>Max: 1,800,000.00</td>
                       </tr>
@@ -360,76 +360,76 @@ const SportsTab = ({ isMobile }) => {
           <Tr>
             <Td>PT1</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
           <Tr>
             <Td>PT2</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
           <Tr>
             <Td>Outlight</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
           <Tr>
             <Td>AH Live</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
           <Tr>
             <Td>OU Live</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
         </Tbody>
@@ -474,7 +474,7 @@ const GameTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%' }}>Player Max Lose: </td>
                         <td style={{ width: '33%' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%' }}></td>
                       </tr>
@@ -487,7 +487,7 @@ const GameTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '33%', height: '40px' }}>Daily Reset:</td>
                         <td style={{ width: '33%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '33%', color: 'gray' }}></td>
                       </tr>
@@ -523,7 +523,7 @@ const GameTab = ({ isMobile }) => {
                         <td style={{ width: '16%' }} />
                         <td style={{ width: '16%' }}>Player Max Lose: </td>
                         <td style={{ width: '16%' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%' }}></td>
                       </tr>
@@ -536,7 +536,7 @@ const GameTab = ({ isMobile }) => {
                       <tr>
                         <td style={{ width: '16%', height: '40px' }}>Daily Reset:</td>
                         <td style={{ width: '16%', height: '40px' }}>
-                          <input type="text" style={{ width: '100%' }} />
+                          <input type="text" autoComplete="off" style={{ width: '100%' }} />
                         </td>
                         <td style={{ width: '16%', color: 'gray' }}></td>
                         <td style={{ width: '16%', height: '40px' }}></td>
@@ -625,76 +625,76 @@ const GameTab = ({ isMobile }) => {
           <Tr>
             <Td>PT1</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
           <Tr>
             <Td>PT2</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
           <Tr>
             <Td>Outlight</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
           <Tr>
             <Td>AH Live</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
           <Tr>
             <Td>OU Live</Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
             <Td>
-              <input type="text" />
+              <input type="text" autoComplete="off" />
             </Td>
           </Tr>
         </Tbody>
@@ -730,7 +730,7 @@ const LiveCasino = () => {
                       <td style={{ width: '16%' }} />
                       <td style={{ width: '16%' }}>Player Max Lose: </td>
                       <td style={{ width: '16%' }}>
-                        <input type="text" style={{ width: '100%' }} />
+                        <input type="text" autoComplete="off" style={{ width: '100%' }} />
                       </td>
                       <td style={{ width: '16%' }}></td>
                     </tr>
@@ -750,7 +750,7 @@ const LiveCasino = () => {
                       <td style={{ width: '16%', color: 'gray' }}>Min: 1</td>
                       <td style={{ width: '16%' }}>Live Casino Max Bet: </td>
                       <td style={{ width: '16%' }}>
-                        <input type="text" style={{ width: '100%' }} />
+                        <input type="text" autoComplete="off" style={{ width: '100%' }} />
                       </td>
                       <td style={{ width: '16%', color: 'gray' }}>Max: 100000</td>
                     </tr>
@@ -763,7 +763,7 @@ const LiveCasino = () => {
                     <tr>
                       <td style={{ width: '16%', height: '40px' }}>Daily Reset:</td>
                       <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
+                        <input type="text" autoComplete="off" style={{ width: '100%' }} />
                       </td>
                       <td style={{ width: '16%', color: 'gray' }}></td>
                       <td style={{ width: '16%', height: '40px' }}></td>
@@ -1040,7 +1040,7 @@ const ThirdPartyService = () => {
                       <td style={{ width: '16%' }} />
                       <td style={{ width: '16%' }}>Min Bet: </td>
                       <td style={{ width: '16%' }}>
-                        <input type="text" style={{ width: '100%' }} />
+                        <input type="text" autoComplete="off" style={{ width: '100%' }} />
                       </td>
                       <td style={{ width: '16%' }}>Min: 1</td>
                     </tr>
@@ -1053,12 +1053,12 @@ const ThirdPartyService = () => {
                     <tr>
                       <td style={{ width: '16%', height: '40px' }}>Credit:</td>
                       <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
+                        <input type="text" autoComplete="off" style={{ width: '100%' }} />
                       </td>
                       <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
                       <td style={{ width: '16%', height: '40px' }}>Max Bet</td>
                       <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
+                        <input type="text" autoComplete="off" style={{ width: '100%' }} />
                       </td>
                       <td style={{ width: '16%' }}>Max: 10,000,000.00</td>
                     </tr>
@@ -1071,7 +1071,7 @@ const ThirdPartyService = () => {
                     <tr>
                       <td style={{ width: '16%', height: '40px' }}>Password</td>
                       <td style={{ width: '16%', height: '40px' }}>
-                        <input type="text" style={{ width: '100%' }} />
+                        <input type="text" autoComplete="off" style={{ width: '100%' }} />
                       </td>
                       <td style={{ width: '16%', color: 'gray' }}>Max: 1,800,000.00</td>
                       <td style={{ width: '16%', height: '40px' }}>Max per match:</td>
@@ -1281,13 +1281,14 @@ const NewSH = () => {
         document.getElementById('currency').value = 'USD';
         document.getElementById('agent_level').value = 'SMA';
         document.getElementById('email').value = '';
+        document.getElementById('cpassword').value = '';
       },
       (e) => {
         if (e[0] == 'login_issue') {
           window.location.href = '/auth/login';
         } else if (e[0] == -10) {
           alert('Already existing username or email');
-        } else if (e[0] === -203) alert('Invalid email/username/password format.');
+        } else if (e[0] === -203) alert(e[1] || 'Invalid email/username/password format.');
         else if (e[0] === -205) alert('Password is weak or contains the first and/or last name.');
         else alert(e[1] || 'Failed to create the new SMA');
       },
@@ -1500,12 +1501,12 @@ ${() => css`
                             <tr>
                               <td style={{ width: '16%', height: '40px' }}>UserName</td>
                               <td style={{ width: '16%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="username" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="username" />
                               </td>
                               <td style={{ width: '16%', color: 'gray' }}>*Required</td>
                               <td style={{ width: '16%', height: '40px' }}>Email</td>
                               <td style={{ width: '16%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="email" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="email" />
                               </td>
                               <td style={{ width: '16%' }}></td>
                             </tr>
@@ -1518,12 +1519,12 @@ ${() => css`
                             <tr>
                               <td style={{ width: '16%', height: '40px' }}>Password</td>
                               <td style={{ width: '16%', height: '40px' }}>
-                                <input type="password" style={{ width: '100%' }} id="password" />
+                                <input type="password" autoComplete="off" style={{ width: '100%' }} id="password" />
                               </td>
                               <td style={{ width: '16%', color: 'gray' }}>*Required</td>
                               <td style={{ width: '16%', height: '40px' }}>Confirm Password</td>
                               <td style={{ width: '16%', height: '40px' }}>
-                                <input type="password" style={{ width: '100%' }} id="cpassword" />
+                                <input type="password" autoComplete="off" style={{ width: '100%' }} id="cpassword" />
                               </td>
                               <td style={{ width: '16%', color: 'gray' }}>*Required</td>
                             </tr>
@@ -1536,12 +1537,12 @@ ${() => css`
                             <tr>
                               <td style={{ width: '16%', height: '40px' }}>First Name</td>
                               <td style={{ width: '16%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="firstname" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="firstname" />
                               </td>
                               <td style={{ width: '16%' }}></td>
                               <td style={{ width: '16%', height: '40px' }}>Phone</td>
                               <td style={{ width: '16%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="phone" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="phone" />
                               </td>
                               <td style={{ width: '16%' }}></td>
                             </tr>
@@ -1554,7 +1555,7 @@ ${() => css`
                             <tr>
                               <td style={{ width: '16%', height: '40px' }}>Last Name</td>
                               <td style={{ width: '16%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="lastname" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="lastname" />
                               </td>
                               <td style={{ width: '16%' }}></td>
                               <td style={{ width: '16%', height: '40px' }}>Currency</td>
@@ -1594,7 +1595,7 @@ ${() => css`
                             <tr>
                               <td style={{ width: '33%', height: '40px' }}>UserName</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="username" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="username" />
                               </td>
                               <td style={{ width: '33%', color: 'gray' }}>*Required</td>
                             </tr>
@@ -1607,7 +1608,7 @@ ${() => css`
                             <tr>
                               <td style={{ width: '33%', height: '40px' }}>Email</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="email" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="email" />
                               </td>
                               <td style={{ width: '33%' }}></td>
                             </tr>
@@ -1620,7 +1621,7 @@ ${() => css`
                             <tr>
                               <td style={{ width: '33%', height: '40px' }}>Password</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="password" style={{ width: '100%' }} id="password" />
+                                <input type="password" autoComplete="off" style={{ width: '100%' }} id="password" />
                               </td>
                               <td style={{ width: '33%', color: 'gray' }}>*Required</td>
                             </tr>
@@ -1633,7 +1634,7 @@ ${() => css`
                             <tr>
                               <td style={{ width: '33%', height: '40px' }}>Confirm Password</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="password" style={{ width: '100%' }} id="cpassword" />
+                                <input type="password" autoComplete="off" style={{ width: '100%' }} id="cpassword" />
                               </td>
                               <td style={{ width: '33%', color: 'gray' }}>*Required</td>
                             </tr>
@@ -1663,7 +1664,7 @@ ${() => css`
                             <tr>
                               <td style={{ width: '33%', height: '40px' }}>First Name</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="firstname" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="firstname" />
                               </td>
                               <td style={{ width: '33%' }}></td>
                             </tr>
@@ -1676,7 +1677,7 @@ ${() => css`
                             <tr>
                               <td style={{ width: '33%', height: '40px' }}>Last Name</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="lastname" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="lastname" />
                               </td>
                               <td style={{ width: '33%' }}></td>
                             </tr>
@@ -1689,7 +1690,7 @@ ${() => css`
                             <tr>
                               <td style={{ width: '33%', height: '40px' }}>Phone</td>
                               <td style={{ width: '33%', height: '40px' }}>
-                                <input type="text" style={{ width: '100%' }} id="phone" />
+                                <input type="text" autoComplete="off" style={{ width: '100%' }} id="phone" />
                               </td>
                               <td style={{ width: '33%' }}></td>
                             </tr>

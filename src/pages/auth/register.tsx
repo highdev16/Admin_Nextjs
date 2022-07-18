@@ -22,16 +22,16 @@ export default function Register() {
       <Auth title="Create new account">
         <form>
           <Input fullWidth>
-            <input type="text" placeholder="Username" />
+            <input type="text" autoComplete="off" placeholder="Username" />
           </Input>
           <Input fullWidth>
             <input type="email" placeholder="Email Address" />
           </Input>
           <Input fullWidth>
-            <input type="password" placeholder="Password" />
+            <input type="password" autoComplete="off" placeholder="Password" />
           </Input>
           <Input fullWidth>
-            <input type="password" placeholder="Confirm Password" />
+            <input type="password" autoComplete="off" placeholder="Confirm Password" />
           </Input>
           <Checkbox checked onChange={onCheckbox}>
             Agree to{' '}

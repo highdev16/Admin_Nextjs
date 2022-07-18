@@ -40,32 +40,32 @@ const InputPage = () => {
             <header>Input status</header>
             <CardBody>
               <Input fullWidth size="Small">
-                <input type="text" placeholder="Size small" />
+                <input type="text" autoComplete="off" placeholder="Size small" />
               </Input>
               <Input fullWidth size="Medium">
-                <input type="text" placeholder="Size Medium" />
+                <input type="text" autoComplete="off" placeholder="Size Medium" />
               </Input>
               <Input fullWidth size="Large">
-                <input type="text" placeholder="Size Large" />
+                <input type="text" autoComplete="off" placeholder="Size Large" />
               </Input>
               <Input fullWidth shape="Rectangle">
-                <input type="text" placeholder="Rectangle border" />
+                <input type="text" autoComplete="off" placeholder="Rectangle border" />
               </Input>
               <Input fullWidth shape="SemiRound">
-                <input type="text" placeholder="SemiRound border" />
+                <input type="text" autoComplete="off" placeholder="SemiRound border" />
               </Input>
               <Input fullWidth shape="Round">
-                <input type="text" placeholder="Round border" />
+                <input type="text" autoComplete="off" placeholder="Round border" />
               </Input>
               <Row>
                 <Col breakPoint={{ xs: 12, md: 6 }}>
                   <Input fullWidth>
-                    <input type="text" disabled />
+                    <input type="text" autoComplete="off" disabled />
                   </Input>
                 </Col>
                 <Col breakPoint={{ xs: 12, md: 6 }}>
                   <Input fullWidth>
-                    <input type="text" disabled placeholder="Disabled Input" />
+                    <input type="text" autoComplete="off" disabled placeholder="Disabled Input" />
                   </Input>
                 </Col>
               </Row>
@@ -81,16 +81,16 @@ const InputPage = () => {
             <header>Validation States</header>
             <CardBody>
               <Input fullWidth status="Info">
-                <input type="text" placeholder="Input with Info" />
+                <input type="text" autoComplete="off" placeholder="Input with Info" />
               </Input>
               <Input fullWidth status="Warning">
                 <input name="text" placeholder="Input with Warning" />
               </Input>
               <Input fullWidth status="Success">
-                <input type="text" placeholder="Input with Success" />
+                <input type="text" autoComplete="off" placeholder="Input with Success" />
               </Input>
               <Input fullWidth status="Danger">
-                <input type="text" placeholder="Input with Danger" />
+                <input type="text" autoComplete="off" placeholder="Input with Danger" />
               </Input>
               <Row>
                 <Col breakPoint={{ xs: 12 }}>

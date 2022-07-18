@@ -202,7 +202,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Player Username</div>
                   <div className="form-value">
-                    <input type="text" id="username" />
+                    <input type="text" autoComplete="off" id="username" />
                   </div>
                 </div>
               </Col>
@@ -251,7 +251,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Transaction ID</div>
                   <div className="form-value">
-                    <input type="text" id="transaction_id" />
+                    <input type="text" autoComplete="off" id="transaction_id" />
                   </div>
                 </div>
               </Col>
@@ -260,7 +260,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Match ID</div>
                   <div className="form-value">
-                    <input type="text" id="match_id" />
+                    <input type="text" autoComplete="off" id="match_id" />
                   </div>
                 </div>
               </Col>

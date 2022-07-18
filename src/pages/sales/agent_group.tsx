@@ -262,7 +262,12 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Agent ID</div>
                     <div className="form-value">
-                      <input type="text" id="agent_id_filter" placeholder="Enter the agent ID to search" />
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        id="agent_id_filter"
+                        placeholder="Enter the agent ID to search"
+                      />
                     </div>
                   </div>
                 )}

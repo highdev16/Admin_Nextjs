@@ -206,7 +206,7 @@ ${() => css`
             window.location.href = '/auth/login';
           } else if (e[0] == -10) {
             alert('Already existing username or email');
-          } else if (e[0] === -203) alert('Invalid email/username/password format.');
+          } else if (e[0] === -203) alert(e[1] || 'Invalid email/username/password format.');
           else if (e[0] === -205) alert('Password is weak or contains the first and/or last name.');
           else alert(e[1] || 'Failed to create the new MA');
         },
@@ -258,7 +258,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Full Name</div>
                     <div className="form-value">
-                      <input type="text" value={agentInfo.full_name}></input>
+                      <input type="text" autoComplete="off" value={agentInfo.full_name}></input>
                     </div>
                   </div>
                 </Col>
@@ -266,7 +266,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Agent ID</div>
                     <div className="form-value">
-                      <input type="text" value={agentInfo.username}></input>
+                      <input type="text" autoComplete="off" value={agentInfo.username}></input>
                     </div>
                   </div>
                 </Col>
@@ -300,7 +300,12 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Upstream Agent Code</div>
                     <div className="form-value">
-                      <input type="text" readonly value={agentInfo.upstream_agent_code.split('|').at(-1)}></input>
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        readonly
+                        value={agentInfo.upstream_agent_code.split('|').at(-1)}
+                      ></input>
                     </div>
                   </div>
                 </Col>
@@ -332,7 +337,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Sponsor Link</div>
                     <div className="form-value">
-                      <input type="text" value={`https://ezbets68.com/`} />
+                      <input type="text" autoComplete="off" value={`https://ezbets68.com/`} />
                     </div>
                   </div>
                 </Col>
@@ -538,7 +543,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">Total operating revenue:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>
@@ -546,7 +551,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">No. of active guests:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>
@@ -569,7 +574,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">Lowest effective bet:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>
@@ -577,7 +582,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">Lowest charge:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>
@@ -600,7 +605,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">Maximum value 8%:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>

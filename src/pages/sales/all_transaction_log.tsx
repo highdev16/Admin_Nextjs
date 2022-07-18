@@ -216,7 +216,7 @@ const AgentReport = () => {
                 <div className="form-item">
                   <div className="form-label">User name</div>
                   <div className="form-value">
-                    <input type="text" id="member_account" />
+                    <input type="text" autoComplete="off" id="member_account" />
                   </div>
                 </div>
               </Col>
@@ -238,7 +238,7 @@ const AgentReport = () => {
                 <div className="form-item">
                   <div className="form-label">Minimum amount</div>
                   <div className="form-value">
-                    <input type="text" id="min_amount" />
+                    <input type="text" autoComplete="off" id="min_amount" />
                   </div>
                 </div>
               </Col>
@@ -246,7 +246,7 @@ const AgentReport = () => {
                 <div className="form-item">
                   <div className="form-label">Maximum amount</div>
                   <div className="form-value">
-                    <input type="text" id="max_amount" />
+                    <input type="text" autoComplete="off" id="max_amount" />
                   </div>
                 </div>
               </Col>

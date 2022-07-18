@@ -194,7 +194,7 @@ ${() => css`
             window.location.href = '/auth/login';
           } else if (e[0] == -10) {
             alert('Already existing username or email');
-          } else if (e[0] === -203) alert('Invalid email/username/password format.');
+          } else if (e[0] === -203) alert(e[1] || 'Invalid email/username/password format.');
           else if (e[0] === -205) alert('Password is weak or contains the first and/or last name.');
           else alert(e[1] || 'Failed to create the new MA');
         },
@@ -273,7 +273,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Real Name</div>
                     <div className="form-value">
-                      <input type="text" id="real_name"></input>
+                      <input type="text" autoComplete="off" id="real_name"></input>
                     </div>
                   </div>
                 </Col>
@@ -281,7 +281,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Agent ID</div>
                     <div className="form-value">
-                      <input type="text" id="id_agent"></input>
+                      <input type="text" autoComplete="off" id="id_agent"></input>
                     </div>
                   </div>
                 </Col>
@@ -299,7 +299,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Password</div>
                     <div className="form-value">
-                      <input type="password" id="password"></input>
+                      <input type="password" autoComplete="off" id="password"></input>
                     </div>
                   </div>
                 </Col>
@@ -307,7 +307,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Confirm Password</div>
                     <div className="form-value">
-                      <input type="password" id="confirm_password"></input>
+                      <input type="password" autoComplete="off" id="confirm_password"></input>
                     </div>
                   </div>
                 </Col>
@@ -315,7 +315,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Phone number</div>
                     <div className="form-value">
-                      <input type="text" id="phone"></input>
+                      <input type="text" autoComplete="off" id="phone"></input>
                     </div>
                   </div>
                 </Col>
@@ -323,7 +323,7 @@ ${() => css`
                   <div className="form-item">
                     <div className="form-label">Note</div>
                     <div className="form-value">
-                      <input type="text" id="note"></input>
+                      <input type="text" autoComplete="off" id="note"></input>
                     </div>
                   </div>
                 </Col>
@@ -563,7 +563,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">Total operating revenue:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>
@@ -571,7 +571,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">No. of active guests:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>
@@ -594,7 +594,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">Lowest effective bet:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>
@@ -602,7 +602,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">Lowest charge:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>
@@ -625,7 +625,7 @@ ${() => css`
                           <div className="form-item">
                             <div className="form-label">Maximum value 8%:</div>
                             <div className="form-value">
-                              <input type="text" />
+                              <input type="text" autoComplete="off" />
                             </div>
                           </div>
                         </Col>

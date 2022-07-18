@@ -99,6 +99,7 @@ const AgentReport = () => {
           setPageTotal(1);
           setParams({ value: username });
           setURL('/api/sales/player_reports_by_id');
+          document.getElementById('username').value = username;
         },
         (e) => {
           setSubmitting(false);
@@ -343,14 +344,14 @@ ${() => css`
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="empty-form-item">
-                  <input type="text" id="username" style={{ width: '100%' }}></input>
+                  <input type="text" autoComplete="off" id="username" style={{ width: '100%' }}></input>
                 </div>
               </Col>
               {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Full Name</div>
                   <div className="form-value">
-                    <input type="text" id="full_name" />
+                    <input type="text" autoComplete="off"  id="full_name" />
                   </div>
                 </div>
               </Col> */}
@@ -376,19 +377,19 @@ ${() => css`
               </Col> */}
               {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="empty-form-item">
-                  <input type="text" style={{ width: '100%', margin: 'auto' }} />
+                  <input type="text" autoComplete="off"  style={{ width: '100%', margin: 'auto' }} />
                 </div>
               </Col>
               <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="empty-form-item">
-                  <input type="text" style={{ width: '100%' }} />
+                  <input type="text" autoComplete="off"  style={{ width: '100%' }} />
                 </div>
               </Col> */}
               {/* <Col breakPoint={{ xs: 12, md: 3 }}>
                 <div className="form-item">
                   <div className="form-label">Lowest deposit</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" autoComplete="off"  />
                   </div>
                 </div>
               </Col>
@@ -396,7 +397,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Top deposit</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" autoComplete="off"  />
                   </div>
                 </div>
               </Col>
@@ -404,7 +405,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Lowest withdrawal</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" autoComplete="off"  />
                   </div>
                 </div>
               </Col>
@@ -412,7 +413,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Top withdrawal</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" autoComplete="off"  />
                   </div>
                 </div>
               </Col> */}
@@ -420,7 +421,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">More valid bets</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" autoComplete="off"  />
                   </div>
                 </div>
               </Col>
@@ -428,7 +429,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Smallest valid bets</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" autoComplete="off"  />
                   </div>
                 </div>
               </Col>
@@ -436,7 +437,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Lowest total win/loss</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" autoComplete="off"  />
                   </div>
                 </div>
               </Col>
@@ -444,7 +445,7 @@ ${() => css`
                 <div className="form-item">
                   <div className="form-label">Highest total win/loss</div>
                   <div className="form-value">
-                    <input type="text" />
+                    <input type="text" autoComplete="off"  />
                   </div>
                 </div>
               </Col> */}
