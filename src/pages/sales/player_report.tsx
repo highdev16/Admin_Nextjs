@@ -113,7 +113,7 @@ const AgentReport = () => {
       if (!username) return;
       setSubmitting(true);
       setDatasets([]);
-      document.getElementById('member_search_type').value == 'Agent';
+      document.getElementById('member_search_type').value = 'Agent';
       document.getElementById('username').value = detail.agent;
       var data1 = {
         username:
